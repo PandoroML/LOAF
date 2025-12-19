@@ -58,11 +58,9 @@ If you use GRAIN in your research, please cite both this implementation and the 
 
 ## Contact
 
-- Project: https://pandoro.today
+- Website: https://pandoro.today
 - Email: pandoro@breadboardfoundry.com
-- GitHub: https://github.com/breadboardfoundry
 
 ---
 
 Built by [Bread Board Foundry](https://breadboardfoundry.com)
-```
