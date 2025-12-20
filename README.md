@@ -1,4 +1,4 @@
-# GRAIN (Gridded Regional Atmospheric Intelligence Network)
+# LOAF (Local Observations and Atmospheric Forecasting)
 
 Open source hyperlocal weather forecasting combining gridded forecasts with local station observations using multi-modal transformers.
 
@@ -8,7 +8,7 @@ Part of [Pandoro](https://pandoro.today) — Bread Board Foundry's open science 
 
 ## About
 
-GRAIN generates hyperlocal weather forecasts for locations without nearby weather stations by combining:
+LOAF generates hyperlocal weather forecasts for locations without nearby weather stations by combining:
 
 - Regional gridded forecast models (NOAA GFS, HRRR, ERA5)
 - Sparse local weather station observations
@@ -18,7 +18,7 @@ GRAIN generates hyperlocal weather forecasts for locations without nearby weathe
 - GitHub: [Earth-Intelligence-Lab/LocalizedWeather](https://github.com/Earth-Intelligence-Lab/LocalizedWeather)
 - Paper: Yang, Q., et al. (2024). *Local Off-Grid Weather Forecasting with Multi-Modal Earth Observation Data.* [arXiv:2410.12938](https://arxiv.org/abs/2410.12938)
 
-GRAIN provides a production-quality implementation with hardware transparency and documentation for domain scientists.
+LOAF provides a production-quality implementation with hardware transparency and documentation for domain scientists.
 
 ## Use Cases
 
@@ -51,7 +51,7 @@ GRAIN provides a production-quality implementation with hardware transparency an
 
 ## Citation
 
-If you use GRAIN in your research, please cite both this implementation and the original research:
+If you use LOAF in your research, please cite both this implementation and the original research:
 ```bibtex
 [Citation format coming soon]
 ```
