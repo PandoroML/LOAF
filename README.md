@@ -4,6 +4,8 @@ Open source hyperlocal weather forecasting combining forecast models with local 
 
 Part of [Pandoro](https://pandoro.today) — Bread Board Foundry's open science ML tools for climate and environmental research.
 
+This is definitely a work in progress, so stay tuned!
+
 ---
 
 ## About
