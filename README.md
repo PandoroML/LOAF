@@ -6,6 +6,10 @@ Part of [Pandoro](https://pandoro.today) — Bread Board Foundry's open science 
 
 This is definitely a work in progress, so stay tuned!
 
+Current priorities:
+
+- Design and deploy initial wind monitoring hardware
+
 ---
 
 ## About
@@ -25,6 +29,10 @@ LOAF generates hyperlocal weather forecasts for locations without nearby weather
 - Off-grid environmental monitoring sites
 - Research locations without dedicated weather infrastructure
 - Applications requiring forecast transparency and hardware specifications for reproducibility
+
+## Hardware
+
+Coming soon!
 
 ## Features
 
