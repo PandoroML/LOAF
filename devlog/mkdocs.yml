@@ -1,0 +1,9 @@
+site_name: LOAF
+
+repo_url: https://github.com/PandoroML/LOAF
+
+theme:
+  name: material
+
+  features:
+    - navigation.footer
