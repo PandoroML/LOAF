@@ -49,10 +49,6 @@ Coming soon!
 
 [Link to full documentation coming soon]
 
-## Contributing
-
-[Contribution guidelines coming soon]
-
 ## License
 
 MIT
