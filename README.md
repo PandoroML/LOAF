@@ -55,7 +55,7 @@ Coming soon!
 
 ## License
 
-[License information coming soon]
+MIT
 
 ## Citation
 
