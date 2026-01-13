@@ -59,9 +59,15 @@ Coming soon!
 
 ## Citation
 
-If you use LOAF in your research, please cite both this implementation and the original research:
+If you find this project useful for your research or applications, please kindly cite using this BibTeX::
 ```bibtex
-[Citation format coming soon]
+@software{Johnson_LOAF_Local_Observations_2026,
+author = {Johnson, Keenan and Kim, Susie},
+month = jan,
+title = {{LOAF (Local Observations and Atmospheric Forecasting)}},
+url = {https://github.com/PandoroML/LOAF},
+year = {2026}
+}
 ```
 
 ## Contact
