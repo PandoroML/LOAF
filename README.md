@@ -39,7 +39,7 @@ LOAF generates hyperlocal weather forecasts for locations without nearby weather
 
 ## Documentation
 
-[Link to full documentation coming soon]
+See the full documentation here: https://pandoroml.github.io/LOAF/
 
 ## License
 
