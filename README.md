@@ -8,9 +8,11 @@ This is definitely a work in progress, so stay tuned!
 
 Current priorities:
 
-- Design and deploy initial wind monitoring hardware
-- Set up the initial pipeline and local tools to integrate the observations from the local station into the model
-- Create a homeassistent widget or similar to show local wind predictions
+- Build DIY ultrasonic anemometer (inspired by [QingStation](https://github.com/majianjia/QingStation) and [DL1GLH](https://www.dl1glh.de/ultrasonic-anemometer.html))
+- Deploy initial wind sensor in Seattle area
+- Set up HRRR/MADIS data pipeline
+- Train regional model and validate against local observations
+- Create Home Assistant widget for local wind predictions
 
 ---
 
@@ -25,6 +27,14 @@ LOAF generates hyperlocal weather forecasts for locations without nearby weather
 **Built on research from MIT Earth Intelligence Lab:**
 - GitHub: [Earth-Intelligence-Lab/LocalizedWeather](https://github.com/Earth-Intelligence-Lab/LocalizedWeather)
 - Paper: Yang, Q., et al. (2024). *Local Off-Grid Weather Forecasting with Multi-Modal Earth Observation Data.* [arXiv:2410.12938](https://arxiv.org/abs/2410.12938)
+
+## Hardware
+
+LOAF uses open source hardware with no vendor lock-in:
+
+- **Sensor**: DIY ultrasonic anemometer
+- **Logger**: Raspberry Pi with RS-485/SDI-12 interface and 3D printed enclosure for predictions
+- **Power**: Solar panel + battery for remote deployment
 
 ## Use Cases
 
