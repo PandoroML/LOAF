@@ -9,6 +9,8 @@ This is definitely a work in progress, so stay tuned!
 Current priorities:
 
 - Design and deploy initial wind monitoring hardware
+- Set up the initial pipeline and local tools to integrate the observations from the local station into the model
+- Create a homeassistent widget or similar to show local wind predictions
 
 ---
 
