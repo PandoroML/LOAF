@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Johnson"
+  given-names: "Keenan"
+  orcid: "https://orcid.org/0009-0000-8076-688X"
+- family-names: "Kim"
+  given-names: "Susie"
+title: "LOAF (Local Observations and Atmospheric Forecasting)"
+date-released: 2026-1-12
+url: "https://github.com/PandoroML/LOAF"
