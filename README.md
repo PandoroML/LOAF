@@ -30,20 +30,12 @@ LOAF generates hyperlocal weather forecasts for locations without nearby weather
 - Research locations without dedicated weather infrastructure
 - Applications requiring forecast transparency and hardware specifications for reproducibility
 
-## Hardware
-
-Coming soon!
-
 ## Features
 
 - Corrects systematic biases in large-scale forecast models for local conditions
 - Hardware-transparent infrastructure for reproducible research
 - Clear documentation for researchers without ML engineering backgrounds
 - Combines numerical weather predictions with station measurements
-
-## Getting Started
-
-[Installation and usage documentation coming soon]
 
 ## Documentation
 
