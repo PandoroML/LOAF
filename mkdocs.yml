@@ -4,7 +4,9 @@ repo_url: https://github.com/PandoroML/LOAF
 
 theme:
   name: material
-
+  palette:
+    primary: amber
+    accent: teal
   features:
     - navigation.footer
 
