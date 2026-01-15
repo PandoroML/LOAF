@@ -26,4 +26,4 @@ plugins:
 
 nav:
   - Home: index.md
-  - Dev Log: dev-log/
+  - Dev Log: dev-log/index.md
