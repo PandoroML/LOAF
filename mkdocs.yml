@@ -4,8 +4,13 @@ site_url: https://pandoroml.github.io/LOAF/
 
 repo_url: https://github.com/PandoroML/LOAF
 
+copyright: A project by <a href="https://www.breadboardfoundry.com/">Bread Board Foundry</a>
+
 extra:
   social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/PandoroML/LOAF
+      name: GitHub
     - icon: fontawesome/solid/rss
       link: /feed_rss_created.xml
       name: RSS Feed
