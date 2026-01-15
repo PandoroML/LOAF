@@ -1,4 +1,6 @@
 site_name: LOAF
+site_description: Local Observations and Atmospheric Forecasting
+site_url: https://pandoroml.github.io/LOAF/
 
 repo_url: https://github.com/PandoroML/LOAF
 
@@ -23,6 +25,10 @@ plugins:
       blog_dir: dev-log
       blog_toc: true
       post_date_format: long
+  - rss:
+      match_path: "dev-log/posts/.*"
+      date_from_meta:
+        as_creation: date
 
 nav:
   - Home: index.md
