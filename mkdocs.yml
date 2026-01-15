@@ -4,6 +4,12 @@ site_url: https://pandoroml.github.io/LOAF/
 
 repo_url: https://github.com/PandoroML/LOAF
 
+extra:
+  social:
+    - icon: fontawesome/solid/rss
+      link: /feed_rss_created.xml
+      name: RSS Feed
+
 theme:
   name: material
   palette:
