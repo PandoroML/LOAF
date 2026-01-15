@@ -17,6 +17,7 @@ extra:
 
 theme:
   name: material
+  custom_dir: docs/overrides
   palette:
     primary: amber
     accent: teal
