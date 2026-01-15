@@ -57,6 +57,12 @@ LOAF uses open source hardware with no vendor lock-in:
 - Clear documentation for researchers without ML engineering backgrounds
 - Combines numerical weather predictions with station measurements
 
+## Related Projects
+
+- [offgrid-weather-station](https://github.com/vinthewrench/offgrid-weather-station) - Off-grid weather station project
+- [QingStation](https://github.com/majianjia/QingStation) - Open source ultrasonic anemometer
+- [DL1GLH Ultrasonic Anemometer](https://www.dl1glh.de/ultrasonic-anemometer.html) - DIY ultrasonic wind sensor design
+
 ## Documentation
 
 See the full documentation here: https://pandoroml.github.io/LOAF/
