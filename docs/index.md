@@ -1,11 +1,19 @@
 # LOAF (Local Observations and Atmospheric Forecasting)
 
-LOAF generates hyperlocal weather forecasts for locations without nearby weather stations by combining regional forecast models with local sensor observations using multi-modal transformers.
+Open source hyperlocal weather forecasting you can deploy yourself.
+
+## Why LOAF?
+
+Standard weather forecasts operate on 3km grids. That resolution can't capture the wind patterns at your specific site—whether it's a backyard wind turbine, a fire-prone hillside, or a remote research station.
+
+Recent ML research shows that fusing gridded forecasts with local sensor data via transformers can reduce prediction error by up to 80%. Commercial services like Tomorrow.io offer this, but they're proprietary and subscription-based. The academic code exists, but there's no practical way to go from "I have a Raspberry Pi" to "I have hyperlocal forecasts."
+
+LOAF bridges that gap: open source hardware, open source models, no vendor lock-in. Build a sensor, train a model for your region, run inference locally.
 
 **Built on research from MIT Earth Intelligence Lab:**
 
-- GitHub: [Earth-Intelligence-Lab/LocalizedWeather](https://github.com/Earth-Intelligence-Lab/LocalizedWeather)
-- Paper: Yang, Q., et al. (2024). [Local Off-Grid Weather Forecasting with Multi-Modal Earth Observation Data](https://arxiv.org/abs/2410.12938)
+- [Earth-Intelligence-Lab/LocalizedWeather](https://github.com/Earth-Intelligence-Lab/LocalizedWeather)
+- Yang, Q., et al. (2024). [Local Off-Grid Weather Forecasting with Multi-Modal Earth Observation Data](https://arxiv.org/abs/2410.12938)
 
 ## Architecture
 
