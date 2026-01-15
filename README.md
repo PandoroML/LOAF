@@ -16,6 +16,14 @@ Current priorities:
 
 ---
 
+## Why LOAF?
+
+Standard weather forecasts operate on 3km grids. That resolution can't capture the wind patterns at your specific site—whether it's a backyard wind turbine, a fire-prone hillside, or a remote research station.
+
+Recent ML research shows that fusing gridded forecasts with local sensor data via transformers can reduce prediction error by up to 80%. Commercial services like Tomorrow.io offer this, but they're proprietary and subscription-based. The academic code exists, but there's no practical way to go from "I have a Raspberry Pi" to "I have hyperlocal forecasts."
+
+LOAF bridges that gap: open source hardware, open source models, no vendor lock-in. Build a sensor, train a model for your region, run inference locally.
+
 ## About
 
 LOAF generates hyperlocal weather forecasts for locations without nearby weather stations by combining:
