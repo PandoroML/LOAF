@@ -8537,106 +8537,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "d8f82a34bc8fbed0_4"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "ProDoc_Qin-easyedapro:"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "d8f82a34bc8fbed0_4_1_0"
-				(polyline
-					(pts
-						(xy 0 0.762) (xy 1.27 0) (xy 0 -0.762) (xy -1.27 0) (xy 0 0.762)
-					)
-					(stroke
-						(width 0.254)
-						(type solid)
-						(color 0 128 0 1)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin input line
-					(at -2.54 0 0)
-					(length 1.27)
-					(name ""
-						(effects
-							(font
-								(size 0.0254 0.0254)
-							)
-						)
-					)
-					(number ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 2.54 0 180)
-					(length 1.27)
-					(name ""
-						(effects
-							(font
-								(size 0.0254 0.0254)
-							)
-						)
-					)
-					(number ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 	)
 	(text "Each 100nF for a pair of MCU power"
 		(exclude_from_sim no)
@@ -9988,16 +9888,6 @@
 	)
 	(wire
 		(pts
-			(xy 356.87 207.01) (xy 356.87 207.137)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5f21f434-8caf-4d75-9546-3cda3b477a9f")
-	)
-	(wire
-		(pts
 			(xy 321.31 180.34) (xy 309.88 180.34)
 		)
 		(stroke
@@ -10688,16 +10578,6 @@
 	)
 	(wire
 		(pts
-			(xy 363.22 207.01) (xy 374.65 207.01)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9b0bdf6c-d636-40e2-911d-ee59084aee0f")
-	)
-	(wire
-		(pts
 			(xy 107.95 63.5) (xy 92.71 63.5)
 		)
 		(stroke
@@ -10915,16 +10795,6 @@
 			(type default)
 		)
 		(uuid "b18e97ea-725e-4735-b14e-d3cceb105c36")
-	)
-	(wire
-		(pts
-			(xy 356.87 207.01) (xy 358.14 207.01)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b35d6bec-5fe7-4c5a-bdd7-db86b7894328")
 	)
 	(wire
 		(pts
@@ -11265,16 +11135,6 @@
 			(type default)
 		)
 		(uuid "d2d6d973-0ba1-4160-9121-9761e7237d84")
-	)
-	(wire
-		(pts
-			(xy 356.87 207.137) (xy 342.773 207.137)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d35423c4-0e6d-42b7-937d-d2f2e8954c54")
 	)
 	(wire
 		(pts
@@ -11916,16 +11776,6 @@
 		)
 		(uuid "88e0fbf4-afa3-45a9-97da-e692884eb015")
 	)
-	(label "PWM_IN"
-		(at 345.313 207.137 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "8aa06549-531d-4892-a431-2128131b98ab")
-	)
 	(label "USART2_TX"
 		(at 83.058 199.39 0)
 		(effects
@@ -11935,16 +11785,6 @@
 			(justify left bottom)
 		)
 		(uuid "93588fb0-c30d-4986-9f20-0d93372782c6")
-	)
-	(label "TIM3_CH1"
-		(at 365.76 207.01 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "96f343b2-3090-4006-ac5e-8863949d0fdd")
 	)
 	(label "SPI1_MISO"
 		(at 161.29 74.93 90)
@@ -21666,81 +21506,6 @@
 		)
 	)
 	(symbol
-		(lib_name "d8f82a34bc8fbed0_4")
-		(lib_id "ProDoc_Qin-easyedapro:d8f82a34bc8fbed0")
-		(at 360.68 207.01 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp no)
-		(uuid "b11916aa-73d8-45ff-af51-ee2b8e2132c6")
-		(property "Reference" "U12"
-			(at 360.807 209.677 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "Sort_Symbol"
-			(at 361.315 202.311 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "ProDoc_Qin-easyedapro:"
-			(at 360.68 207.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 360.68 207.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 360.68 207.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin ""
-			(uuid "edb1f565-a431-4734-a45a-55ac064e4cb6")
-		)
-		(pin ""
-			(uuid "1490199d-091e-4fe2-baf5-d45b12682454")
-		)
-		(instances
-			(project ""
-				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/cbb659ca-1b7c-4a31-89d0-9b7906cdfb95"
-					(reference "U?")
-					(unit 1)
-				)
-			)
-			(project ""
-				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/d8b5ed7a-2a3a-4cba-9ce3-8a59c7975a1d"
-					(reference "U12")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "ProDoc_Qin-easyedapro:3.3V")
 		(at 142.24 167.64 180)
 		(unit 1)
@@ -24738,7 +24503,7 @@
 		(dnp no)
 		(uuid "ded887c7-d1a7-4a4c-a0ba-4acacdd936fc")
 		(property "Reference" "U14"
-			(at 360.553 222.377 0)
+			(at 360.68 224.282 0)
 			(effects
 				(font
 					(size 1.27 1.27)
