@@ -6,48 +6,6 @@
 	(paper "A4")
 	(lib_symbols)
 	(sheet
-		(at 25.4 68.58)
-		(size 12.7 3.81)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(fill
-			(color 0 0 0 0.0000)
-		)
-		(uuid "749f6954-42c9-4048-a44f-e1e1c021609b")
-		(property "Sheetname" "4_rain"
-			(at 25.4 67.8684 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "4_rain.kicad_sch"
-			(at 25.4 72.9746 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		)
-		(instances
-			(project "ProDoc_1-PCB_PCB_2021-01-26_22-01-27_2026-01-16"
-				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f"
-					(page "5")
-				)
-			)
-		)
-	)
-	(sheet
 		(at 25.4 41.91)
 		(size 12.7 3.81)
 		(exclude_from_sim no)
@@ -82,7 +40,7 @@
 			)
 		)
 		(instances
-			(project "ProDoc_1-PCB_PCB_2021-01-26_22-01-27_2026-01-16"
+			(project "u_anemometer"
 				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f"
 					(page "3")
 				)
@@ -124,7 +82,7 @@
 			)
 		)
 		(instances
-			(project "ProDoc_1-PCB_PCB_2021-01-26_22-01-27_2026-01-16"
+			(project "u_anemometer"
 				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f"
 					(page "2")
 				)
@@ -166,7 +124,7 @@
 			)
 		)
 		(instances
-			(project "ProDoc_1-PCB_PCB_2021-01-26_22-01-27_2026-01-16"
+			(project "u_anemometer"
 				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f"
 					(page "4")
 				)

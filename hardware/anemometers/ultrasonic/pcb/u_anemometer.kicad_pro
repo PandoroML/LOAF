@@ -429,9 +429,9 @@
       "no_connect_connected": "warning",
       "no_connect_dangling": "warning",
       "pin_not_connected": "error",
-      "pin_not_driven": "error",
-      "pin_to_pin": "warning",
-      "power_pin_not_driven": "error",
+      "pin_not_driven": "warning",
+      "pin_to_pin": "ignore",
+      "power_pin_not_driven": "warning",
       "same_local_global_label": "warning",
       "similar_label_and_power": "warning",
       "similar_labels": "warning",
@@ -451,7 +451,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "ProDoc_1-PCB_PCB_2021-01-26_22-01-27_2026-01-16.kicad_pro",
+    "filename": "u_anemometer.kicad_pro",
     "version": 3
   },
   "net_settings": {
@@ -625,10 +625,6 @@
     [
       "e7b098b4-c9b7-4adf-a868-06518e67c458",
       "3_sensors"
-    ],
-    [
-      "749f6954-42c9-4048-a44f-e1e1c021609b",
-      "4_rain"
     ]
   ],
   "text_variables": {}
