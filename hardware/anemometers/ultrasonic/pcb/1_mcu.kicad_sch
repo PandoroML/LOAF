@@ -4889,194 +4889,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "ProDoc_Qin-easyedapro:MP34DT06JTR"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "MIC"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "ProDoc_Qin-easyedapro:MIC-SMD_5P-L3.0-W4.0-P0.85-BL"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer Part" "MP34DT06JTR"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer" "STMicroelectronics"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Supplier Part" "C503097"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Supplier" "LCSC"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "MP34DT06JTR_1_0"
-				(rectangle
-					(start -7.62 5.08)
-					(end 7.62 -5.08)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin unspecified line
-					(at -10.16 0 0)
-					(length 2.54)
-					(name "Vdd"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at -10.16 -2.54 0)
-					(length 2.54)
-					(name "LR"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 10.16 2.54 180)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 10.16 0 180)
-					(length 2.54)
-					(name "DOUT"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 10.16 -2.54 180)
-					(length 2.54)
-					(name "CLK"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "ProDoc_Qin-easyedapro:NUP1105LT1G"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -9003,12 +8815,6 @@
 		(uuid "229136cc-77da-472a-b0ac-2e6e7c7e2a45")
 	)
 	(junction
-		(at 63.5 166.37)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "315d7fce-8d93-4253-b919-bf802666ad5c")
-	)
-	(junction
 		(at 161.29 223.52)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -9099,12 +8905,6 @@
 		(uuid "82642f10-6883-4e54-8131-5d298e26be5f")
 	)
 	(junction
-		(at 63.5 176.53)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "8671a130-c094-486f-822a-308b0590c25e")
-	)
-	(junction
 		(at 104.14 156.21)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -9171,12 +8971,6 @@
 		(uuid "c35b7d52-0ada-4b52-9f65-0384af0ce653")
 	)
 	(junction
-		(at 63.5 163.83)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c6a4d56f-ee16-4033-96cc-f136d2107391")
-	)
-	(junction
 		(at 316.23 111.76)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -9223,8 +9017,20 @@
 		(uuid "2e1f7a59-7627-4028-8064-e39b632c673c")
 	)
 	(no_connect
+		(at 120.65 124.46)
+		(uuid "33654f67-b1f8-4304-90a4-ce06b17fece2")
+	)
+	(no_connect
+		(at 120.65 119.38)
+		(uuid "33de3c3a-571a-4df5-bf46-a518dba9a844")
+	)
+	(no_connect
 		(at 281.94 111.76)
 		(uuid "343b5081-5013-47cb-bfe0-54487ef57cda")
+	)
+	(no_connect
+		(at 120.65 137.16)
+		(uuid "62bec2c1-7e09-4935-ae34-7a81bb696e10")
 	)
 	(no_connect
 		(at 311.15 69.85)
@@ -9289,16 +9095,6 @@
 			(type default)
 		)
 		(uuid "077175fd-8ee9-4567-9cad-055739c03b22")
-	)
-	(wire
-		(pts
-			(xy 90.17 166.37) (xy 90.17 129.54)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "087773b1-3fe1-413b-a68f-9f08c33adfd7")
 	)
 	(wire
 		(pts
@@ -9392,16 +9188,6 @@
 	)
 	(wire
 		(pts
-			(xy 64.77 166.37) (xy 63.5 166.37)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0e42bd58-9cde-4c6a-846f-e61a8bc5f7dd")
-	)
-	(wire
-		(pts
 			(xy 204.47 154.94) (xy 204.47 134.62)
 		)
 		(stroke
@@ -9409,16 +9195,6 @@
 			(type default)
 		)
 		(uuid "0f036583-1524-4bf6-b19e-056eef83de63")
-	)
-	(wire
-		(pts
-			(xy 101.6 124.46) (xy 120.65 124.46)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "11c124ac-d0fb-4212-bd3f-5be55b093c0c")
 	)
 	(wire
 		(pts
@@ -9552,16 +9328,6 @@
 	)
 	(wire
 		(pts
-			(xy 85.09 166.37) (xy 90.17 166.37)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "19b7de18-f8f7-470e-b828-cdfa29fce0da")
-	)
-	(wire
-		(pts
 			(xy 199.39 63.5) (xy 209.55 63.5)
 		)
 		(stroke
@@ -9569,16 +9335,6 @@
 			(type default)
 		)
 		(uuid "1de6958f-9e3f-4484-96af-ed0bd3cce9e2")
-	)
-	(wire
-		(pts
-			(xy 53.34 166.37) (xy 53.34 167.64)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1e718fa7-7fca-4217-941a-5d8efb61dc1e")
 	)
 	(wire
 		(pts
@@ -9742,16 +9498,6 @@
 	)
 	(wire
 		(pts
-			(xy 63.5 166.37) (xy 53.34 166.37)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "277e0b63-bc3c-4740-8def-487c59836423")
-	)
-	(wire
-		(pts
 			(xy 241.3 109.22) (xy 236.22 111.76)
 		)
 		(stroke
@@ -9869,16 +9615,6 @@
 			(type default)
 		)
 		(uuid "30c3db4f-8d5c-4469-a424-3d39d717eb78")
-	)
-	(wire
-		(pts
-			(xy 90.17 129.54) (xy 101.6 129.54)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "30eeaac3-8317-40b6-bd8e-3a4f8e8cd059")
 	)
 	(wire
 		(pts
@@ -10122,26 +9858,6 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 175.26) (xy 101.6 175.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4bbd2f2e-a490-4519-b87c-e26ff058188b")
-	)
-	(wire
-		(pts
-			(xy 101.6 129.54) (xy 101.6 124.46)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4bed2255-7ec4-4932-8c73-d8dab0e85a63")
-	)
-	(wire
-		(pts
 			(xy 97.79 102.87) (xy 97.79 101.6)
 		)
 		(stroke
@@ -10172,16 +9888,6 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 163.83) (xy 85.09 163.83)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4e51864f-e272-468b-8c53-05758e023e0c")
-	)
-	(wire
-		(pts
 			(xy 118.11 57.15) (xy 146.05 57.15)
 		)
 		(stroke
@@ -10189,16 +9895,6 @@
 			(type default)
 		)
 		(uuid "4ed1ad49-f412-4556-9e2d-188432b685ec")
-	)
-	(wire
-		(pts
-			(xy 53.34 176.53) (xy 63.5 176.53)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "520e248d-26ac-4e2f-a444-799454eede70")
 	)
 	(wire
 		(pts
@@ -10402,16 +10098,6 @@
 	)
 	(wire
 		(pts
-			(xy 99.06 119.38) (xy 99.06 127)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5f0d9f09-7277-49a2-ab99-8a87dd63d5fa")
-	)
-	(wire
-		(pts
 			(xy 356.87 207.01) (xy 356.87 207.137)
 		)
 		(stroke
@@ -10579,16 +10265,6 @@
 			(type default)
 		)
 		(uuid "6b5e8373-2940-40fd-a7a6-e37749aba078")
-	)
-	(wire
-		(pts
-			(xy 99.06 127) (xy 87.63 127)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6b7d3d9d-7209-434d-87c0-113703d911f7")
 	)
 	(wire
 		(pts
@@ -10922,16 +10598,6 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 137.16) (xy 115.57 175.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8c46060b-0ef6-4d6b-9f49-88ee0b8afc6c")
-	)
-	(wire
-		(pts
 			(xy 284.48 92.71) (xy 251.46 92.71)
 		)
 		(stroke
@@ -10949,16 +10615,6 @@
 			(type default)
 		)
 		(uuid "8d9187fd-c338-4543-b362-1b8e957c940e")
-	)
-	(wire
-		(pts
-			(xy 120.65 137.16) (xy 115.57 137.16)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8df706f9-4278-4168-a1b3-41bebf934448")
 	)
 	(wire
 		(pts
@@ -11332,16 +10988,6 @@
 	)
 	(wire
 		(pts
-			(xy 63.5 163.83) (xy 63.5 166.37)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b0050c64-2a28-43c2-a8a0-a0c10c2a41fd")
-	)
-	(wire
-		(pts
 			(xy 284.48 109.22) (xy 284.48 121.92)
 		)
 		(stroke
@@ -11632,16 +11278,6 @@
 	)
 	(wire
 		(pts
-			(xy 85.09 161.29) (xy 93.98 161.29)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c78ecd4b-64c5-4e81-a9df-c3a487bbe183")
-	)
-	(wire
-		(pts
 			(xy 321.31 142.24) (xy 304.8 142.24)
 		)
 		(stroke
@@ -11802,16 +11438,6 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 127) (xy 87.63 163.83)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d7143a20-db80-4466-a932-a439272b1754")
-	)
-	(wire
-		(pts
 			(xy 303.53 59.69) (xy 297.18 59.69)
 		)
 		(stroke
@@ -11849,16 +11475,6 @@
 			(type default)
 		)
 		(uuid "d84fc218-7051-4de4-94f3-698e2d96df98")
-	)
-	(wire
-		(pts
-			(xy 64.77 163.83) (xy 63.5 163.83)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d9bd79d3-bf4a-466c-829f-31316950774c")
 	)
 	(wire
 		(pts
@@ -11982,16 +11598,6 @@
 	)
 	(wire
 		(pts
-			(xy 99.06 119.38) (xy 120.65 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e55a840c-fd17-425b-9c27-d809de35245b")
-	)
-	(wire
-		(pts
 			(xy 199.39 124.46) (xy 227.33 124.46)
 		)
 		(stroke
@@ -11999,16 +11605,6 @@
 			(type default)
 		)
 		(uuid "e9418924-25de-4671-860f-80dcbc3f4058")
-	)
-	(wire
-		(pts
-			(xy 53.34 175.26) (xy 53.34 176.53)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ea1301bd-e492-43c2-9a07-7cd94f02a71e")
 	)
 	(wire
 		(pts
@@ -12250,16 +11846,6 @@
 		)
 		(uuid "03f42a8b-dbfa-4342-b91d-83779982f367")
 	)
-	(label "ADC_CH6"
-		(at 102.108 175.26 0)
-		(effects
-			(font
-				(size 1.2192 1.2192)
-			)
-			(justify left bottom)
-		)
-		(uuid "04fb11ce-0e89-4977-81c4-3efe3724b245")
-	)
 	(label "USART1_TX"
 		(at 173.99 176.53 90)
 		(effects
@@ -12359,16 +11945,6 @@
 			(justify left bottom)
 		)
 		(uuid "468dd333-bede-43a4-8d16-9ba3aa6e38fe")
-	)
-	(label "MIC_CLK"
-		(at 107.188 124.46 0)
-		(effects
-			(font
-				(size 1.2192 1.2192)
-			)
-			(justify left bottom)
-		)
-		(uuid "4bfccc18-e1d4-469c-bb0a-22a275f7d52a")
 	)
 	(label "USB_DM"
 		(at 208.788 111.76 0)
@@ -12610,16 +12186,6 @@
 		)
 		(uuid "d1f65b8a-5101-497c-a93d-d5ed56b19564")
 	)
-	(label "MIC_DAT"
-		(at 107.188 119.38 0)
-		(effects
-			(font
-				(size 1.2192 1.2192)
-			)
-			(justify left bottom)
-		)
-		(uuid "d35fcd80-2d25-4245-8500-f71eea8ab5b5")
-	)
 	(label "SPI1_CS1"
 		(at 305.308 149.86 0)
 		(effects
@@ -12752,26 +12318,6 @@
 		(uuid "28b4acb4-830b-434e-aeec-40489125eacc")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 127 198.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "RAIN_SENS"
-		(shape input)
-		(at 101.6 175.26 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "30ff2f95-0bae-4378-b193-f0af5e642778")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 101.6 175.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18837,172 +18383,6 @@
 		)
 	)
 	(symbol
-		(lib_id "ProDoc_Qin-easyedapro:MP34DT06JTR")
-		(at 74.93 163.83 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "64644ac1-dd22-4a0c-b9c2-a71ae708caa7")
-		(property "Reference" "MIC1"
-			(at 72.0852 155.956 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "MP34DT06JTR"
-			(at 72.0852 158.2674 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "ProDoc_Qin-easyedapro:MIC-SMD_5P-L3.0-W4.0-P0.85-BL"
-			(at 74.93 163.83 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 74.93 163.83 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 74.93 163.83 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer Part" "MP34DT06JTR"
-			(at 74.93 163.83 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "STMicroelectronics"
-			(at 74.93 163.83 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Supplier Part" "C503097"
-			(at 74.93 163.83 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Supplier" "LCSC"
-			(at 74.93 163.83 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Add into BOM" "yes"
-			(at 74.93 163.83 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Contributor" "LCSC"
-			(at 74.93 163.83 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Convert to PCB" "yes"
-			(at 74.93 163.83 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Origin Footprint" "MIC-SMD_5P-L3.0-W4.0-P0.85-BL"
-			(at 74.93 163.83 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "spicePre" "M"
-			(at 74.93 163.83 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "spiceSymbolName" "MP34DT06JTR"
-			(at 74.93 163.83 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "8a56ac7b-4f61-4605-8caf-4012bc9dafd5")
-		)
-		(pin "2"
-			(uuid "a2047e04-8d51-4f41-bb53-75dc81fbbde7")
-		)
-		(pin "5"
-			(uuid "949f086d-1ea5-4bc6-aa45-d23241839b3d")
-		)
-		(pin "4"
-			(uuid "b6752d9a-b4d0-414a-97b1-e7f91ef8fcea")
-		)
-		(pin "3"
-			(uuid "fcb35323-61d8-493c-8dea-91015c05c800")
-		)
-		(instances
-			(project ""
-				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/cbb659ca-1b7c-4a31-89d0-9b7906cdfb95"
-					(reference "MIC1")
-					(unit 1)
-				)
-			)
-			(project ""
-				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/d8b5ed7a-2a3a-4cba-9ce3-8a59c7975a1d"
-					(reference "MIC1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "ProDoc_Qin-easyedapro:XC6206P332MR")
 		(at 294.64 185.42 0)
 		(unit 1)
@@ -19628,79 +19008,6 @@
 			(project ""
 				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/d8b5ed7a-2a3a-4cba-9ce3-8a59c7975a1d"
 					(reference "R2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "ProDoc_Qin-easyedapro:GND")
-		(at 93.98 161.29 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "75832d92-5f1e-47bf-99d3-645f5347969e")
-		(property "Reference" "#PWR0131"
-			(at 93.98 161.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 90.678 168.0464 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "ProDoc_Qin-easyedapro:"
-			(at 93.98 161.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 93.98 161.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 93.98 161.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "7a4b8dee-cb49-4837-ac3d-492b5ec65f90")
-		)
-		(instances
-			(project ""
-				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/cbb659ca-1b7c-4a31-89d0-9b7906cdfb95"
-					(reference "#PWR?")
-					(unit 1)
-				)
-			)
-			(project ""
-				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/d8b5ed7a-2a3a-4cba-9ce3-8a59c7975a1d"
-					(reference "#PWR0131")
 					(unit 1)
 				)
 			)
@@ -22346,320 +21653,6 @@
 			(project ""
 				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/d8b5ed7a-2a3a-4cba-9ce3-8a59c7975a1d"
 					(reference "C13")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "ProDoc_Qin-easyedapro:100nF")
-		(at 53.34 171.45 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "ae9ca5de-8331-4450-b084-4a02ebe81f21")
-		(property "Reference" "C10"
-			(at 55.88 172.6438 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "100nF"
-			(at 55.88 174.9298 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "ProDoc_Qin-easyedapro:C0402"
-			(at 53.34 171.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 53.34 171.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 53.34 171.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer Part" "CL05B104KO5NNNC"
-			(at 53.34 171.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "SAMSUNG"
-			(at 53.34 171.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Supplier Part" "C1525"
-			(at 53.34 171.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Supplier" "LCSC"
-			(at 53.34 171.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Add into BOM" "yes"
-			(at 53.34 171.45 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Convert to PCB" "yes"
-			(at 53.34 171.45 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Origin Footprint" "C0402"
-			(at 53.34 171.45 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "nameAlias" "Capacitance"
-			(at 53.34 171.45 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "spicePre" "C"
-			(at 53.34 171.45 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "spiceSymbolName" "CL05B104KO5NNNC"
-			(at 53.34 171.45 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "26ee1fcb-6008-4f91-99ad-f8d7a83878d9")
-		)
-		(pin "2"
-			(uuid "aed8b706-ddce-4cf8-bf10-13afa5ab9761")
-		)
-		(instances
-			(project ""
-				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/cbb659ca-1b7c-4a31-89d0-9b7906cdfb95"
-					(reference "C10")
-					(unit 1)
-				)
-			)
-			(project ""
-				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/d8b5ed7a-2a3a-4cba-9ce3-8a59c7975a1d"
-					(reference "C10")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "ProDoc_Qin-easyedapro:1uF")
-		(at 63.5 171.45 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "b031a6e6-bd19-481f-b407-ebb954f5d0e0")
-		(property "Reference" "C11"
-			(at 66.04 172.6438 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1uF"
-			(at 66.04 174.9298 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "ProDoc_Qin-easyedapro:C0402"
-			(at 63.5 171.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 63.5 171.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 63.5 171.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer Part" "CL05A105KA5NQNC"
-			(at 63.5 171.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "SAMSUNG"
-			(at 63.5 171.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Supplier Part" "C52923"
-			(at 63.5 171.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Supplier" "LCSC"
-			(at 63.5 171.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Add into BOM" "yes"
-			(at 63.5 171.45 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Convert to PCB" "yes"
-			(at 63.5 171.45 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Origin Footprint" "C0402"
-			(at 63.5 171.45 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "nameAlias" "Capacitance"
-			(at 63.5 171.45 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "spicePre" "C"
-			(at 63.5 171.45 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "spiceSymbolName" "CL05A105KA5NQNC"
-			(at 63.5 171.45 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "e35eb56e-2c78-49e3-ab7e-fd094e5ae136")
-		)
-		(pin "2"
-			(uuid "c9257cdf-5040-4ec7-92f0-b33c20453701")
-		)
-		(instances
-			(project ""
-				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/cbb659ca-1b7c-4a31-89d0-9b7906cdfb95"
-					(reference "C11")
-					(unit 1)
-				)
-			)
-			(project ""
-				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/d8b5ed7a-2a3a-4cba-9ce3-8a59c7975a1d"
-					(reference "C11")
 					(unit 1)
 				)
 			)
@@ -26554,79 +25547,6 @@
 		)
 	)
 	(symbol
-		(lib_id "ProDoc_Qin-easyedapro:GND")
-		(at 63.5 176.53 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "e8cd0b6a-1e80-4db1-b16f-dedc2f39e628")
-		(property "Reference" "#PWR0123"
-			(at 63.5 176.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 60.198 183.2864 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "ProDoc_Qin-easyedapro:"
-			(at 63.5 176.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 63.5 176.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 63.5 176.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "7384dfc3-f834-4988-9a3e-a67cdc260fe0")
-		)
-		(instances
-			(project ""
-				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/cbb659ca-1b7c-4a31-89d0-9b7906cdfb95"
-					(reference "#PWR?")
-					(unit 1)
-				)
-			)
-			(project ""
-				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/d8b5ed7a-2a3a-4cba-9ce3-8a59c7975a1d"
-					(reference "#PWR0123")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "ProDoc_Qin-easyedapro:VBAT")
 		(at 234.95 184.15 0)
 		(unit 1)
@@ -27687,79 +26607,6 @@
 			(project ""
 				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/d8b5ed7a-2a3a-4cba-9ce3-8a59c7975a1d"
 					(reference "U13")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "ProDoc_Qin-easyedapro:3.3V")
-		(at 63.5 163.83 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "fca13d6b-8e9c-44ed-b100-77ac10d5c76a")
-		(property "Reference" "#PWR0130"
-			(at 63.5 163.83 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "3.3V"
-			(at 60.4774 161.1376 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "ProDoc_Qin-easyedapro:"
-			(at 63.5 163.83 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 63.5 163.83 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 63.5 163.83 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "0e38f6ee-e977-42ce-bddf-cdc8ba08b54d")
-		)
-		(instances
-			(project ""
-				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/cbb659ca-1b7c-4a31-89d0-9b7906cdfb95"
-					(reference "#PWR?")
-					(unit 1)
-				)
-			)
-			(project ""
-				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/d8b5ed7a-2a3a-4cba-9ce3-8a59c7975a1d"
-					(reference "#PWR0130")
 					(unit 1)
 				)
 			)
