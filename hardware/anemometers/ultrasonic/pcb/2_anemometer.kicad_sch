@@ -10439,7 +10439,7 @@
 		(dnp no)
 		(uuid "1e3ea0dc-5bbe-4f8f-8b47-dde0d7dca3a5")
 		(property "Reference" "R24"
-			(at 301.244 142.1384 90)
+			(at 303.022 136.906 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10447,7 +10447,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 301.244 144.4752 90)
+			(at 302.006 145.034 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10523,6 +10523,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Convert to PCB" "yes"
@@ -10531,6 +10532,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Origin Footprint" "R0402"
@@ -10539,6 +10541,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "nameAlias" "Resistance (Ohms)"
@@ -10547,6 +10550,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spicePre" "R"
@@ -10555,6 +10559,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spiceSymbolName" "0402WGF330JTCE"
@@ -10563,6 +10568,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -12465,7 +12471,7 @@
 		(dnp no)
 		(uuid "47fab369-e46f-40c1-8092-707d224f562d")
 		(property "Reference" "R11"
-			(at 265.684 65.9638 90)
+			(at 268.478 64.008 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12473,7 +12479,7 @@
 			)
 		)
 		(property "Value" "100K"
-			(at 265.684 68.2244 90)
+			(at 268.732 68.58 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12549,6 +12555,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Convert to PCB" "yes"
@@ -12557,6 +12564,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Origin Footprint" "R0402"
@@ -12565,6 +12573,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "nameAlias" "Resistance (Ohms)"
@@ -12573,6 +12582,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spicePre" "R"
@@ -12581,6 +12591,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spiceSymbolName" "0402WGF1003TCE"
@@ -12589,6 +12600,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -15597,7 +15609,7 @@
 		(dnp no)
 		(uuid "7067c3f2-65a8-448a-8b53-8bc8dd5491f7")
 		(property "Reference" "C36"
-			(at 303.53 163.7538 90)
+			(at 304.546 160.528 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15605,7 +15617,7 @@
 			)
 		)
 		(property "Value" "4.7uF"
-			(at 303.53 166.0398 90)
+			(at 305.562 165.1 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15681,6 +15693,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Convert to PCB" "yes"
@@ -15689,6 +15702,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Origin Footprint" "C0603"
@@ -15697,6 +15711,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "nameAlias" "Capacitance"
@@ -15705,6 +15720,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spicePre" "C"
@@ -15713,6 +15729,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spiceSymbolName" "CL10A475KO8NNNC"
@@ -15721,6 +15738,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -16856,7 +16874,7 @@
 		(dnp no)
 		(uuid "8cf46263-ef38-4cd6-a87c-05dbc82df4c2")
 		(property "Reference" "C31"
-			(at 306.07 104.0638 90)
+			(at 307.848 100.838 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16864,7 +16882,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 306.07 106.3498 90)
+			(at 308.356 105.918 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16940,6 +16958,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Convert to PCB" "yes"
@@ -16948,6 +16967,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Origin Footprint" "C0603"
@@ -16956,6 +16976,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "nameAlias" "Capacitance"
@@ -16964,6 +16985,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spicePre" "C"
@@ -16972,6 +16994,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spiceSymbolName" "CC0603KRX7R9BB104"
@@ -16980,6 +17003,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -17243,7 +17267,7 @@
 		(dnp no)
 		(uuid "8f61f853-bbb9-4b19-b67e-d0aeb158c143")
 		(property "Reference" "C35"
-			(at 290.83 163.7538 90)
+			(at 292.1 160.782 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17251,7 +17275,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 290.83 166.0398 90)
+			(at 292.1 165.1 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17327,6 +17351,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Convert to PCB" "yes"
@@ -17335,6 +17360,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Origin Footprint" "C0402"
@@ -17343,6 +17369,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "nameAlias" "Capacitance"
@@ -17351,6 +17378,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spicePre" "C"
@@ -17359,6 +17387,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spiceSymbolName" "CL05B104KO5NNNC"
@@ -17367,6 +17396,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -21830,6 +21860,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Convert to PCB" "yes"
@@ -21838,6 +21869,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Origin Footprint" "SOT-23-3_L3.0-W1.7-P0.95-LS2.9-BR"
@@ -21846,6 +21878,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "image" "//image.lceda.cn/szlcsc/C10487.jpg"
@@ -21854,6 +21887,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spicePre" "Q"
@@ -21862,6 +21896,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spiceSymbolName" "SI2301CDS-T1-GE3"
@@ -21870,6 +21905,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -21907,7 +21943,7 @@
 		(dnp no)
 		(uuid "ead92194-11c4-408e-921a-5389e1185b7f")
 		(property "Reference" "R16"
-			(at 256.794 76.1238 90)
+			(at 259.588 73.152 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21915,7 +21951,7 @@
 			)
 		)
 		(property "Value" "4.7K"
-			(at 256.794 78.3844 90)
+			(at 259.588 77.724 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21991,6 +22027,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Convert to PCB" "yes"
@@ -21999,6 +22036,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Origin Footprint" "R0402"
@@ -22007,6 +22045,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "nameAlias" "Resistance (Ohms)"
@@ -22015,6 +22054,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spicePre" "R"
@@ -22023,6 +22063,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spiceSymbolName" "0402WGF4701TCE"
@@ -22031,6 +22072,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(pin "1"
