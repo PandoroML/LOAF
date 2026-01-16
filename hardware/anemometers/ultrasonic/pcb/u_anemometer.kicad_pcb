@@ -6417,21 +6417,21 @@
 		(layer "F.Cu")
 		(uuid "3185597b-57b6-4ae9-b7ef-c4db1a7040bb")
 		(at 140.25 104.15 -90)
-		(property "Reference" "VBAT"
-			(at -1.8 1.85 270)
+		(property "Reference" "VBAT1"
+			(at -1.8 1.85 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "25ff3358-fc63-4708-86a4-f2520031f492")
 			(effects
 				(font
 					(size 0.48 0.44)
-					(thickness 0.1525)
+					(thickness 0.11)
 				)
-				(justify left bottom)
+				(justify right top)
 			)
 		)
 		(property "Value" ""
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "f420e01a-b8a5-4e9c-b914-20c99f1f610b")
 			(effects
@@ -6442,7 +6442,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "55766af5-1612-457d-b16a-9fc8a336c628")
@@ -6454,7 +6454,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "b4207984-3d2f-4eff-910f-974e2483f195")
@@ -6466,7 +6466,7 @@
 			)
 		)
 		(property "JLC_3DModel_Q" "624118aa3cc7497086c383c2d72e0852"
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "Cmts.User")
 			(hide yes)
 			(uuid "9e30045f-93ab-4630-b6cb-bc22b2157ff0")
@@ -6478,7 +6478,7 @@
 			)
 		)
 		(property "JLC_3D_Size" "1.6 0.8"
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "Cmts.User")
 			(hide yes)
 			(uuid "e3aa7f96-227b-43a0-a0f0-bcb3d19350a3")
