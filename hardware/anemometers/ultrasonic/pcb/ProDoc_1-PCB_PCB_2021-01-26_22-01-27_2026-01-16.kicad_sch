@@ -1,0 +1,182 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "a30633bf-68dd-4888-88d6-d1ee9beba30f")
+	(paper "A4")
+	(lib_symbols)
+	(sheet
+		(at 25.4 68.58)
+		(size 12.7 3.81)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "749f6954-42c9-4048-a44f-e1e1c021609b")
+		(property "Sheetname" "4_rain"
+			(at 25.4 67.8684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "4_rain.kicad_sch"
+			(at 25.4 72.9746 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ProDoc_1-PCB_PCB_2021-01-26_22-01-27_2026-01-16"
+				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 25.4 41.91)
+		(size 12.7 3.81)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "c4162636-f9db-47cf-8544-d18e210c4d58")
+		(property "Sheetname" "2_anemometer"
+			(at 25.4 41.1984 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "2_anemometer.kicad_sch"
+			(at 25.4 46.3046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ProDoc_1-PCB_PCB_2021-01-26_22-01-27_2026-01-16"
+				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 25.4 29.21)
+		(size 12.7 3.81)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "d8b5ed7a-2a3a-4cba-9ce3-8a59c7975a1d")
+		(property "Sheetname" "1_mcu"
+			(at 25.4 28.4984 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "1_mcu.kicad_sch"
+			(at 25.4 33.6046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ProDoc_1-PCB_PCB_2021-01-26_22-01-27_2026-01-16"
+				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 25.4 55.88)
+		(size 12.7 3.81)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "e7b098b4-c9b7-4adf-a868-06518e67c458")
+		(property "Sheetname" "3_sensors"
+			(at 25.4 55.1684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "3_sensors.kicad_sch"
+			(at 25.4 60.2746 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ProDoc_1-PCB_PCB_2021-01-26_22-01-27_2026-01-16"
+				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)

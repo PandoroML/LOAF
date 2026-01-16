@@ -429,9 +429,9 @@
       "no_connect_connected": "warning",
       "no_connect_dangling": "warning",
       "pin_not_connected": "error",
-      "pin_not_driven": "warning",
+      "pin_not_driven": "error",
       "pin_to_pin": "warning",
-      "power_pin_not_driven": "warning",
+      "power_pin_not_driven": "error",
       "same_local_global_label": "warning",
       "similar_label_and_power": "warning",
       "similar_labels": "warning",
@@ -451,7 +451,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "u_anemometer.kicad_pro",
+    "filename": "ProDoc_1-PCB_PCB_2021-01-26_22-01-27_2026-01-16.kicad_pro",
     "version": 3
   },
   "net_settings": {
@@ -597,7 +597,7 @@
       "version": 1
     },
     "net_format_name": "",
-    "page_layout_descr_file": "empty.kicad_wks",
+    "page_layout_descr_file": "",
     "plot_directory": "",
     "space_save_all_events": true,
     "spice_current_sheet_as_root": false,
@@ -611,20 +611,24 @@
   },
   "sheets": [
     [
-      "f385fe00-3e99-47d6-95a7-4ea24593328a",
-      "mcu"
-    ],
-    [
-      "251367c4-74db-444e-b4f4-ec45305787b2",
-      "anemometer"
-    ],
-    [
-      "2971185e-a34b-4c58-af7b-eb4edb7affde",
-      "sensors"
-    ],
-    [
-      "05a10ba7-a880-4927-a608-7708cb6b2cfa",
+      "a30633bf-68dd-4888-88d6-d1ee9beba30f",
       "Root"
+    ],
+    [
+      "d8b5ed7a-2a3a-4cba-9ce3-8a59c7975a1d",
+      "1_mcu"
+    ],
+    [
+      "c4162636-f9db-47cf-8544-d18e210c4d58",
+      "2_anemometer"
+    ],
+    [
+      "e7b098b4-c9b7-4adf-a868-06518e67c458",
+      "3_sensors"
+    ],
+    [
+      "749f6954-42c9-4048-a44f-e1e1c021609b",
+      "4_rain"
     ]
   ],
   "text_variables": {}

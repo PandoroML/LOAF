@@ -1,0 +1,173 @@
+(footprint "INDUCTOR_COILCRAFT_MA5532-AE"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at 0 0 0)
+		(layer "F.SilkS")
+		(uuid "5c9c32c2-50e5-4d51-ae8d-8c890cf4e022")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(uuid "5ffe7829-52b4-4f5d-8d04-979c5efd4f09")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "29245bb7-2245-44fa-a3b6-c55da014fad8")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "c97cb89e-96da-4a9a-b142-d66800c3402f")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(fp_line
+		(start -1.3 -1.85)
+		(end 10.6 -1.85)
+		(stroke
+			(width 0.127)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "206601f3-2d4c-4fca-ad69-c56571d40aef")
+	)
+	(fp_line
+		(start -1.3 1.85)
+		(end -1.3 -1.85)
+		(stroke
+			(width 0.127)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "e1b9989c-f765-4540-b79d-d60303bee962")
+	)
+	(fp_line
+		(start 10.6 -1.85)
+		(end 10.6 1.85)
+		(stroke
+			(width 0.127)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "dc469a72-f72a-4236-bcd8-3e13bea6b1ac")
+	)
+	(fp_line
+		(start 10.6 1.85)
+		(end -1.3 1.85)
+		(stroke
+			(width 0.127)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "4ab5dd21-6144-413b-bab1-d00a8dca88c5")
+	)
+	(fp_line
+		(start -1.2 -1.75)
+		(end 10.5 -1.75)
+		(stroke
+			(width 0.127)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "a473691a-d276-4f4e-9397-6481e7701d2a")
+	)
+	(fp_line
+		(start -1.2 1.75)
+		(end -1.2 -1.75)
+		(stroke
+			(width 0.127)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "ef9e9cd8-43ba-4821-8cc4-bca632098082")
+	)
+	(fp_line
+		(start 10.5 -1.75)
+		(end 10.5 1.75)
+		(stroke
+			(width 0.127)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "0ab75b6b-7951-4e7b-ac85-2b7080e06927")
+	)
+	(fp_line
+		(start 10.5 1.75)
+		(end -1.2 1.75)
+		(stroke
+			(width 0.127)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "9ec3f2e2-ad41-4409-9e64-6ab048a31026")
+	)
+	(pad "1" smd custom
+		(at 0 0 180)
+		(size 0.000001 0.000001)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(thermal_bridge_angle 90)
+		(options
+			(clearance outline)
+			(anchor circle)
+		)
+		(primitives
+			(gr_poly
+				(pts
+					(xy -0.65 -1.6) (xy 0.65 -1.6) (xy 0.65 1.6) (xy -0.65 1.6)
+				)
+				(width 0)
+				(fill yes)
+			)
+		)
+		(uuid "55952ed2-4cde-47e5-84a2-f55cb1609ce4")
+	)
+	(pad "2" smd custom
+		(at 9.3 0 180)
+		(size 0.000001 0.000001)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(thermal_bridge_angle 90)
+		(options
+			(clearance outline)
+			(anchor circle)
+		)
+		(primitives
+			(gr_poly
+				(pts
+					(xy -0.65 -1.6) (xy 0.65 -1.6) (xy 0.65 1.6) (xy -0.65 1.6)
+				)
+				(width 0)
+				(fill yes)
+			)
+		)
+		(uuid "b4eca85a-6db7-4fce-84b5-a1aa7d048f0e")
+	)
+	(embedded_fonts no)
+)
