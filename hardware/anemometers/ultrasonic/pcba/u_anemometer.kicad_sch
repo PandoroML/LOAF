@@ -1,0 +1,134 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "05a10ba7-a880-4927-a608-7708cb6b2cfa")
+	(paper "A4")
+	(lib_symbols)
+	(sheet
+		(at 26.67 31.75)
+		(size 12.7 3.81)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "251367c4-74db-444e-b4f4-ec45305787b2")
+		(property "Sheetname" "anemometer"
+			(at 26.67 31.0384 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "anemometer.kicad_sch"
+			(at 26.67 36.1446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "u_anemometer"
+				(path "/05a10ba7-a880-4927-a608-7708cb6b2cfa"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 26.67 40.64)
+		(size 12.7 3.81)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "2971185e-a34b-4c58-af7b-eb4edb7affde")
+		(property "Sheetname" "sensors"
+			(at 26.67 39.9284 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "sensors.kicad_sch"
+			(at 26.67 45.0346 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "u_anemometer"
+				(path "/05a10ba7-a880-4927-a608-7708cb6b2cfa"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 26.67 22.86)
+		(size 12.7 3.81)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "f385fe00-3e99-47d6-95a7-4ea24593328a")
+		(property "Sheetname" "mcu"
+			(at 26.67 22.1484 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "mcu.kicad_sch"
+			(at 26.67 27.2546 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "u_anemometer"
+				(path "/05a10ba7-a880-4927-a608-7708cb6b2cfa"
+					(page "1")
+				)
+			)
+		)
+	)
+)

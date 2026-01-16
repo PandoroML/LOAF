@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "QingStation_v1.1")(type "KiCad")(uri "$(KIPRJMOD)/u_anemometer.pretty")(options "")(descr ""))
+)
