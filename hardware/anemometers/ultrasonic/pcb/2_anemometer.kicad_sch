@@ -9151,7 +9151,7 @@
 		(dnp no)
 		(uuid "083189d0-9562-489a-8682-21e68786cf3d")
 		(property "Reference" "U4"
-			(at 187.706 79.9084 0)
+			(at 188.214 78.486 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9159,7 +9159,7 @@
 			)
 		)
 		(property "Value" "MAX3222EIPWR"
-			(at 187.706 82.1436 0)
+			(at 187.96 81.534 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20219,7 +20219,7 @@
 				)
 			)
 		)
-		(property "Value" "SN74LV4052APW"
+		(property "Value" "TMUX4052PWR"
 			(at 271.5006 103.6574 0)
 			(effects
 				(font
@@ -20254,7 +20254,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer Part" "SN74LV4052APW"
+		(property "Manufacturer Part" "TMUX4052PWR"
 			(at 273.05 124.46 0)
 			(effects
 				(font
@@ -20263,7 +20263,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" "VISHAY"
+		(property "Manufacturer" "TI"
 			(at 273.05 124.46 0)
 			(effects
 				(font
@@ -20272,7 +20272,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier Part" "C145484"
+		(property "Supplier Part" "C7362466"
 			(at 273.05 124.46 0)
 			(effects
 				(font
@@ -20296,6 +20296,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Contributor" "LCSC"
@@ -20304,6 +20305,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Convert to PCB" "yes"
@@ -20312,6 +20314,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Origin Footprint" "TSSOP-16_L5.0-W4.4-P0.65-LS6.4-BL"
@@ -20320,6 +20323,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spicePre" "U"
@@ -20328,6 +20332,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spiceSymbolName" "DG4052EEQ-T1-GE3"
@@ -20336,6 +20341,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(pin "6"

@@ -19408,6 +19408,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Convert to PCB" "yes"
@@ -19416,6 +19417,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Origin Footprint" "C0603"
@@ -19424,6 +19426,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "nameAlias" "Capacitance"
@@ -19432,6 +19435,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spicePre" "C"
@@ -19448,6 +19452,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -26104,6 +26109,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Convert to PCB" "yes"
@@ -26112,6 +26118,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Origin Footprint" "CONN-TH_1.25T-1-4A"
@@ -26120,6 +26127,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spicePre" "X"
@@ -26128,6 +26136,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spiceSymbolName" "1.25T-1-4A"
@@ -26136,6 +26145,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(pin "1"

@@ -36,7 +36,7 @@
 "U2","1","STM32L476RGT6","","","","ProDoc_Qin-easyedapro:LQFP-64_L10.0-W10.0-P0.50-LS12.0-BL","STMicroelectronics","STM32L476RGT6","LCSC","C74797"
 "U3","1","XC6206P332MR","","","","ProDoc_Qin-easyedapro:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR","TOREX","XC6206P332MR","LCSC","C5446"
 "U4,U6","2","MAX3222EIPWR","","","","ProDoc_Qin-easyedapro:TSSOP-20_L6.5-W4.4-P0.65-LS6.4-BL","Texas Instruments","MAX3222EIPWR","LCSC","C527703"
-"U5","1","SN74LV4052APW","","","","ProDoc_Qin-easyedapro:TSSOP-16_L5.0-W4.4-P0.65-LS6.4-BL","VISHAY","SN74LV4052APW","LCSC","C145484"
+"U5","1","TMUX4052PWR","","","","ProDoc_Qin-easyedapro:TSSOP-16_L5.0-W4.4-P0.65-LS6.4-BL","TI","TMUX4052PWR","LCSC","C7362466"
 "U7","1","LMV358B-VR","","","","ProDoc_Qin-easyedapro:MSOP-8_L3.0-W3.0-P0.65-LS5.0-BL","3PEAK","LMV358B-VR","LCSC","C248568"
 "U8","1","BME280","","","","ProDoc_Qin-easyedapro:LGA-8_BME280_BR","Bosch","BME280","LCSC","C92489"
 "U9","1","BMX160","","","","ProDoc_Qin-easyedapro:LGA-14_L3.0-W2.5-P0.50-BL","Bosch","BMI160","Digi-Key","828-1087-1-ND"
