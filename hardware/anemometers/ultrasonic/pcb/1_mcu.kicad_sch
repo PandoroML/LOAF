@@ -13122,7 +13122,7 @@
 		(dnp no)
 		(uuid "16547a64-e95b-406d-93f0-7e7d6473b032")
 		(property "Reference" "LED2"
-			(at 293.116 152.3238 90)
+			(at 285.242 154.686 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13130,11 +13130,12 @@
 			)
 		)
 		(property "Value" "KT-0603R"
-			(at 293.116 154.5844 90)
+			(at 299.212 156.718 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Footprint" "ProDoc_Qin-easyedapro:LED0603-R-RD"
@@ -13206,6 +13207,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Convert to PCB" "yes"
@@ -13214,6 +13216,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Origin Footprint" "LED0603-R-RD"
@@ -13222,6 +13225,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "image" "//image.lceda.cn/szlcsc/C2286.jpg"
@@ -13230,6 +13234,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spicePre" "L"
@@ -13238,6 +13243,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spiceSymbolName" "KT-0603R"
@@ -13246,6 +13252,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(pin "2"
@@ -17314,7 +17321,7 @@
 			)
 		)
 		(property "spiceSymbolName" "B5819W_C8598"
-			(at 271.526 171.958 0)
+			(at 269.748 176.784 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21889,19 +21896,20 @@
 		(dnp no)
 		(uuid "b2a7f887-4c2e-45c2-bced-b956f10d1add")
 		(property "Reference" "LED1"
-			(at 271.272 152.3238 90)
+			(at 272.542 154.94 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "19-217/BHC-ZL1M2RY/3T"
+		(property "Value" "XL-1608UBC-06A"
 			(at 280.2128 164.1856 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Footprint" "ProDoc_Qin-easyedapro:LED0603-R-RD"
@@ -21931,7 +21939,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer Part" "19-217/BHC-ZL1M2RY/3T"
+		(property "Manufacturer Part" "XL-1608UBC-06A"
 			(at 267.208 151.13 0)
 			(effects
 				(font
@@ -21940,7 +21948,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" "EVERLIGHT"
+		(property "Manufacturer" "XINGLIGHT"
 			(at 267.208 151.13 0)
 			(effects
 				(font
@@ -21949,7 +21957,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier Part" "C72041"
+		(property "Supplier Part" "C7371904"
 			(at 267.208 151.13 0)
 			(effects
 				(font
@@ -21973,6 +21981,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Convert to PCB" "yes"
@@ -21981,6 +21990,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Origin Footprint" "LED0603-R-RD"
@@ -21989,6 +21999,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "image" "//image.lceda.cn/szlcsc/C72041.jpg"
@@ -21997,6 +22008,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spicePre" "L"
@@ -22005,6 +22017,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spiceSymbolName" "19-217/BHC-ZL1M2RY/3T"
@@ -22013,6 +22026,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(pin "2"

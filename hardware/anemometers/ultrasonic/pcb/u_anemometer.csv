@@ -18,7 +18,7 @@
 "D4,D5,D6,D7,D8,D9,D10,D11,D12,D13,D14,D15,D16,D17,D18,D19","16","1N4148WS T4","","","","ProDoc_Qin-easyedapro:SOD-323_L1.8-W1.3-LS2.5-RD","CJ","1N4148WS T4","LCSC","C2128"
 "DEBUG1","1","2328702-8","DNP","Excluded from BOM","","ProDoc_Qin-easyedapro:23287028","","","",""
 "EAST1,NORTH1,SOUTH1,WEST1","4","1.25T-2P-DP","","","","ProDoc_Qin-easyedapro:CONN-TH_2P-P1.25_1.25T-2P-DP","HRO","1.25T-2P-DP","LCSC","C145940"
-"LED1","1","19-217/BHC-ZL1M2RY/3T","","","","ProDoc_Qin-easyedapro:LED0603-R-RD","EVERLIGHT","19-217/BHC-ZL1M2RY/3T","LCSC","C72041"
+"LED1","1","XL-1608UBC-06A","","","","ProDoc_Qin-easyedapro:LED0603-R-RD","XINGLIGHT","XL-1608UBC-06A","LCSC","C7371904"
 "LED2","1","KT-0603R","","","","ProDoc_Qin-easyedapro:LED0603-R-RD","KENTO","KT-0603R","LCSC","C2286"
 "Q1,Q2","2","SI2301CDS-T1-GE3","","","","ProDoc_Qin-easyedapro:SOT-23-3_L3.0-W1.7-P0.95-LS2.9-BR","VISHAY","SI2301CDS-T1-GE3","LCSC","C10487"
 "R1","1","120","","","","ProDoc_Qin-easyedapro:R0603","UniOhm","0603WAF1200T5E","LCSC","C22787"
