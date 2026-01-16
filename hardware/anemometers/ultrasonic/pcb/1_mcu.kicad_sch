@@ -15143,7 +15143,7 @@
 		(at 361.569 237.617 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "2b560ffc-557c-4f0e-93f5-b56198586a52")
@@ -17405,7 +17405,7 @@
 			)
 		)
 		(property "spiceSymbolName" "B5819W_C8598"
-			(at 270.51 185.42 0)
+			(at 271.526 171.958 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19403,7 +19403,7 @@
 		(dnp no)
 		(uuid "89f5abfa-a8a9-446d-8f05-ee8ee8d11641")
 		(property "Reference" "VBAT1"
-			(at 237.49 189.1538 90)
+			(at 229.108 183.642 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19482,7 +19482,7 @@
 			)
 		)
 		(property "Add into BOM" "yes"
-			(at 234.95 187.96 90)
+			(at 240.03 183.388 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19498,7 +19498,7 @@
 			)
 		)
 		(property "Origin Footprint" "C0603"
-			(at 234.95 187.96 90)
+			(at 223.266 187.96 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19506,7 +19506,7 @@
 			)
 		)
 		(property "nameAlias" "Capacitance"
-			(at 234.95 187.96 90)
+			(at 223.266 187.96 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19522,7 +19522,7 @@
 			)
 		)
 		(property "spiceSymbolName" "CL10A475KO8NNNC"
-			(at 234.95 187.96 90)
+			(at 234.696 176.022 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20692,9 +20692,9 @@
 		(at 322.834 68.834 180)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "9ff91e17-4fb5-4679-96f8-e57cfa9cd2d0")
 		(property "Reference" "DEBUG1"
 			(at 321.31 54.4576 0)
@@ -21203,7 +21203,7 @@
 		(at 361.569 229.997 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "a5d1b37e-f63d-48c1-982e-0e4ef355bd0a")
@@ -21737,7 +21737,7 @@
 		(at 360.68 207.01 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "b11916aa-73d8-45ff-af51-ee2b8e2132c6")
@@ -22960,9 +22960,9 @@
 		(at 275.59 54.61 90)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "bde11f1d-e052-4dc3-81d3-7b6b6d9cd1db")
 		(property "Reference" "SWD1"
 			(at 274.1168 44.2976 90)
@@ -24791,7 +24791,7 @@
 		(at 360.553 222.377 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "ded887c7-d1a7-4a4c-a0ba-4acacdd936fc")
@@ -24937,9 +24937,9 @@
 		(at 293.37 54.61 90)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "e3f7179c-1250-4d89-a327-c7fedc6184d4")
 		(property "Reference" "UART3"
 			(at 291.8968 44.2976 90)
@@ -26544,7 +26544,7 @@
 		(at 360.553 214.757 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "fc92f979-5746-47c3-9f42-64559bcbcb14")
