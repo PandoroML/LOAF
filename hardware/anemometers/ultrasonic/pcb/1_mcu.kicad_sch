@@ -13739,6 +13739,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Convert to PCB" "yes"
@@ -13747,6 +13748,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Origin Footprint" "C0402"
@@ -13755,6 +13757,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "nameAlias" "Capacitance"
@@ -13763,6 +13766,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spicePre" "C"
@@ -13771,6 +13775,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spiceSymbolName" "CL05C100JB5NNNC"
@@ -13779,6 +13784,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -13969,7 +13975,7 @@
 		(dnp no)
 		(uuid "24349a2d-63df-4e42-8007-e771afd878f8")
 		(property "Reference" "X2"
-			(at 89.4842 110.4138 90)
+			(at 90.424 113.538 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13977,7 +13983,7 @@
 			)
 		)
 		(property "Value" "25M"
-			(at 89.408 112.6744 90)
+			(at 90.932 116.078 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14011,7 +14017,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer Part" "3S24000333"
+		(property "Manufacturer Part" "NX3225GA-24MHZ-STD-CRG-2"
 			(at 83.82 109.22 0)
 			(effects
 				(font
@@ -14020,7 +14026,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" "Failong Crystal"
+		(property "Manufacturer" "NDK"
 			(at 83.82 109.22 0)
 			(effects
 				(font
@@ -14029,7 +14035,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier Part" "C427553"
+		(property "Supplier Part" "C156248"
 			(at 83.82 109.22 0)
 			(effects
 				(font
@@ -14053,6 +14059,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Contributor" "LCSC"
@@ -14061,6 +14068,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Convert to PCB" "yes"
@@ -14069,6 +14077,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Origin Footprint" "OSC-SMD_4P-L3.2-W2.5-BL"
@@ -14077,6 +14086,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "nameAlias" "Frequency"
@@ -14085,6 +14095,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spicePre" "X"
@@ -14093,6 +14104,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spiceSymbolName" "3S24000333"
@@ -14101,6 +14113,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(pin "4"
@@ -14867,6 +14880,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Convert to PCB" "yes"
@@ -14875,6 +14889,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Origin Footprint" "C0402"
@@ -14883,6 +14898,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "nameAlias" "Capacitance"
@@ -14891,6 +14907,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spicePre" "C"
@@ -14899,6 +14916,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spiceSymbolName" "CL05C100JB5NNNC"
@@ -14907,6 +14925,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(pin "2"
@@ -18136,6 +18155,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Convert to PCB" "yes"
@@ -18144,6 +18164,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Origin Footprint" "C0402"
@@ -18152,6 +18173,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "nameAlias" "Capacitance"
@@ -18160,6 +18182,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spicePre" "C"
@@ -18168,6 +18191,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spiceSymbolName" "CL05C100JB5NNNC"
@@ -18176,6 +18200,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -18442,7 +18467,7 @@
 		(dnp no)
 		(uuid "6d773f30-1471-4cfd-aeb5-7888b44b3d46")
 		(property "Reference" "X1"
-			(at 87.4522 91.3638 90)
+			(at 88.138 87.63 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18450,7 +18475,7 @@
 			)
 		)
 		(property "Value" "32.768KHz"
-			(at 87.376 93.6244 90)
+			(at 91.186 93.726 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18526,6 +18551,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Convert to PCB" "yes"
@@ -18534,6 +18560,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Origin Footprint" "OSC-SMD_L2.0-W1.2"
@@ -18542,6 +18569,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "nameAlias" "Frequency"
@@ -18550,6 +18578,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spicePre" "X"
@@ -18558,6 +18587,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spiceSymbolName" "SC-20S32.768kHz20PPM12.5pF"
@@ -18566,6 +18596,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -25836,6 +25867,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Convert to PCB" "yes"
@@ -25844,6 +25876,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Origin Footprint" "C0402"
@@ -25852,6 +25885,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "nameAlias" "Capacitance"
@@ -25860,6 +25894,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spicePre" "C"
@@ -25868,6 +25903,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spiceSymbolName" "CL05C100JB5NNNC"
@@ -25876,6 +25912,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(pin "1"
