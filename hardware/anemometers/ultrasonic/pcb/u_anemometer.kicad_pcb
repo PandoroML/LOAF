@@ -10618,6 +10618,7 @@
 		(path "/d8b5ed7a-2a3a-4cba-9ce3-8a59c7975a1d/9ff91e17-4fb5-4679-96f8-e57cfa9cd2d0")
 		(sheetname "/1_mcu/")
 		(sheetfile "1_mcu.kicad_sch")
+		(attr exclude_from_bom dnp)
 		(fp_line
 			(start 3 -0.95)
 			(end 3 0.75)
@@ -40617,6 +40618,7 @@
 		(path "/d8b5ed7a-2a3a-4cba-9ce3-8a59c7975a1d/e3f7179c-1250-4d89-a327-c7fedc6184d4")
 		(sheetname "/1_mcu/")
 		(sheetfile "1_mcu.kicad_sch")
+		(attr exclude_from_bom dnp)
 		(fp_line
 			(start -2.5 1.75)
 			(end -2.25 1.75)
@@ -41979,6 +41981,7 @@
 		(path "/d8b5ed7a-2a3a-4cba-9ce3-8a59c7975a1d/bde11f1d-e052-4dc3-81d3-7b6b6d9cd1db")
 		(sheetname "/1_mcu/")
 		(sheetfile "1_mcu.kicad_sch")
+		(attr exclude_from_bom dnp)
 		(fp_line
 			(start -2.5 1.75)
 			(end -2.25 1.75)
@@ -47539,7 +47542,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Supplier Part" "1040310811"
+		(property "Supplier Part" "C585350"
 			(at 0 0 316)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -47553,7 +47556,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Supplier" "MOLEX"
+		(property "Supplier" "LCSC"
 			(at 0 0 316)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -47643,6 +47646,34 @@
 			(layer "B.Fab")
 			(hide yes)
 			(uuid "175c65e9-5d55-4e2a-9495-aeb47d7567df")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Manufacturer Part" "1040310811"
+			(at 0 0 316)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "487f4b79-1b02-48e6-8480-cd85f307ca3e")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Manufacturer" "MOLEX"
+			(at 0 0 316)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "b304a64f-4b75-4e14-aefe-91d1c71bc76d")
 			(effects
 				(font
 					(size 1 1)

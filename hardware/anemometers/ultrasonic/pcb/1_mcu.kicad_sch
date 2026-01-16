@@ -8537,106 +8537,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "d8f82a34bc8fbed0_3"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "ProDoc_Qin-easyedapro:"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "d8f82a34bc8fbed0_3_1_0"
-				(polyline
-					(pts
-						(xy 0 0.762) (xy 1.27 0) (xy 0 -0.762) (xy -1.27 0) (xy 0 0.762)
-					)
-					(stroke
-						(width 0.254)
-						(type solid)
-						(color 0 128 0 1)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin input line
-					(at -2.54 0 0)
-					(length 1.27)
-					(name ""
-						(effects
-							(font
-								(size 0.0254 0.0254)
-							)
-						)
-					)
-					(number ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 2.54 0 180)
-					(length 1.27)
-					(name ""
-						(effects
-							(font
-								(size 0.0254 0.0254)
-							)
-						)
-					)
-					(number ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "d8f82a34bc8fbed0_4"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -9715,16 +9615,6 @@
 			(type default)
 		)
 		(uuid "3c5d80d0-b143-45b3-90b2-5415cac0c157")
-	)
-	(wire
-		(pts
-			(xy 363.093 214.757) (xy 380.873 214.757)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3f818dc0-fa37-4265-aeb3-0a067e9e6de0")
 	)
 	(wire
 		(pts
@@ -11208,16 +11098,6 @@
 	)
 	(wire
 		(pts
-			(xy 342.773 214.757) (xy 358.013 214.757)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c30facd2-e72e-44af-911d-85e659bed9f9")
-	)
-	(wire
-		(pts
 			(xy 120.65 134.62) (xy 113.03 134.62)
 		)
 		(stroke
@@ -11856,16 +11736,6 @@
 		)
 		(uuid "065899a4-fead-4b06-ab0f-b6ed61a58bab")
 	)
-	(label "RAIN_SENS"
-		(at 365.633 214.757 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "214c9d6d-cb8b-4d11-b97e-399b2d342cbb")
-	)
 	(label "USART3_TX"
 		(at 297.688 62.23 0)
 		(effects
@@ -12055,16 +11925,6 @@
 			(justify left bottom)
 		)
 		(uuid "8aa06549-531d-4892-a431-2128131b98ab")
-	)
-	(label "ADC_CH6"
-		(at 345.313 214.757 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "932f3658-ae4a-4448-b667-de6c38782711")
 	)
 	(label "USART2_TX"
 		(at 83.058 199.39 0)
@@ -14583,7 +14443,7 @@
 		(dnp no)
 		(uuid "2a98120a-4f04-47de-a836-0330e84dc9e4")
 		(property "Reference" "U2"
-			(at 120.0404 77.978 0)
+			(at 124.206 82.296 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14591,7 +14451,7 @@
 			)
 		)
 		(property "Value" "STM32L476RGT6"
-			(at 120.0404 80.0862 0)
+			(at 159.258 120.904 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14667,6 +14527,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Convert to PCB" "yes"
@@ -14675,6 +14536,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Origin Footprint" "LQFP-64_L10.0-W10.0-P0.50-LS12.0-BL"
@@ -14683,6 +14545,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spicePre" "U"
@@ -14691,6 +14554,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spiceSymbolName" "STM32L476RGT6"
@@ -14699,6 +14563,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -15148,7 +15013,7 @@
 		(dnp no)
 		(uuid "2b560ffc-557c-4f0e-93f5-b56198586a52")
 		(property "Reference" "U16"
-			(at 361.569 237.617 0)
+			(at 361.442 240.284 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15161,6 +15026,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Footprint" "ProDoc_Qin-easyedapro:"
@@ -17007,7 +16873,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier Part" "1040310811"
+		(property "Supplier Part" "C585350"
 			(at 250.19 66.04 0)
 			(effects
 				(font
@@ -17016,7 +16882,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" "MOLEX"
+		(property "Supplier" "LCSC"
 			(at 250.19 66.04 0)
 			(effects
 				(font
@@ -17031,6 +16897,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Contributor" "HenryTR"
@@ -17039,6 +16906,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Convert to PCB" "yes"
@@ -17047,6 +16915,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Origin Footprint" "1040310811"
@@ -17055,6 +16924,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spicePre" "J"
@@ -17063,14 +16933,34 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "spiceSymbolName" "SDCARD MOLEX 1040310811"
+			(at 261.366 87.122 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer Part" "1040310811"
 			(at 250.19 66.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "MOLEX"
+			(at 250.19 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -21208,7 +21098,7 @@
 		(dnp no)
 		(uuid "a5d1b37e-f63d-48c1-982e-0e4ef355bd0a")
 		(property "Reference" "U15"
-			(at 361.569 229.997 0)
+			(at 361.442 232.156 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21221,6 +21111,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Footprint" "ProDoc_Qin-easyedapro:"
@@ -21755,6 +21646,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Footprint" "ProDoc_Qin-easyedapro:"
@@ -24809,6 +24701,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Footprint" "ProDoc_Qin-easyedapro:"
@@ -26533,80 +26426,6 @@
 			(project ""
 				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/d8b5ed7a-2a3a-4cba-9ce3-8a59c7975a1d"
 					(reference "#PWR0165")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_name "d8f82a34bc8fbed0_3")
-		(lib_id "ProDoc_Qin-easyedapro:d8f82a34bc8fbed0")
-		(at 360.553 214.757 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp no)
-		(uuid "fc92f979-5746-47c3-9f42-64559bcbcb14")
-		(property "Reference" "U13"
-			(at 360.553 214.757 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "Sort_Symbol"
-			(at 360.553 214.757 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "ProDoc_Qin-easyedapro:"
-			(at 360.553 214.757 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 360.553 214.757 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 360.553 214.757 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin ""
-			(uuid "9e9812ae-d419-4b22-ad19-d6ff48c4284f")
-		)
-		(pin ""
-			(uuid "0f94cbaa-354f-432a-b01f-75c1db14ba37")
-		)
-		(instances
-			(project ""
-				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/cbb659ca-1b7c-4a31-89d0-9b7906cdfb95"
-					(reference "U?")
-					(unit 1)
-				)
-			)
-			(project ""
-				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/d8b5ed7a-2a3a-4cba-9ce3-8a59c7975a1d"
-					(reference "U13")
 					(unit 1)
 				)
 			)
