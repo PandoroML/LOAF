@@ -547,248 +547,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "ProDoc_Qin-easyedapro:BME280"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "U"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "ProDoc_Qin-easyedapro:LGA-8_BME280_BR"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer Part" "BME280"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer" "Bosch"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Supplier Part" "C92489"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Supplier" "LCSC"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "BME280_1_0"
-				(rectangle
-					(start -10.16 6.858)
-					(end 10.16 -6.858)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin unspecified line
-					(at -12.7 3.81 0)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at -12.7 1.27 0)
-					(length 2.54)
-					(name "CSB"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at -12.7 -1.27 0)
-					(length 2.54)
-					(name "SDI"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at -12.7 -3.81 0)
-					(length 2.54)
-					(name "SCK"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 12.7 3.81 180)
-					(length 2.54)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 12.7 1.27 180)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 12.7 -1.27 180)
-					(length 2.54)
-					(name "VDDIO"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 12.7 -3.81 180)
-					(length 2.54)
-					(name "SDO"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "ProDoc_Qin-easyedapro:BMX160"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -1280,134 +1038,78 @@
 		)
 	)
 	(junction
-		(at 144.78 129.54)
+		(at 148.59 102.87)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "0e89a8a0-0eb5-4d9e-88b8-941009566342")
 	)
 	(junction
-		(at 166.37 116.84)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "1d34035f-8068-482f-8392-d1fe7a4e727d")
-	)
-	(junction
-		(at 179.07 100.33)
+		(at 182.88 73.66)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "2078cee2-1c10-4de5-9528-f5471525a898")
 	)
 	(junction
-		(at 139.7 54.61)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "2a5f200f-177b-455d-b7b2-1e64fff9c490")
-	)
-	(junction
-		(at 110.49 116.84)
+		(at 114.3 90.17)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "2ed5b873-fae1-4884-a560-4754c697f1c6")
 	)
 	(junction
-		(at 142.24 69.85)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "2f0e8984-2651-4516-8b5f-95e20d9d8580")
-	)
-	(junction
-		(at 110.49 114.3)
+		(at 114.3 87.63)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "432c824e-29e3-4b67-b35c-19fc543d0077")
 	)
 	(junction
-		(at 93.98 124.46)
+		(at 97.79 97.79)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "469cdab5-b4fc-4207-b000-ad476dca7b8e")
 	)
 	(junction
-		(at 93.98 133.35)
+		(at 97.79 106.68)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "5005fdce-3ed5-43bb-8fe0-67ca9be93f8c")
 	)
 	(junction
-		(at 153.67 63.5)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "91e73e97-7857-49b5-9f80-9401c34705ae")
-	)
-	(junction
-		(at 110.49 129.54)
+		(at 114.3 102.87)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "99d82464-8e9a-46e5-95b3-51071af9e562")
 	)
 	(junction
-		(at 138.43 68.58)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "a0b4aa6a-0658-4d58-93e5-0e908e4bd959")
-	)
-	(junction
-		(at 179.07 114.3)
+		(at 182.88 87.63)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a291a250-1be6-4a4b-8c6f-84aa2a422535")
 	)
 	(junction
-		(at 189.23 116.84)
+		(at 193.04 90.17)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "bb72f8c6-8754-4306-b01d-da916fd8860a")
 	)
-	(junction
-		(at 168.91 114.3)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "eb02115d-d641-4400-ae24-4c872d1ad85e")
-	)
 	(no_connect
-		(at 135.89 121.92)
+		(at 139.7 95.25)
 		(uuid "5585b81e-398a-417f-af7e-00812241ba31")
 	)
 	(no_connect
-		(at 110.49 121.92)
+		(at 114.3 95.25)
 		(uuid "770da5db-2156-4f83-9b24-36512463ab94")
 	)
 	(no_connect
-		(at 135.89 127)
+		(at 139.7 100.33)
 		(uuid "c520a7ce-1a7b-4ac9-8836-c544755c5177")
 	)
 	(no_connect
-		(at 135.89 124.46)
+		(at 139.7 97.79)
 		(uuid "d41cdd42-2e37-4189-a59f-5aadedf362f6")
 	)
 	(wire
 		(pts
-			(xy 105.41 88.9) (xy 168.91 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "053eb377-19b7-4f0a-97ca-60a956b30bdc")
-	)
-	(wire
-		(pts
-			(xy 102.87 60.96) (xy 102.87 55.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "06224c13-50b6-4a84-8c73-94cee561b39d")
-	)
-	(wire
-		(pts
-			(xy 110.49 116.84) (xy 110.49 119.38)
+			(xy 114.3 90.17) (xy 114.3 92.71)
 		)
 		(stroke
 			(width 0)
@@ -1417,27 +1119,7 @@
 	)
 	(wire
 		(pts
-			(xy 138.43 66.04) (xy 138.43 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "12130e7b-3a94-4b9e-b65a-38f981906430")
-	)
-	(wire
-		(pts
-			(xy 142.24 76.2) (xy 142.24 77.47)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "15ea8d41-1b65-4c27-a8dc-48f2c1d92808")
-	)
-	(wire
-		(pts
-			(xy 179.07 110.49) (xy 179.07 114.3)
+			(xy 182.88 83.82) (xy 182.88 87.63)
 		)
 		(stroke
 			(width 0)
@@ -1447,27 +1129,7 @@
 	)
 	(wire
 		(pts
-			(xy 153.67 63.5) (xy 153.67 62.23)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1dac113e-93a3-4599-8c5b-191c05eba3e0")
-	)
-	(wire
-		(pts
-			(xy 138.43 69.85) (xy 142.24 69.85)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1f828f86-664e-4ec2-8d85-8de9d5d7bfd4")
-	)
-	(wire
-		(pts
-			(xy 110.49 111.76) (xy 110.49 114.3)
+			(xy 114.3 85.09) (xy 114.3 87.63)
 		)
 		(stroke
 			(width 0)
@@ -1477,7 +1139,7 @@
 	)
 	(wire
 		(pts
-			(xy 166.37 116.84) (xy 189.23 116.84)
+			(xy 139.7 90.17) (xy 193.04 90.17)
 		)
 		(stroke
 			(width 0)
@@ -1487,17 +1149,7 @@
 	)
 	(wire
 		(pts
-			(xy 107.95 68.58) (xy 107.95 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2e915ea3-7abe-4811-a012-8b72b6d93978")
-	)
-	(wire
-		(pts
-			(xy 135.89 114.3) (xy 168.91 114.3)
+			(xy 139.7 87.63) (xy 182.88 87.63)
 		)
 		(stroke
 			(width 0)
@@ -1507,17 +1159,7 @@
 	)
 	(wire
 		(pts
-			(xy 105.41 66.04) (xy 105.41 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3b10c10d-33ec-433b-a0a6-cc919d41e20f")
-	)
-	(wire
-		(pts
-			(xy 140.97 119.38) (xy 135.89 119.38)
+			(xy 144.78 92.71) (xy 139.7 92.71)
 		)
 		(stroke
 			(width 0)
@@ -1527,17 +1169,7 @@
 	)
 	(wire
 		(pts
-			(xy 107.95 60.96) (xy 102.87 60.96)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "55e84dba-cbf2-4d06-b3ac-993ac35a2fc1")
-	)
-	(wire
-		(pts
-			(xy 110.49 114.3) (xy 110.49 116.84)
+			(xy 114.3 87.63) (xy 114.3 90.17)
 		)
 		(stroke
 			(width 0)
@@ -1547,17 +1179,7 @@
 	)
 	(wire
 		(pts
-			(xy 107.95 66.04) (xy 105.41 66.04)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5e486bd5-a142-49f4-b052-256bf06171e9")
-	)
-	(wire
-		(pts
-			(xy 110.49 133.35) (xy 110.49 129.54)
+			(xy 114.3 106.68) (xy 114.3 102.87)
 		)
 		(stroke
 			(width 0)
@@ -1567,7 +1189,7 @@
 	)
 	(wire
 		(pts
-			(xy 179.07 114.3) (xy 207.01 114.3)
+			(xy 182.88 87.63) (xy 210.82 87.63)
 		)
 		(stroke
 			(width 0)
@@ -1577,67 +1199,7 @@
 	)
 	(wire
 		(pts
-			(xy 107.95 86.36) (xy 166.37 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "794c96a6-e732-4677-bfc7-901e32da2b5c")
-	)
-	(wire
-		(pts
-			(xy 168.91 114.3) (xy 179.07 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7e5b922c-116e-4b6e-b97b-ff7763b34825")
-	)
-	(wire
-		(pts
-			(xy 133.35 68.58) (xy 138.43 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7e8c1132-1eef-4fc2-9bfd-1503fd0de51c")
-	)
-	(wire
-		(pts
-			(xy 138.43 68.58) (xy 138.43 69.85)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "80470b45-d079-48f0-96cd-c4217a3230ac")
-	)
-	(wire
-		(pts
-			(xy 139.7 60.96) (xy 139.7 54.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "84b35207-d5f1-427c-9050-0204abe8da26")
-	)
-	(wire
-		(pts
-			(xy 135.89 116.84) (xy 166.37 116.84)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8800e2da-9f22-4421-ac0b-a3bb88d7ba58")
-	)
-	(wire
-		(pts
-			(xy 93.98 124.46) (xy 93.98 125.73)
+			(xy 97.79 97.79) (xy 97.79 99.06)
 		)
 		(stroke
 			(width 0)
@@ -1647,37 +1209,7 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 88.9) (xy 168.91 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "90dbafaa-65e8-430a-9a0e-65a904ec7b52")
-	)
-	(wire
-		(pts
-			(xy 166.37 86.36) (xy 166.37 116.84)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9e7b5c41-03b0-4396-a07e-2e24f817168b")
-	)
-	(wire
-		(pts
-			(xy 139.7 54.61) (xy 153.67 54.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9fd0c100-2d2c-4627-a255-73fd734c4ad4")
-	)
-	(wire
-		(pts
-			(xy 110.49 124.46) (xy 93.98 124.46)
+			(xy 114.3 97.79) (xy 97.79 97.79)
 		)
 		(stroke
 			(width 0)
@@ -1687,7 +1219,7 @@
 	)
 	(wire
 		(pts
-			(xy 135.89 129.54) (xy 144.78 129.54)
+			(xy 139.7 102.87) (xy 148.59 102.87)
 		)
 		(stroke
 			(width 0)
@@ -1697,7 +1229,7 @@
 	)
 	(wire
 		(pts
-			(xy 110.49 129.54) (xy 110.49 127)
+			(xy 114.3 102.87) (xy 114.3 100.33)
 		)
 		(stroke
 			(width 0)
@@ -1707,7 +1239,7 @@
 	)
 	(wire
 		(pts
-			(xy 148.59 129.54) (xy 144.78 129.54)
+			(xy 152.4 102.87) (xy 148.59 102.87)
 		)
 		(stroke
 			(width 0)
@@ -1717,7 +1249,7 @@
 	)
 	(wire
 		(pts
-			(xy 179.07 100.33) (xy 189.23 100.33)
+			(xy 182.88 73.66) (xy 193.04 73.66)
 		)
 		(stroke
 			(width 0)
@@ -1727,7 +1259,7 @@
 	)
 	(wire
 		(pts
-			(xy 93.98 133.35) (xy 110.49 133.35)
+			(xy 97.79 106.68) (xy 114.3 106.68)
 		)
 		(stroke
 			(width 0)
@@ -1737,7 +1269,7 @@
 	)
 	(wire
 		(pts
-			(xy 189.23 110.49) (xy 189.23 116.84)
+			(xy 193.04 83.82) (xy 193.04 90.17)
 		)
 		(stroke
 			(width 0)
@@ -1747,7 +1279,7 @@
 	)
 	(wire
 		(pts
-			(xy 189.23 116.84) (xy 207.01 116.84)
+			(xy 193.04 90.17) (xy 210.82 90.17)
 		)
 		(stroke
 			(width 0)
@@ -1755,48 +1287,8 @@
 		)
 		(uuid "df882963-4c88-4173-9fbd-189210de461f")
 	)
-	(wire
-		(pts
-			(xy 107.95 63.5) (xy 96.52 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ea8de1e5-5e9a-480d-ab67-7ced691ba547")
-	)
-	(wire
-		(pts
-			(xy 133.35 66.04) (xy 138.43 66.04)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ef856161-9eab-4879-beac-780388c993d5")
-	)
-	(wire
-		(pts
-			(xy 133.35 60.96) (xy 139.7 60.96)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f4ea30a5-c45b-446c-910d-02afcfdfd374")
-	)
-	(wire
-		(pts
-			(xy 133.35 63.5) (xy 153.67 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fafa160d-a522-4fc7-a990-c08ab688cc96")
-	)
 	(label "SDA"
-		(at 199.898 114.3 0)
+		(at 203.708 87.63 0)
 		(effects
 			(font
 				(size 1.2192 1.2192)
@@ -1806,7 +1298,7 @@
 		(uuid "944b3d4e-6ce5-4508-b7a2-fb241b726ce7")
 	)
 	(label "SCL"
-		(at 199.898 116.84 0)
+		(at 203.708 90.17 0)
 		(effects
 			(font
 				(size 1.2192 1.2192)
@@ -1817,7 +1309,7 @@
 	)
 	(global_label "SCL"
 		(shape input)
-		(at 207.01 116.84 0)
+		(at 210.82 90.17 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1826,7 +1318,7 @@
 		)
 		(uuid "011fe9a7-af1a-4a6c-b7f0-dcf23e4811e9")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 207.01 116.84 0)
+			(at 210.82 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1857,7 +1349,7 @@
 	)
 	(global_label "SDA"
 		(shape input)
-		(at 207.01 114.3 0)
+		(at 210.82 87.63 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1866,7 +1358,7 @@
 		)
 		(uuid "ea2b59d8-cfaf-4a72-8c42-34a330ff5f1b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 207.01 114.3 0)
+			(at 210.82 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1877,7 +1369,7 @@
 	)
 	(symbol
 		(lib_id "ProDoc_Qin-easyedapro:3.3V")
-		(at 140.97 119.38 270)
+		(at 144.78 92.71 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1885,7 +1377,7 @@
 		(dnp no)
 		(uuid "0bde7235-02b2-4e19-b138-f64077935dfa")
 		(property "Reference" "#PWR0216"
-			(at 140.97 119.38 0)
+			(at 144.78 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1894,7 +1386,7 @@
 			)
 		)
 		(property "Value" "3.3V"
-			(at 143.637 121.0564 90)
+			(at 147.447 94.3864 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1904,7 +1396,7 @@
 			)
 		)
 		(property "Footprint" "ProDoc_Qin-easyedapro:"
-			(at 140.97 119.38 0)
+			(at 144.78 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1913,7 +1405,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 140.97 119.38 0)
+			(at 144.78 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1922,7 +1414,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 140.97 119.38 0)
+			(at 144.78 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1950,7 +1442,7 @@
 	)
 	(symbol
 		(lib_id "ProDoc_Qin-easyedapro:100nF")
-		(at 93.98 129.54 270)
+		(at 97.79 102.87 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1958,7 +1450,7 @@
 		(dnp no)
 		(uuid "1d0bf8a8-de25-43e8-8366-cc2faabb90be")
 		(property "Reference" "C51"
-			(at 91.186 128.016 90)
+			(at 94.996 101.346 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1966,7 +1458,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 89.916 132.588 90)
+			(at 93.726 105.918 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1974,7 +1466,7 @@
 			)
 		)
 		(property "Footprint" "ProDoc_Qin-easyedapro:C0402"
-			(at 93.98 129.54 0)
+			(at 97.79 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1983,7 +1475,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 93.98 129.54 0)
+			(at 97.79 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1992,7 +1484,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 93.98 129.54 0)
+			(at 97.79 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2001,7 +1493,7 @@
 			)
 		)
 		(property "Manufacturer Part" "CL05B104KO5NNNC"
-			(at 93.98 129.54 0)
+			(at 97.79 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2010,7 +1502,7 @@
 			)
 		)
 		(property "Manufacturer" "SAMSUNG"
-			(at 93.98 129.54 0)
+			(at 97.79 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2019,7 +1511,7 @@
 			)
 		)
 		(property "Supplier Part" "C1525"
-			(at 93.98 129.54 0)
+			(at 97.79 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2028,7 +1520,7 @@
 			)
 		)
 		(property "Supplier" "LCSC"
-			(at 93.98 129.54 0)
+			(at 97.79 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2037,7 +1529,7 @@
 			)
 		)
 		(property "Add into BOM" "yes"
-			(at 93.98 129.54 90)
+			(at 97.79 102.87 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2046,7 +1538,7 @@
 			)
 		)
 		(property "Convert to PCB" "yes"
-			(at 93.98 129.54 90)
+			(at 97.79 102.87 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2055,7 +1547,7 @@
 			)
 		)
 		(property "Origin Footprint" "C0402"
-			(at 93.98 129.54 90)
+			(at 97.79 102.87 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2064,7 +1556,7 @@
 			)
 		)
 		(property "nameAlias" "Capacitance"
-			(at 93.98 129.54 90)
+			(at 97.79 102.87 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2073,7 +1565,7 @@
 			)
 		)
 		(property "spicePre" "C"
-			(at 93.98 129.54 90)
+			(at 97.79 102.87 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2082,7 +1574,7 @@
 			)
 		)
 		(property "spiceSymbolName" "CL05B104KO5NNNC"
-			(at 93.98 129.54 90)
+			(at 97.79 102.87 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2112,227 +1604,8 @@
 		)
 	)
 	(symbol
-		(lib_id "ProDoc_Qin-easyedapro:3.3V")
-		(at 139.7 54.61 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "4396efcc-846e-40d2-ba81-6b10d912ba78")
-		(property "Reference" "#PWR0207"
-			(at 139.7 54.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "3.3V"
-			(at 137.16 52.197 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "ProDoc_Qin-easyedapro:"
-			(at 139.7 54.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 139.7 54.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 139.7 54.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "fb7fb7f8-a846-45b7-a6b6-2f69e5d99f57")
-		)
-		(instances
-			(project ""
-				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
-					(reference "#PWR?")
-					(unit 1)
-				)
-			)
-			(project ""
-				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
-					(reference "#PWR0207")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "ProDoc_Qin-easyedapro:3.3V")
-		(at 142.24 69.85 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "4702b2f9-e073-468a-84e2-63c0f076aac6")
-		(property "Reference" "#PWR0219"
-			(at 142.24 69.85 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "3.3V"
-			(at 139.7 67.437 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "ProDoc_Qin-easyedapro:"
-			(at 142.24 69.85 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 142.24 69.85 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 142.24 69.85 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "3728f716-9a70-4328-befb-06c688e24a79")
-		)
-		(instances
-			(project ""
-				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
-					(reference "#PWR?")
-					(unit 1)
-				)
-			)
-			(project ""
-				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
-					(reference "#PWR0219")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "ProDoc_Qin-easyedapro:3.3V")
-		(at 96.52 63.5 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "4a6a4570-7f9d-4e99-b835-74c2775c94c8")
-		(property "Reference" "#PWR0210"
-			(at 96.52 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "3.3V"
-			(at 93.98 61.087 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "ProDoc_Qin-easyedapro:"
-			(at 96.52 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 96.52 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 96.52 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "c0354715-546b-48cf-8c21-ae76b92fcb9b")
-		)
-		(instances
-			(project ""
-				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
-					(reference "#PWR?")
-					(unit 1)
-				)
-			)
-			(project ""
-				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
-					(reference "#PWR0210")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "ProDoc_Qin-easyedapro:BMX160")
-		(at 123.19 121.92 0)
+		(at 127 95.25 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2340,7 +1613,7 @@
 		(dnp no)
 		(uuid "4d520362-0dd5-41a0-a072-54a2edf683f1")
 		(property "Reference" "U9"
-			(at 115.316 110.236 0)
+			(at 119.126 83.566 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2348,7 +1621,7 @@
 			)
 		)
 		(property "Value" "BMI270"
-			(at 129.54 110.236 0)
+			(at 133.35 83.566 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2356,7 +1629,7 @@
 			)
 		)
 		(property "Footprint" "ProDoc_Qin-easyedapro:LGA-14_L3.0-W2.5-P0.50-BL"
-			(at 123.19 121.92 0)
+			(at 127 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2365,7 +1638,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 123.19 121.92 0)
+			(at 127 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2374,7 +1647,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 123.19 121.92 0)
+			(at 127 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2383,7 +1656,7 @@
 			)
 		)
 		(property "Manufacturer Part" "BMI270"
-			(at 123.19 121.92 0)
+			(at 127 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2392,7 +1665,7 @@
 			)
 		)
 		(property "Manufacturer" "Bosch"
-			(at 123.19 121.92 0)
+			(at 127 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2401,7 +1674,7 @@
 			)
 		)
 		(property "Supplier Part" "C2836813"
-			(at 123.19 121.92 0)
+			(at 127 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2410,7 +1683,7 @@
 			)
 		)
 		(property "Supplier" "LCSC"
-			(at 123.19 121.92 0)
+			(at 127 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2419,7 +1692,7 @@
 			)
 		)
 		(property "Add into BOM" "yes"
-			(at 123.19 121.92 0)
+			(at 127 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2428,7 +1701,7 @@
 			)
 		)
 		(property "Convert to PCB" "yes"
-			(at 123.19 121.92 0)
+			(at 127 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2437,7 +1710,7 @@
 			)
 		)
 		(property "Origin Footprint" "LGA-14_L3.0-W2.5-P0.50-BL"
-			(at 123.19 121.92 0)
+			(at 127 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2446,7 +1719,7 @@
 			)
 		)
 		(property "spicePre" "U"
-			(at 123.19 121.92 0)
+			(at 127 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2455,7 +1728,7 @@
 			)
 		)
 		(property "spiceSymbolName" "BMX160"
-			(at 123.19 121.92 0)
+			(at 127 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2521,244 +1794,8 @@
 		)
 	)
 	(symbol
-		(lib_id "ProDoc_Qin-easyedapro:100nF")
-		(at 153.67 58.42 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "59c3b29a-51a9-4fcf-aa9a-b6f8cef0310d")
-		(property "Reference" "C47"
-			(at 159.004 55.88 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "100nF"
-			(at 158.496 61.214 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "ProDoc_Qin-easyedapro:C0402"
-			(at 153.67 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 153.67 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 153.67 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer Part" "CL05B104KO5NNNC"
-			(at 153.67 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "SAMSUNG"
-			(at 153.67 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Supplier Part" "C1525"
-			(at 153.67 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Supplier" "LCSC"
-			(at 153.67 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Add into BOM" "yes"
-			(at 153.67 58.42 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Convert to PCB" "yes"
-			(at 153.67 58.42 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Origin Footprint" "C0402"
-			(at 153.67 58.42 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "nameAlias" "Capacitance"
-			(at 153.67 58.42 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "spicePre" "C"
-			(at 153.67 58.42 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "spiceSymbolName" "CL05B104KO5NNNC"
-			(at 153.67 58.42 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "42dd4871-b910-49d4-9b6a-655e3e8d8b6c")
-		)
-		(pin "2"
-			(uuid "de0eba99-3506-4266-a136-507418cd2042")
-		)
-		(instances
-			(project ""
-				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
-					(reference "C47")
-					(unit 1)
-				)
-			)
-			(project ""
-				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
-					(reference "C47")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "ProDoc_Qin-easyedapro:GND")
-		(at 142.24 76.2 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "5ec1f9e2-4854-413b-94ec-8faf96035ea4")
-		(property "Reference" "#PWR0218"
-			(at 142.24 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 138.938 83.439 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "ProDoc_Qin-easyedapro:"
-			(at 142.24 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 142.24 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 142.24 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "073ccbaf-bd4c-49e8-bb93-440e4b1330d5")
-		)
-		(instances
-			(project ""
-				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
-					(reference "#PWR?")
-					(unit 1)
-				)
-			)
-			(project ""
-				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
-					(reference "#PWR0218")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "ProDoc_Qin-easyedapro:3.3V")
-		(at 93.98 124.46 0)
+		(at 97.79 97.79 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2766,7 +1803,7 @@
 		(dnp no)
 		(uuid "70e6177f-f366-4523-aa45-2d8e73df4292")
 		(property "Reference" "#PWR0209"
-			(at 93.98 124.46 0)
+			(at 97.79 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2775,7 +1812,7 @@
 			)
 		)
 		(property "Value" "3.3V"
-			(at 91.44 122.047 0)
+			(at 95.25 95.377 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2785,7 +1822,7 @@
 			)
 		)
 		(property "Footprint" "ProDoc_Qin-easyedapro:"
-			(at 93.98 124.46 0)
+			(at 97.79 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2794,7 +1831,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 93.98 124.46 0)
+			(at 97.79 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2803,7 +1840,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 93.98 124.46 0)
+			(at 97.79 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2831,7 +1868,7 @@
 	)
 	(symbol
 		(lib_id "ProDoc_Qin-easyedapro:3.3V")
-		(at 144.78 129.54 0)
+		(at 148.59 102.87 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2839,7 +1876,7 @@
 		(dnp no)
 		(uuid "74e39884-0a76-4184-9bbc-4194d8e855cc")
 		(property "Reference" "#PWR0215"
-			(at 144.78 129.54 0)
+			(at 148.59 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2848,7 +1885,7 @@
 			)
 		)
 		(property "Value" "3.3V"
-			(at 142.24 127.127 0)
+			(at 146.05 100.457 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2858,7 +1895,7 @@
 			)
 		)
 		(property "Footprint" "ProDoc_Qin-easyedapro:"
-			(at 144.78 129.54 0)
+			(at 148.59 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2867,7 +1904,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 144.78 129.54 0)
+			(at 148.59 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2876,7 +1913,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 144.78 129.54 0)
+			(at 148.59 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2903,171 +1940,8 @@
 		)
 	)
 	(symbol
-		(lib_id "ProDoc_Qin-easyedapro:100nF")
-		(at 142.24 73.66 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "8f3149df-52a7-45fd-b4e6-701420c4c55c")
-		(property "Reference" "C50"
-			(at 145.542 71.374 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "100nF"
-			(at 147.066 76.454 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "ProDoc_Qin-easyedapro:C0402"
-			(at 142.24 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 142.24 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 142.24 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer Part" "CL05B104KO5NNNC"
-			(at 142.24 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "SAMSUNG"
-			(at 142.24 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Supplier Part" "C1525"
-			(at 142.24 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Supplier" "LCSC"
-			(at 142.24 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Add into BOM" "yes"
-			(at 142.24 73.66 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Convert to PCB" "yes"
-			(at 142.24 73.66 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Origin Footprint" "C0402"
-			(at 142.24 73.66 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "nameAlias" "Capacitance"
-			(at 142.24 73.66 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "spicePre" "C"
-			(at 142.24 73.66 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "spiceSymbolName" "CL05B104KO5NNNC"
-			(at 142.24 73.66 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "d7425405-87bb-481d-9974-1ae91ad57873")
-		)
-		(pin "2"
-			(uuid "23f569fe-6c4b-48a3-af1e-0020b8b80cd9")
-		)
-		(instances
-			(project ""
-				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
-					(reference "C50")
-					(unit 1)
-				)
-			)
-			(project ""
-				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
-					(reference "C50")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "ProDoc_Qin-easyedapro:GND")
-		(at 148.59 137.16 0)
+		(at 152.4 110.49 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3075,7 +1949,7 @@
 		(dnp no)
 		(uuid "94f0d7ec-b99e-4652-b381-57c625de5ffc")
 		(property "Reference" "#PWR0222"
-			(at 148.59 137.16 0)
+			(at 152.4 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3084,7 +1958,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 145.288 144.399 0)
+			(at 149.098 117.729 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3094,7 +1968,7 @@
 			)
 		)
 		(property "Footprint" "ProDoc_Qin-easyedapro:"
-			(at 148.59 137.16 0)
+			(at 152.4 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3103,7 +1977,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 148.59 137.16 0)
+			(at 152.4 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3112,7 +1986,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 148.59 137.16 0)
+			(at 152.4 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3140,7 +2014,7 @@
 	)
 	(symbol
 		(lib_id "ProDoc_Qin-easyedapro:3.3V")
-		(at 179.07 100.33 0)
+		(at 182.88 73.66 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3148,7 +2022,7 @@
 		(dnp no)
 		(uuid "a153e9a7-3c24-475c-a2b6-6be1ae7a19c9")
 		(property "Reference" "#PWR0221"
-			(at 179.07 100.33 0)
+			(at 182.88 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3157,7 +2031,7 @@
 			)
 		)
 		(property "Value" "3.3V"
-			(at 176.53 97.917 0)
+			(at 180.34 71.247 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3167,7 +2041,7 @@
 			)
 		)
 		(property "Footprint" "ProDoc_Qin-easyedapro:"
-			(at 179.07 100.33 0)
+			(at 182.88 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3176,7 +2050,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 179.07 100.33 0)
+			(at 182.88 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3185,7 +2059,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 179.07 100.33 0)
+			(at 182.88 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3213,7 +2087,7 @@
 	)
 	(symbol
 		(lib_id "ProDoc_Qin-easyedapro:10K")
-		(at 189.23 105.41 270)
+		(at 193.04 78.74 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3221,7 +2095,7 @@
 		(dnp no)
 		(uuid "ab1ca59d-f9e1-4e09-9348-82abf4bab49d")
 		(property "Reference" "R41"
-			(at 193.04 101.6 90)
+			(at 196.85 74.93 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3229,7 +2103,7 @@
 			)
 		)
 		(property "Value" "10K"
-			(at 192.786 109.22 90)
+			(at 196.596 82.55 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3237,7 +2111,7 @@
 			)
 		)
 		(property "Footprint" "ProDoc_Qin-easyedapro:R0402"
-			(at 189.23 105.41 0)
+			(at 193.04 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3246,7 +2120,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 189.23 105.41 0)
+			(at 193.04 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3255,7 +2129,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 189.23 105.41 0)
+			(at 193.04 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3264,7 +2138,7 @@
 			)
 		)
 		(property "Manufacturer Part" "0402WGF1002TCE"
-			(at 189.23 105.41 0)
+			(at 193.04 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3273,7 +2147,7 @@
 			)
 		)
 		(property "Manufacturer" "UniOhm"
-			(at 189.23 105.41 0)
+			(at 193.04 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3282,7 +2156,7 @@
 			)
 		)
 		(property "Supplier Part" "C25744"
-			(at 189.23 105.41 0)
+			(at 193.04 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3291,7 +2165,7 @@
 			)
 		)
 		(property "Supplier" "LCSC"
-			(at 189.23 105.41 0)
+			(at 193.04 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3300,7 +2174,7 @@
 			)
 		)
 		(property "Add into BOM" "yes"
-			(at 189.23 105.41 90)
+			(at 193.04 78.74 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3309,7 +2183,7 @@
 			)
 		)
 		(property "Convert to PCB" "yes"
-			(at 189.23 105.41 90)
+			(at 193.04 78.74 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3318,7 +2192,7 @@
 			)
 		)
 		(property "Origin Footprint" "R0402"
-			(at 189.23 105.41 90)
+			(at 193.04 78.74 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3327,7 +2201,7 @@
 			)
 		)
 		(property "nameAlias" "Resistance (Ohms)"
-			(at 189.23 105.41 90)
+			(at 193.04 78.74 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3336,7 +2210,7 @@
 			)
 		)
 		(property "spicePre" "R"
-			(at 189.23 105.41 90)
+			(at 193.04 78.74 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3345,7 +2219,7 @@
 			)
 		)
 		(property "spiceSymbolName" "0402WGF1002TCE"
-			(at 189.23 105.41 90)
+			(at 193.04 78.74 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3376,7 +2250,7 @@
 	)
 	(symbol
 		(lib_id "ProDoc_Qin-easyedapro:GND")
-		(at 110.49 111.76 180)
+		(at 114.3 85.09 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3384,7 +2258,7 @@
 		(dnp no)
 		(uuid "ac09c284-fb93-419a-814f-5e42f135d240")
 		(property "Reference" "#PWR0217"
-			(at 110.49 111.76 0)
+			(at 114.3 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3393,7 +2267,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 107.188 107.569 0)
+			(at 110.998 80.899 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3403,7 +2277,7 @@
 			)
 		)
 		(property "Footprint" "ProDoc_Qin-easyedapro:"
-			(at 110.49 111.76 0)
+			(at 114.3 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3412,7 +2286,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 110.49 111.76 0)
+			(at 114.3 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3421,7 +2295,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 110.49 111.76 0)
+			(at 114.3 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3449,334 +2323,7 @@
 	)
 	(symbol
 		(lib_id "ProDoc_Qin-easyedapro:GND")
-		(at 153.67 63.5 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "b7172cee-2c42-4765-ac07-e0632530926d")
-		(property "Reference" "#PWR0220"
-			(at 153.67 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 150.368 70.739 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "ProDoc_Qin-easyedapro:"
-			(at 153.67 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 153.67 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 153.67 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "0b4d7e75-f20b-4986-8683-cbf0cf7e42a4")
-		)
-		(instances
-			(project ""
-				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
-					(reference "#PWR?")
-					(unit 1)
-				)
-			)
-			(project ""
-				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
-					(reference "#PWR0220")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "ProDoc_Qin-easyedapro:GND")
-		(at 102.87 55.88 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "b9120e9e-d7e5-4b08-9682-bc9379135127")
-		(property "Reference" "#PWR0208"
-			(at 102.87 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 99.568 51.6636 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right top)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "ProDoc_Qin-easyedapro:"
-			(at 102.87 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 102.87 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 102.87 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "6519e094-2519-41cd-85b5-5084e319b582")
-		)
-		(instances
-			(project ""
-				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
-					(reference "#PWR?")
-					(unit 1)
-				)
-			)
-			(project ""
-				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
-					(reference "#PWR0208")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "ProDoc_Qin-easyedapro:BME280")
-		(at 120.65 64.77 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "c0eeef50-644f-4c91-9d5c-aceaf83ec0b4")
-		(property "Reference" "U8"
-			(at 111.76 56.896 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "BME280"
-			(at 127.508 56.642 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "ProDoc_Qin-easyedapro:LGA-8_BME280_BR"
-			(at 120.65 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 120.65 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 120.65 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer Part" "BME280"
-			(at 120.65 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "Bosch"
-			(at 120.65 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Supplier Part" "C92489"
-			(at 120.65 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Supplier" "LCSC"
-			(at 120.65 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Add into BOM" "yes"
-			(at 120.65 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Contributor" "LCSC"
-			(at 120.65 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Convert to PCB" "yes"
-			(at 120.65 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Origin Footprint" "LGA-8_BME280_BR"
-			(at 120.65 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "spicePre" "U"
-			(at 120.65 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "spiceSymbolName" "BME280"
-			(at 120.65 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "5"
-			(uuid "e7a5fb4b-d42f-4361-89e4-093045a9e4b3")
-		)
-		(pin "6"
-			(uuid "ed18a272-a836-4b0d-8845-14a9a97c7061")
-		)
-		(pin "7"
-			(uuid "e6ca62bf-f5dc-47f7-b516-61feab2ecdbe")
-		)
-		(pin "8"
-			(uuid "dbe65b23-5693-4020-9d37-d8935c57da44")
-		)
-		(pin "4"
-			(uuid "28c12f92-8a55-4fc1-b938-a11248fe83cb")
-		)
-		(pin "3"
-			(uuid "ceaee1e2-87a6-43f1-8a2f-789bea388fd2")
-		)
-		(pin "2"
-			(uuid "19ff5c5a-f47a-4936-84af-b382fef59840")
-		)
-		(pin "1"
-			(uuid "902f9271-929b-46e2-8c92-6b0758f10d82")
-		)
-		(instances
-			(project ""
-				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
-					(reference "U8")
-					(unit 1)
-				)
-			)
-			(project ""
-				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
-					(reference "U8")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "ProDoc_Qin-easyedapro:GND")
-		(at 93.98 133.35 0)
+		(at 97.79 106.68 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3784,7 +2331,7 @@
 		(dnp no)
 		(uuid "c27ac4d3-fa81-4a89-9365-451c99ece766")
 		(property "Reference" "#PWR0211"
-			(at 93.98 133.35 0)
+			(at 97.79 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3793,7 +2340,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 90.678 140.589 0)
+			(at 94.488 113.919 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3803,7 +2350,7 @@
 			)
 		)
 		(property "Footprint" "ProDoc_Qin-easyedapro:"
-			(at 93.98 133.35 0)
+			(at 97.79 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3812,7 +2359,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 93.98 133.35 0)
+			(at 97.79 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3821,7 +2368,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 93.98 133.35 0)
+			(at 97.79 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3849,7 +2396,7 @@
 	)
 	(symbol
 		(lib_id "ProDoc_Qin-easyedapro:100nF")
-		(at 148.59 133.35 270)
+		(at 152.4 106.68 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3857,7 +2404,7 @@
 		(dnp no)
 		(uuid "c57b8374-def6-4b23-8dfd-b634fe6ad6df")
 		(property "Reference" "C52"
-			(at 152.654 130.81 90)
+			(at 156.464 104.14 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3865,7 +2412,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 153.162 135.636 90)
+			(at 156.972 108.966 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3873,7 +2420,7 @@
 			)
 		)
 		(property "Footprint" "ProDoc_Qin-easyedapro:C0402"
-			(at 148.59 133.35 0)
+			(at 152.4 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3882,7 +2429,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 148.59 133.35 0)
+			(at 152.4 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3891,7 +2438,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 148.59 133.35 0)
+			(at 152.4 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3900,7 +2447,7 @@
 			)
 		)
 		(property "Manufacturer Part" "CL05B104KO5NNNC"
-			(at 148.59 133.35 0)
+			(at 152.4 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3909,7 +2456,7 @@
 			)
 		)
 		(property "Manufacturer" "SAMSUNG"
-			(at 148.59 133.35 0)
+			(at 152.4 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3918,7 +2465,7 @@
 			)
 		)
 		(property "Supplier Part" "C1525"
-			(at 148.59 133.35 0)
+			(at 152.4 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3927,7 +2474,7 @@
 			)
 		)
 		(property "Supplier" "LCSC"
-			(at 148.59 133.35 0)
+			(at 152.4 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3936,7 +2483,7 @@
 			)
 		)
 		(property "Add into BOM" "yes"
-			(at 148.59 133.35 90)
+			(at 152.4 106.68 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3945,7 +2492,7 @@
 			)
 		)
 		(property "Convert to PCB" "yes"
-			(at 148.59 133.35 90)
+			(at 152.4 106.68 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3954,7 +2501,7 @@
 			)
 		)
 		(property "Origin Footprint" "C0402"
-			(at 148.59 133.35 90)
+			(at 152.4 106.68 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3963,7 +2510,7 @@
 			)
 		)
 		(property "nameAlias" "Capacitance"
-			(at 148.59 133.35 90)
+			(at 152.4 106.68 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3972,7 +2519,7 @@
 			)
 		)
 		(property "spicePre" "C"
-			(at 148.59 133.35 90)
+			(at 152.4 106.68 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3981,7 +2528,7 @@
 			)
 		)
 		(property "spiceSymbolName" "CL05B104KO5NNNC"
-			(at 148.59 133.35 90)
+			(at 152.4 106.68 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4012,7 +2559,7 @@
 	)
 	(symbol
 		(lib_id "ProDoc_Qin-easyedapro:4.7K")
-		(at 179.07 105.41 90)
+		(at 182.88 78.74 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4020,7 +2567,7 @@
 		(dnp no)
 		(uuid "ce202183-c48f-4fd2-ac60-4178eac81d53")
 		(property "Reference" "R40"
-			(at 175.768 101.854 90)
+			(at 179.578 75.184 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4028,7 +2575,7 @@
 			)
 		)
 		(property "Value" "4.7K"
-			(at 175.26 110.236 90)
+			(at 179.07 83.566 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4036,7 +2583,7 @@
 			)
 		)
 		(property "Footprint" "ProDoc_Qin-easyedapro:R0402"
-			(at 179.07 105.41 0)
+			(at 182.88 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4045,7 +2592,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 179.07 105.41 0)
+			(at 182.88 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4054,7 +2601,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 179.07 105.41 0)
+			(at 182.88 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4063,7 +2610,7 @@
 			)
 		)
 		(property "Manufacturer Part" "0402WGF4701TCE"
-			(at 179.07 105.41 0)
+			(at 182.88 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4072,7 +2619,7 @@
 			)
 		)
 		(property "Manufacturer" "UniOhm"
-			(at 179.07 105.41 0)
+			(at 182.88 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4081,7 +2628,7 @@
 			)
 		)
 		(property "Supplier Part" "C25900"
-			(at 179.07 105.41 0)
+			(at 182.88 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4090,7 +2637,7 @@
 			)
 		)
 		(property "Supplier" "LCSC"
-			(at 179.07 105.41 0)
+			(at 182.88 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4099,7 +2646,7 @@
 			)
 		)
 		(property "Add into BOM" "yes"
-			(at 179.07 105.41 90)
+			(at 182.88 78.74 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4108,7 +2655,7 @@
 			)
 		)
 		(property "Convert to PCB" "yes"
-			(at 179.07 105.41 90)
+			(at 182.88 78.74 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4117,7 +2664,7 @@
 			)
 		)
 		(property "Origin Footprint" "R0402"
-			(at 179.07 105.41 90)
+			(at 182.88 78.74 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4126,7 +2673,7 @@
 			)
 		)
 		(property "nameAlias" "Resistance (Ohms)"
-			(at 179.07 105.41 90)
+			(at 182.88 78.74 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4135,7 +2682,7 @@
 			)
 		)
 		(property "spicePre" "R"
-			(at 179.07 105.41 90)
+			(at 182.88 78.74 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4144,7 +2691,7 @@
 			)
 		)
 		(property "spiceSymbolName" "0402WGF4701TCE"
-			(at 179.07 105.41 90)
+			(at 182.88 78.74 90)
 			(effects
 				(font
 					(size 1.27 1.27)
