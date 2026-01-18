@@ -1,0 +1,2723 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "f6659115-f388-4cc6-a6e7-34b67f79a3cc")
+	(paper "User" 292.1 205.08)
+	(lib_symbols
+		(symbol "ProDoc_Qin-easyedapro:100nF"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "C"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "ProDoc_Qin-easyedapro:C0402"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer Part" "CL05B104KO5NNNC"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" "SAMSUNG"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Supplier Part" "C1525"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Supplier" "LCSC"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "100nF_1_0"
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.508 2.032) (xy -0.508 -2.032)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.508 2.032) (xy 0.508 -2.032)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.508 0) (xy 1.27 0)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin input line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 0.0254 0.0254)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 0.0254 0.0254)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 0.0254 0.0254)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 0.0254 0.0254)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "ProDoc_Qin-easyedapro:10K"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "ProDoc_Qin-easyedapro:R0402"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer Part" "0402WGF1002TCE"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" "UniOhm"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Supplier Part" "C25744"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Supplier" "LCSC"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "10K_1_0"
+				(rectangle
+					(start -2.54 -1.016)
+					(end 2.54 1.016)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin input line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 0.0254 0.0254)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 0.0254 0.0254)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 0.0254 0.0254)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 0.0254 0.0254)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "ProDoc_Qin-easyedapro:3.3V"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "3.3V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left bottom)
+					(hide yes)
+				)
+			)
+			(property "Footprint" "ProDoc_Qin-easyedapro:"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "3.3V_1_0"
+				(polyline
+					(pts
+						(xy -1.27 2.54) (xy 1.27 2.54)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0 0)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin power_in line
+					(at 0 0 0)
+					(length 0)
+					(name "3.3V"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "ProDoc_Qin-easyedapro:4.7K"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "ProDoc_Qin-easyedapro:R0402"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer Part" "0402WGF4701TCE"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" "UniOhm"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Supplier Part" "C25900"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Supplier" "LCSC"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "4.7K_1_0"
+				(rectangle
+					(start 2.54 1.016)
+					(end -2.54 -1.016)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin input line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 0.0254 0.0254)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 0.0254 0.0254)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 0.0254 0.0254)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 0.0254 0.0254)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "ProDoc_Qin-easyedapro:BMX160"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "ProDoc_Qin-easyedapro:LGA-14_L3.0-W2.5-P0.50-BL"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer Part" "BMI160"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" "Bosch"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Supplier Part" "828-1087-1-ND"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Supplier" "Digi-Key"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "BMX160_1_0"
+				(rectangle
+					(start -10.16 10.668)
+					(end 10.16 -10.668)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin unspecified line
+					(at -12.7 7.62 0)
+					(length 2.54)
+					(name "SDO"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at -12.7 5.08 0)
+					(length 2.54)
+					(name "ASDX"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at -12.7 2.54 0)
+					(length 2.54)
+					(name "ASCX"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at -12.7 0 0)
+					(length 2.54)
+					(name "INT1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at -12.7 -2.54 0)
+					(length 2.54)
+					(name "VDDIO"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at -12.7 -5.08 0)
+					(length 2.54)
+					(name "GNDIO"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at -12.7 -7.62 0)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 12.7 7.62 180)
+					(length 2.54)
+					(name "SDX"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 12.7 5.08 180)
+					(length 2.54)
+					(name "SCX"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 12.7 2.54 180)
+					(length 2.54)
+					(name "CSB"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 12.7 0 180)
+					(length 2.54)
+					(name "OSDO"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 12.7 -2.54 180)
+					(length 2.54)
+					(name "OCSB"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 12.7 -5.08 180)
+					(length 2.54)
+					(name "INT2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 12.7 -7.62 180)
+					(length 2.54)
+					(name "VDD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "ProDoc_Qin-easyedapro:GND"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "GND"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left bottom)
+					(hide yes)
+				)
+			)
+			(property "Footprint" "ProDoc_Qin-easyedapro:"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "GND_1_0"
+				(polyline
+					(pts
+						(xy -2.286 -2.54) (xy 2.286 -2.54)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 -3.048) (xy 1.524 -3.048)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.762 -3.556) (xy 0.762 -3.556)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.254 -4.064) (xy 0.254 -4.064)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -2.54) (xy 0 0)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin power_in line
+					(at 0 0 0)
+					(length 0)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(junction
+		(at 148.59 102.87)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0e89a8a0-0eb5-4d9e-88b8-941009566342")
+	)
+	(junction
+		(at 182.88 73.66)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2078cee2-1c10-4de5-9528-f5471525a898")
+	)
+	(junction
+		(at 114.3 90.17)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2ed5b873-fae1-4884-a560-4754c697f1c6")
+	)
+	(junction
+		(at 114.3 87.63)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "432c824e-29e3-4b67-b35c-19fc543d0077")
+	)
+	(junction
+		(at 97.79 97.79)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "469cdab5-b4fc-4207-b000-ad476dca7b8e")
+	)
+	(junction
+		(at 97.79 106.68)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5005fdce-3ed5-43bb-8fe0-67ca9be93f8c")
+	)
+	(junction
+		(at 114.3 102.87)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "99d82464-8e9a-46e5-95b3-51071af9e562")
+	)
+	(junction
+		(at 182.88 87.63)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a291a250-1be6-4a4b-8c6f-84aa2a422535")
+	)
+	(junction
+		(at 193.04 90.17)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "bb72f8c6-8754-4306-b01d-da916fd8860a")
+	)
+	(no_connect
+		(at 139.7 95.25)
+		(uuid "5585b81e-398a-417f-af7e-00812241ba31")
+	)
+	(no_connect
+		(at 114.3 95.25)
+		(uuid "770da5db-2156-4f83-9b24-36512463ab94")
+	)
+	(no_connect
+		(at 139.7 100.33)
+		(uuid "c520a7ce-1a7b-4ac9-8836-c544755c5177")
+	)
+	(no_connect
+		(at 139.7 97.79)
+		(uuid "d41cdd42-2e37-4189-a59f-5aadedf362f6")
+	)
+	(wire
+		(pts
+			(xy 114.3 90.17) (xy 114.3 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0ccef0ed-1c8f-4d63-aa58-c58fed7e08e8")
+	)
+	(wire
+		(pts
+			(xy 182.88 83.82) (xy 182.88 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "17eb06d1-72ea-45d1-8bfc-e0df1df2fe64")
+	)
+	(wire
+		(pts
+			(xy 114.3 85.09) (xy 114.3 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "283d0490-f21a-40b2-ad2f-704c1357d611")
+	)
+	(wire
+		(pts
+			(xy 139.7 90.17) (xy 193.04 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "292442de-3784-413a-9a26-736d6c6f89a6")
+	)
+	(wire
+		(pts
+			(xy 139.7 87.63) (xy 182.88 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2f7c84a7-33b6-4b70-aaed-649917f204a2")
+	)
+	(wire
+		(pts
+			(xy 144.78 92.71) (xy 139.7 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4539f324-b74e-43e8-83ee-46de6a86798b")
+	)
+	(wire
+		(pts
+			(xy 114.3 87.63) (xy 114.3 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5a51ca53-6e97-45b1-817b-927033f3c29e")
+	)
+	(wire
+		(pts
+			(xy 114.3 106.68) (xy 114.3 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "65eebf6b-f451-4d37-87bd-219a20a3c2d6")
+	)
+	(wire
+		(pts
+			(xy 182.88 87.63) (xy 210.82 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "73e8e99f-5062-4083-a5a9-92e6118565bc")
+	)
+	(wire
+		(pts
+			(xy 97.79 97.79) (xy 97.79 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "89188ba2-a000-4f3c-bc08-e8d6ab5d3837")
+	)
+	(wire
+		(pts
+			(xy 114.3 97.79) (xy 97.79 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b09ec925-28b7-44c7-8b4a-6ab9d482acd9")
+	)
+	(wire
+		(pts
+			(xy 139.7 102.87) (xy 148.59 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b1c0aa30-5b7b-467d-ba0b-0fb5bedd4809")
+	)
+	(wire
+		(pts
+			(xy 114.3 102.87) (xy 114.3 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b3a4fda0-9d9b-4034-9efb-7eb2a2fcd74c")
+	)
+	(wire
+		(pts
+			(xy 152.4 102.87) (xy 148.59 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bc2181f0-87f5-4dd2-a8c2-704d250042e6")
+	)
+	(wire
+		(pts
+			(xy 182.88 73.66) (xy 193.04 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bc3ab62d-4bff-4220-a3b8-a8f609f7165a")
+	)
+	(wire
+		(pts
+			(xy 97.79 106.68) (xy 114.3 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cb5c0054-ab86-477a-9b3e-f195e283c138")
+	)
+	(wire
+		(pts
+			(xy 193.04 83.82) (xy 193.04 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d1f9cefb-fc8e-44cb-9e76-8ccba60495ef")
+	)
+	(wire
+		(pts
+			(xy 193.04 90.17) (xy 210.82 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "df882963-4c88-4173-9fbd-189210de461f")
+	)
+	(label "SDA"
+		(at 203.708 87.63 0)
+		(effects
+			(font
+				(size 1.2192 1.2192)
+			)
+			(justify left bottom)
+		)
+		(uuid "944b3d4e-6ce5-4508-b7a2-fb241b726ce7")
+	)
+	(label "SCL"
+		(at 203.708 90.17 0)
+		(effects
+			(font
+				(size 1.2192 1.2192)
+			)
+			(justify left bottom)
+		)
+		(uuid "cbf15aae-e025-4791-af4e-86e2c7b1631c")
+	)
+	(global_label "SCL"
+		(shape input)
+		(at 210.82 90.17 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "011fe9a7-af1a-4a6c-b7f0-dcf23e4811e9")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 210.82 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "AS3935_INT"
+		(shape input)
+		(at 182.88 166.37 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a126d940-f199-4398-8772-2ad7a679436e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 182.88 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "SDA"
+		(shape input)
+		(at 210.82 87.63 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "ea2b59d8-cfaf-4a72-8c42-34a330ff5f1b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 210.82 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ProDoc_Qin-easyedapro:3.3V")
+		(at 144.78 92.71 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0bde7235-02b2-4e19-b138-f64077935dfa")
+		(property "Reference" "#PWR0216"
+			(at 144.78 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "3.3V"
+			(at 147.447 94.3864 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "ProDoc_Qin-easyedapro:"
+			(at 144.78 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 144.78 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 144.78 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3c0b3a1a-1f6b-4b8e-97db-4533306d3539")
+		)
+		(instances
+			(project ""
+				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project ""
+				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
+					(reference "#PWR0216")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ProDoc_Qin-easyedapro:100nF")
+		(at 97.79 102.87 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "1d0bf8a8-de25-43e8-8366-cc2faabb90be")
+		(property "Reference" "C51"
+			(at 94.996 101.346 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 93.726 105.918 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "ProDoc_Qin-easyedapro:C0402"
+			(at 97.79 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 97.79 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 97.79 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer Part" "CL05B104KO5NNNC"
+			(at 97.79 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "SAMSUNG"
+			(at 97.79 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier Part" "C1525"
+			(at 97.79 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier" "LCSC"
+			(at 97.79 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Add into BOM" "yes"
+			(at 97.79 102.87 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Convert to PCB" "yes"
+			(at 97.79 102.87 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Origin Footprint" "C0402"
+			(at 97.79 102.87 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "nameAlias" "Capacitance"
+			(at 97.79 102.87 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "spicePre" "C"
+			(at 97.79 102.87 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "spiceSymbolName" "CL05B104KO5NNNC"
+			(at 97.79 102.87 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "0c78d864-169f-427c-81bd-25775024342a")
+		)
+		(pin "1"
+			(uuid "3113503f-f747-4233-8700-8b1d0c843a59")
+		)
+		(instances
+			(project ""
+				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
+					(reference "C51")
+					(unit 1)
+				)
+			)
+			(project ""
+				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
+					(reference "C51")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ProDoc_Qin-easyedapro:BMX160")
+		(at 127 95.25 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4d520362-0dd5-41a0-a072-54a2edf683f1")
+		(property "Reference" "U9"
+			(at 119.126 83.566 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "BMI270"
+			(at 133.35 83.566 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "ProDoc_Qin-easyedapro:LGA-14_L3.0-W2.5-P0.50-BL"
+			(at 127 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 127 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 127 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer Part" "BMI270"
+			(at 127 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Bosch"
+			(at 127 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier Part" "C2836813"
+			(at 127 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier" "LCSC"
+			(at 127 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Add into BOM" "yes"
+			(at 127 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Convert to PCB" "yes"
+			(at 127 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Origin Footprint" "LGA-14_L3.0-W2.5-P0.50-BL"
+			(at 127 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "spicePre" "U"
+			(at 127 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "spiceSymbolName" "BMX160"
+			(at 127 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "814a76ee-137a-43c0-a233-ff7e864229d3")
+		)
+		(pin "14"
+			(uuid "f3db0153-0b09-4ee6-bebf-3fafe09b6dc1")
+		)
+		(pin "13"
+			(uuid "6f592d72-e1de-4cdf-b146-a7f1b6632e63")
+		)
+		(pin "12"
+			(uuid "7c918291-abba-4882-9bc9-099969f8f414")
+		)
+		(pin "11"
+			(uuid "ab51e80b-f329-4eef-8d21-b9b02cc8db9a")
+		)
+		(pin "10"
+			(uuid "e35d46ab-4b11-46af-af2f-f4eccffc9749")
+		)
+		(pin "9"
+			(uuid "54b8f116-8432-4cc7-bd80-c5c79706f4d9")
+		)
+		(pin "8"
+			(uuid "db402ca8-d387-4923-9a35-bb5f94c899dc")
+		)
+		(pin "2"
+			(uuid "22c07f7a-fd7a-4986-a065-99c06926e0bd")
+		)
+		(pin "3"
+			(uuid "e8b4ed6e-b70c-4d1f-8b16-068a3c89205f")
+		)
+		(pin "7"
+			(uuid "dc3a6a38-c2ef-4586-aa79-9862cb6f77ce")
+		)
+		(pin "6"
+			(uuid "81e869c1-b5f0-4f87-b1c2-9d44befd7a7c")
+		)
+		(pin "5"
+			(uuid "7d94664c-c44d-4660-a0ad-e047a39d4534")
+		)
+		(pin "4"
+			(uuid "424a8074-7679-491a-92d7-56bb17fe0bb8")
+		)
+		(instances
+			(project ""
+				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
+					(reference "U9")
+					(unit 1)
+				)
+			)
+			(project ""
+				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
+					(reference "U9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ProDoc_Qin-easyedapro:3.3V")
+		(at 97.79 97.79 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "70e6177f-f366-4523-aa45-2d8e73df4292")
+		(property "Reference" "#PWR0209"
+			(at 97.79 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "3.3V"
+			(at 95.25 95.377 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "ProDoc_Qin-easyedapro:"
+			(at 97.79 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 97.79 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 97.79 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "50552d71-fe1c-4ea8-9588-6a46cf120518")
+		)
+		(instances
+			(project ""
+				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project ""
+				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
+					(reference "#PWR0209")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ProDoc_Qin-easyedapro:3.3V")
+		(at 148.59 102.87 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "74e39884-0a76-4184-9bbc-4194d8e855cc")
+		(property "Reference" "#PWR0215"
+			(at 148.59 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "3.3V"
+			(at 146.05 100.457 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "ProDoc_Qin-easyedapro:"
+			(at 148.59 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 148.59 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 148.59 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "929e97e2-7635-4d35-8dbf-063020a1d406")
+		)
+		(instances
+			(project ""
+				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project ""
+				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
+					(reference "#PWR0215")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ProDoc_Qin-easyedapro:GND")
+		(at 152.4 110.49 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "94f0d7ec-b99e-4652-b381-57c625de5ffc")
+		(property "Reference" "#PWR0222"
+			(at 152.4 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 149.098 117.729 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "ProDoc_Qin-easyedapro:"
+			(at 152.4 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 152.4 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 152.4 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d91b43de-9782-4fcd-be1f-57f608d93a73")
+		)
+		(instances
+			(project ""
+				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project ""
+				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
+					(reference "#PWR0222")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ProDoc_Qin-easyedapro:3.3V")
+		(at 182.88 73.66 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a153e9a7-3c24-475c-a2b6-6be1ae7a19c9")
+		(property "Reference" "#PWR0221"
+			(at 182.88 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "3.3V"
+			(at 180.34 71.247 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "ProDoc_Qin-easyedapro:"
+			(at 182.88 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 182.88 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 182.88 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ecd9e5b0-c97a-48b8-8511-6a36f6b282af")
+		)
+		(instances
+			(project ""
+				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project ""
+				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
+					(reference "#PWR0221")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ProDoc_Qin-easyedapro:10K")
+		(at 193.04 78.74 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ab1ca59d-f9e1-4e09-9348-82abf4bab49d")
+		(property "Reference" "R41"
+			(at 196.85 74.93 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10K"
+			(at 196.596 82.55 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "ProDoc_Qin-easyedapro:R0402"
+			(at 193.04 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 193.04 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 193.04 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer Part" "0402WGF1002TCE"
+			(at 193.04 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "UniOhm"
+			(at 193.04 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier Part" "C25744"
+			(at 193.04 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier" "LCSC"
+			(at 193.04 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Add into BOM" "yes"
+			(at 193.04 78.74 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Convert to PCB" "yes"
+			(at 193.04 78.74 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Origin Footprint" "R0402"
+			(at 193.04 78.74 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "nameAlias" "Resistance (Ohms)"
+			(at 193.04 78.74 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "spicePre" "R"
+			(at 193.04 78.74 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "spiceSymbolName" "0402WGF1002TCE"
+			(at 193.04 78.74 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "d78bc6c9-aa56-449b-ad61-d7380253ff79")
+		)
+		(pin "1"
+			(uuid "acb47a0d-a122-4458-8417-01c7b847270b")
+		)
+		(instances
+			(project ""
+				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
+					(reference "R41")
+					(unit 1)
+				)
+			)
+			(project ""
+				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
+					(reference "R41")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ProDoc_Qin-easyedapro:GND")
+		(at 114.3 85.09 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ac09c284-fb93-419a-814f-5e42f135d240")
+		(property "Reference" "#PWR0217"
+			(at 114.3 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 110.998 80.899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right top)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "ProDoc_Qin-easyedapro:"
+			(at 114.3 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 114.3 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 114.3 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9e4cf16e-1da0-4362-9fb1-43088fa9c16f")
+		)
+		(instances
+			(project ""
+				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project ""
+				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
+					(reference "#PWR0217")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ProDoc_Qin-easyedapro:GND")
+		(at 97.79 106.68 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c27ac4d3-fa81-4a89-9365-451c99ece766")
+		(property "Reference" "#PWR0211"
+			(at 97.79 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 94.488 113.919 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "ProDoc_Qin-easyedapro:"
+			(at 97.79 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 97.79 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 97.79 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "90476309-479b-49b3-b4fb-59eadb6191fe")
+		)
+		(instances
+			(project ""
+				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project ""
+				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
+					(reference "#PWR0211")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ProDoc_Qin-easyedapro:100nF")
+		(at 152.4 106.68 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c57b8374-def6-4b23-8dfd-b634fe6ad6df")
+		(property "Reference" "C52"
+			(at 156.464 104.14 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 156.972 108.966 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "ProDoc_Qin-easyedapro:C0402"
+			(at 152.4 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 152.4 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 152.4 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer Part" "CL05B104KO5NNNC"
+			(at 152.4 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "SAMSUNG"
+			(at 152.4 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier Part" "C1525"
+			(at 152.4 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier" "LCSC"
+			(at 152.4 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Add into BOM" "yes"
+			(at 152.4 106.68 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Convert to PCB" "yes"
+			(at 152.4 106.68 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Origin Footprint" "C0402"
+			(at 152.4 106.68 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "nameAlias" "Capacitance"
+			(at 152.4 106.68 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "spicePre" "C"
+			(at 152.4 106.68 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "spiceSymbolName" "CL05B104KO5NNNC"
+			(at 152.4 106.68 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "2e78b847-ec6e-4cfb-90d1-8b240df56a65")
+		)
+		(pin "1"
+			(uuid "abc9615d-b85c-4955-85da-a84555ff13f1")
+		)
+		(instances
+			(project ""
+				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
+					(reference "C52")
+					(unit 1)
+				)
+			)
+			(project ""
+				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
+					(reference "C52")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ProDoc_Qin-easyedapro:4.7K")
+		(at 182.88 78.74 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ce202183-c48f-4fd2-ac60-4178eac81d53")
+		(property "Reference" "R40"
+			(at 179.578 75.184 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "4.7K"
+			(at 179.07 83.566 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "ProDoc_Qin-easyedapro:R0402"
+			(at 182.88 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 182.88 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 182.88 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer Part" "0402WGF4701TCE"
+			(at 182.88 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "UniOhm"
+			(at 182.88 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier Part" "C25900"
+			(at 182.88 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier" "LCSC"
+			(at 182.88 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Add into BOM" "yes"
+			(at 182.88 78.74 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Convert to PCB" "yes"
+			(at 182.88 78.74 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Origin Footprint" "R0402"
+			(at 182.88 78.74 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "nameAlias" "Resistance (Ohms)"
+			(at 182.88 78.74 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "spicePre" "R"
+			(at 182.88 78.74 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "spiceSymbolName" "0402WGF4701TCE"
+			(at 182.88 78.74 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "87029187-74e7-4ae4-ab0e-4ef0e6e0037f")
+		)
+		(pin "2"
+			(uuid "69032aee-28f5-4f87-af20-aedd945399e9")
+		)
+		(instances
+			(project ""
+				(path "/4adc9a43-9f3a-44e1-ab61-563de3288fd4/b9dd023a-12bb-4352-819b-d8e8727bdf9d"
+					(reference "R40")
+					(unit 1)
+				)
+			)
+			(project ""
+				(path "/a30633bf-68dd-4888-88d6-d1ee9beba30f/e7b098b4-c9b7-4adf-a868-06518e67c458"
+					(reference "R40")
+					(unit 1)
+				)
+			)
+		)
+	)
+)
