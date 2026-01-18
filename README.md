@@ -1,12 +1,18 @@
 # LOAF (Local Observations and Atmospheric Forecasting)
 
-Open source hyperlocal weather forecasting combining forecast models with local station observations using multi-modal transformers.
+Open source hyperlocal weather forecasting combining machine learning forecast models with local station observations.
+
+- Do you want to improve the weather forecasts at a specific place? 
+- Do you have access to local sensors or are intersted in building them? 
+- Are you interested in understanding the full process and not relying on big tech companies hiding proprietary algorithms to do so? 
+
+If you answered yes to all of the above, then LOAF is for you.
 
 Part of [Pandoro](https://pandoro.today) — Bread Board Foundry's open science ML tools for climate and environmental research.
 
 This is definitely a work in progress, so stay tuned!
 
-Current priorities:
+## Current priorities:
 
 - Build DIY ultrasonic anemometer (inspired by [QingStation](https://github.com/majianjia/QingStation) and [DL1GLH](https://www.dl1glh.de/ultrasonic-anemometer.html))
 - Deploy initial wind sensor in Seattle area
