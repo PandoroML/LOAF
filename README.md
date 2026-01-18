@@ -12,6 +12,13 @@ Part of [Pandoro](https://pandoro.today) — Bread Board Foundry's open science 
 
 This is definitely a work in progress, so stay tuned!
 
+## Latest Cool Picture
+
+The first pcb went to fab for our ultrasonic anemometer build inspired by QingStation. The first version is very similiar to the Ultrasonic Anemometer in QingStation, but it simplified by removing parts we don't need for now and updated to included parts that are easily purchaseable, as some parts in Qing have gone end of life.
+
+<img width="1862" height="1862" alt="a6b5123db6724e5dabc65f7b7b04693a_T" src="https://github.com/user-attachments/assets/96b25ef9-431f-46aa-9dcc-e8fb26e51bd8" />
+
+
 ## Current priorities:
 
 - Build DIY ultrasonic anemometer (inspired by [QingStation](https://github.com/majianjia/QingStation) and [DL1GLH](https://www.dl1glh.de/ultrasonic-anemometer.html))
