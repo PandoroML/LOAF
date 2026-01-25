@@ -25,6 +25,7 @@ The first pcb went to fab for our ultrasonic anemometer build inspired by QingSt
 - Deploy initial wind sensor in Seattle area
 - Set up HRRR/MADIS data pipeline
 - Train regional model and validate against local observations
+- Deploy the model to local hardware (raspberry pi)
 - Create Home Assistant widget for local wind predictions
 
 ---
