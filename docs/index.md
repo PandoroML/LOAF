@@ -85,3 +85,20 @@ The transformer architecture processes two input streams:
 - **Decoder**: Predicts wind speed/direction at forecast horizons (6-48 hours)
 
 Training uses historical HRRR forecasts paired with MADIS observations (2020-2024), validated against held-out local sensor data.
+
+## Deployment Architecture
+
+```
+┌─────────────────┐      ┌─────────────────────────────────────┐      ┌─────────────────┐
+│  DIY Sensors    │ ──── │          Raspberry Pi               │ ──── │ Home Assistant  │
+│  (Anemometer,   │      │  • Data storage                     │      │                 │
+│   Temperature,  │      │  • ML forecast processing           │      │  Weather entity │
+│   etc.)         │      │  • Local prediction generation      │      │  integrations   │
+└─────────────────┘      └─────────────────────────────────────┘      └─────────────────┘
+```
+
+**Physical Data Flow:**
+
+1. **Sensors → Raspberry Pi**: Local sensors connect to the Pi via a common sensors library, logging observations to local storage
+2. **Forecast Processing**: The Pi runs the trained ML model, combining local sensor data with regional forecasts (HRRR/GFS) to generate hyperlocal predictions
+3. **Home Assistant Integration**: Predictions are exposed as Home Assistant entities, enabling integration with automations, dashboards, and alerts
