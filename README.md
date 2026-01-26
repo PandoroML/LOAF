@@ -12,6 +12,22 @@ Part of [Pandoro](https://pandoro.today) — Bread Board Foundry's open science 
 
 This is definitely a work in progress, so stay tuned!
 
+## Planned Architecture
+
+```
+┌─────────────────┐      ┌─────────────────────────────────────┐      ┌─────────────────┐
+│  DIY Sensors    │ ──── │          Raspberry Pi               │ ──── │ Home Assistant  │
+│  (Anemometer,   │      │  • Data storage                     │      │                 │
+│   Temperature,  │      │  • ML forecast processing           │      │  Weather entity │
+│   etc.)         │      │  • Local prediction generation      │      │  integrations   │
+└─────────────────┘      └─────────────────────────────────────┘      └─────────────────┘
+```
+
+**Data Flow:**
+1. **Sensors → Raspberry Pi**: Local sensors connect to the Pi via a common sensors library, logging observations to local storage
+2. **Forecast Processing**: The Pi runs the trained ML model, combining local sensor data with regional forecasts (HRRR/GFS) to generate hyperlocal predictions
+3. **Home Assistant Integration**: Predictions are exposed as Home Assistant entities, allowing integration with automations, dashboards, and alerts
+
 ## Latest Cool Picture
 
 The first pcb went to fab for our ultrasonic anemometer build inspired by QingStation. The first version is very similiar to the Ultrasonic Anemometer in QingStation, but it simplified by removing parts we don't need for now and updated to included parts that are easily purchaseable, as some parts in Qing have gone end of life.
