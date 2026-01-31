@@ -1,0 +1,95 @@
+# LOAF Configuration for Seattle/Pacific Northwest Region
+# Based on LocalizedWeather paper methodology
+
+region:
+  name: seattle
+  description: "Seattle and Pacific Northwest region"
+  # Spatial bounds (WGS84)
+  lat_min: 46.5
+  lat_max: 49.0
+  lon_min: -124.0
+  lon_max: -121.0
+
+data:
+  # Historical window for input features
+  back_hrs: 24
+  # Forecast horizon
+  lead_hrs: 48
+  # Lead times to predict (hours from model init)
+  lead_times: [6, 12, 18, 24, 30, 36, 42, 48]
+
+  hrrr:
+    # Variables to download (GRIB2 search pattern)
+    # TMP:2 m - 2 meter temperature
+    # DPT:2 m - 2 meter dewpoint
+    # UGRD:10 m - 10 meter U wind component
+    # VGRD:10 m - 10 meter V wind component
+    variables: "(?:TMP:2 m|DPT:2 m|UGRD:10 m|VGRD:10 m)"
+    # Maximum forecast lead time to download per run
+    max_lead_hr: 18
+    # Output directory (relative to project root)
+    output_dir: "data/hrrr"
+
+  era5:
+    # ERA5 single-level variables
+    variables:
+      - "10m_u_component_of_wind"
+      - "10m_v_component_of_wind"
+      - "2m_temperature"
+      - "2m_dewpoint_temperature"
+    output_dir: "data/era5"
+
+  madis:
+    # MADIS station networks for PNW
+    networks:
+      - "WSDOT"    # Washington State DOT
+      - "ODOT"     # Oregon DOT
+      - "CWOP"     # Citizen Weather Observer Program
+      - "RAWS"     # Remote Automated Weather Stations
+    # Quality control - only use values with these flags
+    qc_flags: ["S", "V"]  # S=Standard, V=Verified
+    # Maximum wind speed to include (filter outliers)
+    max_wind_speed: 50.0
+    output_dir: "data/madis"
+
+model:
+  # Model architecture settings (match LocalizedWeather paper)
+  hidden_dim: 128
+  num_gnn_layers: 2
+  num_transformer_layers: 5
+  num_heads: 3
+  dropout: 0.1
+
+  # Graph construction
+  graph:
+    # K-nearest neighbors for station graph
+    k_neighbors: 5
+    # Maximum edge distance in km
+    max_distance: 100.0
+
+training:
+  epochs: 100
+  batch_size: 64
+  learning_rate: 1.0e-4
+  weight_decay: 1.0e-4
+  # Fraction of data for validation
+  val_split: 0.15
+  # Early stopping patience (epochs)
+  patience: 10
+  # Gradient clipping
+  max_grad_norm: 1.0
+  # Random seed for reproducibility
+  seed: 42
+
+inference:
+  # Output directory for predictions
+  output_dir: "data/forecasts"
+  # Update interval for operational mode (seconds)
+  update_interval: 3600  # 1 hour
+
+homeassistant:
+  # REST API settings
+  host: "0.0.0.0"
+  port: 5000
+  # Sensor update interval (seconds)
+  scan_interval: 3600
