@@ -10,3 +10,6 @@ copilot-instructions.md
 
 # ERA5 Data 
 *.nc
+
+IEM Data
+*.parquet

@@ -540,8 +540,8 @@ class LOAFWeatherEntity(WeatherEntity):
 - [x] Implement `loaf/data/download/hrrr.py` (adapt from LocalizedWeather)
 - [x] Implement `loaf/data/download/iem.py` (ASOS/AWOS, no registration needed)
 - [ ] Implement `loaf/data/download/madis.py` (when registration approved)
-- [ ] Implement data loaders (`loaf/data/loaders/`)
-- [ ] Implement preprocessing/normalization
+- [x] Implement data loaders (`loaf/data/loaders/`)
+- [x] Implement preprocessing/normalization
 - [ ] **Verify:** Download 1 month of aligned ERA5 + HRRR + IEM/MADIS data
 
 ### Milestone 2: Model Architecture
@@ -554,7 +554,7 @@ class LOAFWeatherEntity(WeatherEntity):
 - [ ] **Verify:** Model forward pass works with sample data
 
 ### Milestone 3: Training Pipeline
-- [ ] Create PyTorch Dataset class (`loaf/data/loaders/dataset.py`)
+- [x] Create PyTorch Dataset class (`loaf/data/loaders/dataset.py`)
 - [ ] Implement training loop (`loaf/training/trainer.py`)
 - [ ] Implement evaluation metrics (`loaf/training/evaluate.py`)
 - [ ] Write `scripts/train.py` CLI
@@ -702,4 +702,6 @@ Key files to study/adapt from https://github.com/Earth-Intelligence-Lab/Localize
 
 **Next coding task:** ~~Implement IEM download module (no registration needed, for prototyping)~~ ✅ DONE
 
-**Next coding task:** Implement data loaders (`loaf/data/loaders/`) for ERA5, HRRR, and IEM
+**Next coding task:** ~~Implement data loaders (`loaf/data/loaders/`) for ERA5, HRRR, and IEM~~ ✅ DONE
+
+**Next coding task:** Port GNN model components from LocalizedWeather (Milestone 2)
