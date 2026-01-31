@@ -9,7 +9,7 @@ weather stations (MADIS nodes), following formula 8-9 of the paper.
 
 import torch
 from torch import nn
-from torch_geometric.nn import MessagePassing, InstanceNorm
+from torch_geometric.nn import InstanceNorm, MessagePassing
 
 from loaf.model.activations import Tanh
 

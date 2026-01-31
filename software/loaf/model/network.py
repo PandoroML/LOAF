@@ -10,7 +10,6 @@ This module constructs graphs connecting:
 
 import itertools
 from enum import Enum
-from typing import Optional, Tuple
 
 import numpy as np
 import torch
@@ -177,15 +176,15 @@ class GridNetwork:
 def build_networks(
     station_lons: np.ndarray,
     station_lats: np.ndarray,
-    era5_lons: Optional[np.ndarray] = None,
-    era5_lats: Optional[np.ndarray] = None,
-    hrrr_lons: Optional[np.ndarray] = None,
-    hrrr_lats: Optional[np.ndarray] = None,
+    era5_lons: np.ndarray | None = None,
+    era5_lats: np.ndarray | None = None,
+    hrrr_lons: np.ndarray | None = None,
+    hrrr_lats: np.ndarray | None = None,
     n_neighbors_m2m: int = 5,
     n_neighbors_e2m: int = 4,
     n_neighbors_h2m: int = 4,
     method: NetworkConstructionMethod = NetworkConstructionMethod.KNN,
-) -> Tuple[StationNetwork, Optional[GridNetwork], Optional[GridNetwork]]:
+) -> tuple[StationNetwork, GridNetwork | None, GridNetwork | None]:
     """Build all networks for the model.
 
     Args:

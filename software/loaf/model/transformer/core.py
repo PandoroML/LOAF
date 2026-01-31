@@ -7,7 +7,6 @@ This module contains the attention head, multi-headed attention,
 feed-forward network, and transformer encoder layers.
 """
 
-from typing import Optional, Tuple
 
 import numpy as np
 import torch
@@ -33,8 +32,8 @@ class AttentionHead(nn.Module):
     def forward(
         self,
         x: torch.Tensor,
-        attn_mask: Optional[torch.Tensor],
-    ) -> Tuple[torch.Tensor, torch.Tensor]:
+        attn_mask: torch.Tensor | None,
+    ) -> tuple[torch.Tensor, torch.Tensor]:
         """Compute scaled dot-product attention.
 
         Args:
@@ -46,13 +45,13 @@ class AttentionHead(nn.Module):
             attn_output: Attention output (B, T, n_hidden)
             alpha: Attention weights (B, T, T)
         """
-        Q = self.W_Q(x)
-        K = self.W_K(x)
-        V = self.W_V(x)
+        q = self.W_Q(x)
+        k = self.W_K(x)
+        v = self.W_V(x)
         # (B, T, n_hidden)
 
         # Scaled dot-product attention
-        pre_alpha = torch.bmm(Q, K.transpose(1, 2)) / np.sqrt(self.n_hidden)
+        pre_alpha = torch.bmm(q, k.transpose(1, 2)) / np.sqrt(self.n_hidden)
         # (B, T, T)
 
         if attn_mask is not None:
@@ -61,7 +60,7 @@ class AttentionHead(nn.Module):
         alpha = torch.softmax(pre_alpha, dim=-1)
         # (B, T, T)
 
-        attn_output = torch.bmm(alpha, V)
+        attn_output = torch.bmm(alpha, v)
         # (B, T, n_hidden)
 
         return attn_output, alpha
@@ -87,8 +86,8 @@ class MultiHeadedAttention(nn.Module):
     def forward(
         self,
         x: torch.Tensor,
-        attn_mask: Optional[torch.Tensor],
-    ) -> Tuple[torch.Tensor, torch.Tensor]:
+        attn_mask: torch.Tensor | None,
+    ) -> tuple[torch.Tensor, torch.Tensor]:
         """Apply multi-headed attention.
 
         Args:
@@ -162,8 +161,8 @@ class AttentionResidual(nn.Module):
     def forward(
         self,
         x: torch.Tensor,
-        attn_mask: Optional[torch.Tensor],
-    ) -> Tuple[torch.Tensor, torch.Tensor]:
+        attn_mask: torch.Tensor | None,
+    ) -> tuple[torch.Tensor, torch.Tensor]:
         """Apply attention block with residual connections.
 
         Args:
@@ -212,9 +211,9 @@ class Transformer(nn.Module):
     def forward(
         self,
         x: torch.Tensor,
-        attn_mask: Optional[torch.Tensor] = None,
+        attn_mask: torch.Tensor | None = None,
         return_attn: bool = False,
-    ) -> Tuple[torch.Tensor, Optional[torch.Tensor]]:
+    ) -> tuple[torch.Tensor, torch.Tensor | None]:
         """Apply transformer encoder.
 
         Args:

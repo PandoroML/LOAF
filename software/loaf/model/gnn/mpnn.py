@@ -7,7 +7,6 @@ This module implements the heterogeneous MPNN that combines internal
 (station-to-station) and external (grid-to-station) message passing.
 """
 
-from typing import Optional
 
 import torch
 from torch import nn
@@ -189,10 +188,10 @@ class MPNN(nn.Module):
         madis_lon: torch.Tensor,
         madis_lat: torch.Tensor,
         edge_index: torch.Tensor,
-        ex_lon: Optional[torch.Tensor],
-        ex_lat: Optional[torch.Tensor],
-        ex_x: Optional[torch.Tensor],
-        edge_index_e2m: Optional[torch.Tensor],
+        ex_lon: torch.Tensor | None,
+        ex_lat: torch.Tensor | None,
+        ex_x: torch.Tensor | None,
+        edge_index_e2m: torch.Tensor | None,
         *args,
     ) -> torch.Tensor:
         """Forward pass through the MPNN.

@@ -7,7 +7,6 @@ This module embeds weather station time series data into a fixed-dimensional
 representation for use in the transformer architecture.
 """
 
-from typing import Optional
 
 import torch
 from torch import nn
@@ -31,8 +30,8 @@ class StationEmbed(nn.Module):
         self,
         madis_len: int,
         madis_n_vars_i: int,
-        era5_len: Optional[int] = None,
-        era5_n_vars: Optional[int] = None,
+        era5_len: int | None = None,
+        era5_n_vars: int | None = None,
         hidden_dim: int = 128,
     ):
         super().__init__()
@@ -83,7 +82,7 @@ class StationEmbed(nn.Module):
     def forward(
         self,
         madis_x: torch.Tensor,
-        era5_x: Optional[torch.Tensor] = None,
+        era5_x: torch.Tensor | None = None,
     ) -> torch.Tensor:
         """Embed station data into transformer tokens.
 

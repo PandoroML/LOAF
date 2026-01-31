@@ -9,7 +9,7 @@ following formula 8-9 of the LocalizedWeather paper.
 
 import torch
 from torch import nn
-from torch_geometric.nn import MessagePassing, InstanceNorm
+from torch_geometric.nn import InstanceNorm, MessagePassing
 
 from loaf.model.activations import Tanh
 

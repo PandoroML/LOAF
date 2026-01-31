@@ -7,7 +7,6 @@ This module applies a transformer architecture to weather station data,
 treating each station as a token with its time series embedded.
 """
 
-from typing import Optional, Tuple
 
 import torch
 from torch import nn
@@ -47,8 +46,8 @@ class VisionTransformer(nn.Module):
         mlp_dim: int,
         num_heads: int,
         num_layers: int,
-        era5_n_vars: Optional[int] = None,
-        era5_len: Optional[int] = None,
+        era5_n_vars: int | None = None,
+        era5_len: int | None = None,
     ):
         super().__init__()
 
@@ -81,9 +80,9 @@ class VisionTransformer(nn.Module):
     def forward(
         self,
         madis_x: torch.Tensor,
-        era5_x: Optional[torch.Tensor] = None,
+        era5_x: torch.Tensor | None = None,
         return_attn: bool = False,
-    ) -> Tuple[torch.Tensor, Optional[torch.Tensor]]:
+    ) -> tuple[torch.Tensor, torch.Tensor | None]:
         """Forward pass through the Vision Transformer.
 
         Args:
