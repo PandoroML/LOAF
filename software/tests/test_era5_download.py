@@ -301,18 +301,25 @@ class TestIntegration:
     @pytest.mark.slow
     @pytest.mark.network
     @pytest.mark.cds
+    @pytest.mark.timeout(600)  # 10 minute timeout - CDS queue can be slow
     def test_actual_download(self, tmp_path: Path, cds_available: bool) -> None:
         """Test actual ERA5 download (slow, requires network and CDS credentials).
 
         Run with: pytest -m "slow and network and cds"
+
+        NOTE: This test can take 2-10 minutes depending on CDS server load.
+        The CDS API queues requests server-side before processing.
         """
         if not cds_available:
             pytest.skip("CDS credentials not found at ~/.cdsapirc")
 
-        # Download a single month of data (smallest practical unit)
+        print("\nDownloading ERA5 data (this may take 2-10 minutes)...")
+
+        # Download a single month of data with minimal variables and small area
         result = download_era5_month(
             2024, 1, tmp_path / "era5_2024_01.nc",
-            # Use smaller area for faster test
+            # Use smaller area and fewer variables for faster test
+            variables=["10m_u_component_of_wind", "10m_v_component_of_wind"],
             lat_min=47.5, lat_max=48.0,
             lon_min=-122.5, lon_max=-122.0,
         )
