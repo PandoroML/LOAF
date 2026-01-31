@@ -5,7 +5,6 @@ Adapted from LocalizedWeather ERA5.py with simplifications for LOAF.
 """
 
 from pathlib import Path
-from typing import Literal
 
 import numpy as np
 import torch
@@ -76,7 +75,6 @@ class ERA5Loader:
 
     def _load_data(self) -> xr.Dataset:
         """Load ERA5 data from NetCDF files."""
-        file_pattern = "era5_*.nc"
         files = []
 
         for year in self.years:

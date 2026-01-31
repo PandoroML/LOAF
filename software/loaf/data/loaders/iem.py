@@ -6,14 +6,20 @@ This serves as a simpler alternative to MADIS for prototyping.
 Adapted from LocalizedWeather Madis.py but simplified for IEM data format.
 """
 
+from __future__ import annotations
+
 from datetime import datetime
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import numpy as np
 import pandas as pd
 import torch
 import xarray as xr
 from dateutil import rrule
+
+if TYPE_CHECKING:
+    from .stations import StationMetadata
 
 
 class IEMLoader:
@@ -36,7 +42,7 @@ class IEMLoader:
         self,
         data_dir: str | Path,
         year: int,
-        station_metadata: "StationMetadata" = None,
+        station_metadata: StationMetadata | None = None,
         variables: list[str] | None = None,
     ):
         self.data_dir = Path(data_dir)
@@ -323,7 +329,7 @@ class MADISLoader(IEMLoader):
         self,
         data_dir: str | Path,
         year: int,
-        station_metadata: "StationMetadata" = None,
+        station_metadata: StationMetadata | None = None,
         variables: list[str] | None = None,
         qc_flags: list[str] | None = None,
     ):
