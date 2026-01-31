@@ -13,7 +13,6 @@ import argparse
 import logging
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any
 
 import xarray as xr
 from herbie import Herbie
@@ -71,14 +70,14 @@ def download_hrrr_hourly(
 
     for lead_hr in lead_hours:
         try:
-            H = Herbie(run_time, model="hrrr", product="sfc", fxx=lead_hr, verbose=False)
+            hrrr_file = Herbie(run_time, model="hrrr", product="sfc", fxx=lead_hr, verbose=False)
 
-            if H.grib is None:
+            if hrrr_file.grib is None:
                 logger.warning(f"No GRIB file found for {run_time} fxx={lead_hr}")
                 break
 
             # Download and parse to xarray
-            dss = H.xarray(search=var_list)
+            dss = hrrr_file.xarray(search=var_list)
             dss_new = []
 
             for ds in dss:
