@@ -1,10 +1,100 @@
 [project]
-name = "LOAF"
+name = "loaf"
 version = "0.1.0"
-description = "Local Observations and Atmospheric Forecasting"
+description = "Local Observations and Atmospheric Forecasting - Hyperlocal weather forecasting with ML"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "Keenan Johnson"},
+    {name = "Susie Kim"},
+]
+keywords = ["weather", "forecasting", "machine-learning", "gnn", "transformer"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Atmospheric Science",
+]
+
 dependencies = [
+    # ML Framework
+    "torch>=2.0.0",
+    "torch_geometric>=2.4.0",
+
+    # Data Access
+    "herbie-data>=2024.0.0",
+    "cdsapi>=0.6.0",
+    "xarray>=2024.0.0",
+    "netCDF4>=1.6.0",
+    "cfgrib>=0.9.0",
+
+    # Data Processing
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "scipy>=1.11.0",
+    "scikit-learn>=1.3.0",
+
+    # Graph Construction
+    "networkx>=3.0",
+
+    # API & Integration
+    "flask>=3.0.0",
+    "requests>=2.31.0",
+    "pyyaml>=6.0",
+
+    # Utilities
+    "tqdm>=4.65.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "mypy>=1.0.0",
+    "ruff>=0.1.0",
+]
+docs = [
     "mkdocs-material>=9.7.1",
     "mkdocs-rss-plugin>=1.17.1",
 ]
+
+[project.scripts]
+loaf-download-hrrr = "loaf.data.download.hrrr:main"
+loaf-download-era5 = "loaf.data.download.era5:main"
+loaf-train = "scripts.train:main"
+loaf-serve = "scripts.serve:main"
+
+[project.urls]
+Homepage = "https://github.com/PandoroML/LOAF"
+Documentation = "https://pandoroml.github.io/LOAF/"
+Repository = "https://github.com/PandoroML/LOAF"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["loaf"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --cov=loaf"
