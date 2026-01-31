@@ -7,3 +7,6 @@ copilot-instructions.md
 
 # Python files
 *.pyc
+
+# ERA5 Data 
+*.nc
