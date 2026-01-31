@@ -97,6 +97,10 @@ LOAF uses open source hardware with no vendor lock-in:
 
 See the full documentation here: https://pandoroml.github.io/LOAF/
 
+### Development Plans
+
+- [ML Pipeline Development Plan](plan/dev-plan-ml-pipeline.md) - Detailed plan for reproducing LocalizedWeather for Seattle/PNW
+
 ## License
 
 MIT
