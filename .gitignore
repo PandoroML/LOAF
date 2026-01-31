@@ -4,3 +4,6 @@
 # Claude Files
 .claude
 copilot-instructions.md
+
+# Python files
+*.pyc
