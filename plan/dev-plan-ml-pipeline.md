@@ -688,8 +688,8 @@ Key files to study/adapt from https://github.com/Earth-Intelligence-Lab/Localize
 
 1. [x] Register for ERA5/CDS access: https://cds.climate.copernicus.eu/ (free, instant)
 2. [ ] Register for MADIS data access: https://madis.ncep.noaa.gov/data_application.shtml (free, 1-2 days)
-3. [ ] Verify GPU availability and CUDA version on this server
-4. [ ] Ensure ~500GB free disk space for multi-year data archive
+3. [X] Verify GPU availability and CUDA version on this server
+4. [X] Ensure ~500GB free disk space for multi-year data archive
 5. [x] Clone LocalizedWeather repo for reference: `git clone https://github.com/Earth-Intelligence-Lab/LocalizedWeather`
 
 **Questions to resolve:**
