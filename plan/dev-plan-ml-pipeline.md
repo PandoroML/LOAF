@@ -49,9 +49,10 @@ software/
 │   │   ├── __init__.py
 │   │   ├── download/
 │   │   │   ├── __init__.py
-│   │   │   ├── era5.py       # ERA5 reanalysis download
+│   │   │   ├── era5.py       # ERA5 reanalysis download ✅
 │   │   │   ├── hrrr.py       # HRRR forecast download (via Herbie) ✅
-│   │   │   └── madis.py      # MADIS station download
+│   │   │   ├── iem.py        # IEM ASOS/AWOS download (no registration) ✅
+│   │   │   └── madis.py      # MADIS station download (full network)
 │   │   ├── loaders/
 │   │   │   ├── __init__.py
 │   │   │   ├── era5.py       # ERA5 PyTorch loader (from ERA5.py)
@@ -155,7 +156,40 @@ H = Herbie("2026-01-30 12:00", model="hrrr", product="sfc", fxx=6)
 ds = H.xarray(":[UV]GRD:10 m above ground|:TMP:2 m|:DPT:2 m")
 ```
 
-### 1.5 MADIS Data Pipeline
+### 1.5 Station Observation Data
+
+#### Option A: Iowa Environmental Mesonet (IEM) - No Registration Required
+
+**Recommended for initial development.** IEM provides ASOS/AWOS data with no registration, instant access.
+
+**Website:** https://mesonet.agron.iastate.edu/
+
+```python
+import requests
+
+url = "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py"
+params = {
+    "station": "SEA",  # Seattle-Tacoma International
+    "data": "tmpc,dwpc,sknt,drct",  # temp, dewpoint, wind speed/dir
+    "year1": 2024, "month1": 10, "day1": 1,
+    "year2": 2024, "month2": 12, "day2": 31,
+    "tz": "UTC",
+    "format": "onlycomma",
+    "latlon": "yes",
+}
+response = requests.get(url, params=params)
+```
+
+**PNW ASOS/AWOS Stations:** SEA, PDX, BLI, GEG, OLM, BFI, PAE, SFF, RNT, TIW, etc. (~30-50 stations)
+
+**Variables available:**
+- `tmpc` - Temperature (°C)
+- `dwpc` - Dewpoint (°C)
+- `sknt` - Wind speed (knots)
+- `drct` - Wind direction (degrees)
+- `p01i` - 1-hour precipitation (inches)
+
+#### Option B: MADIS - Full Station Network (Requires Registration)
 
 **Registration:** https://madis.ncep.noaa.gov/data_application.shtml (free, 1-2 days)
 
@@ -170,7 +204,17 @@ temperature_check = ((data.temperatureDD == b'S') | (data.temperatureDD == b'V')
 wind_speed_amplitude_check = (data.windSpeed < 50)  # Filter outliers
 ```
 
-**PNW Station Networks:** WSDOT, ODOT, UW, CWOP (~50-100 stations)
+**PNW Station Networks:** WSDOT, ODOT, UW, CWOP, ASOS, AWOS (~100+ stations)
+
+#### Comparison
+
+| Feature | IEM | MADIS |
+|---------|-----|-------|
+| Registration | None | 1-2 days |
+| Station count (PNW) | ~30-50 | ~100+ |
+| Networks | ASOS/AWOS | All networks |
+| QC flags | Basic | Detailed |
+| Best for | Prototyping, testing | Production training |
 
 ---
 
@@ -494,10 +538,11 @@ class LOAFWeatherEntity(WeatherEntity):
 - [ ] Register for MADIS access (https://madis.ncep.noaa.gov/data_application.shtml)
 - [x] Implement `loaf/data/download/era5.py`
 - [x] Implement `loaf/data/download/hrrr.py` (adapt from LocalizedWeather)
-- [ ] Implement `loaf/data/download/madis.py`
+- [x] Implement `loaf/data/download/iem.py` (ASOS/AWOS, no registration needed)
+- [ ] Implement `loaf/data/download/madis.py` (when registration approved)
 - [ ] Implement data loaders (`loaf/data/loaders/`)
 - [ ] Implement preprocessing/normalization
-- [ ] **Verify:** Download 1 month of aligned ERA5 + HRRR + MADIS data
+- [ ] **Verify:** Download 1 month of aligned ERA5 + HRRR + IEM/MADIS data
 
 ### Milestone 2: Model Architecture
 - [ ] Port `MPNN.py` → `loaf/model/gnn/mpnn.py`
@@ -655,4 +700,6 @@ Key files to study/adapt from https://github.com/Earth-Intelligence-Lab/Localize
 
 **First coding task:** ~~Set up package structure and implement HRRR download (Milestone 1, step 1-2)~~ ✅ DONE
 
-**Next coding task:** Implement MADIS download module (requires NOAA registration) or implement data loaders
+**Next coding task:** ~~Implement IEM download module (no registration needed, for prototyping)~~ ✅ DONE
+
+**Next coding task:** Implement data loaders (`loaf/data/loaders/`) for ERA5, HRRR, and IEM

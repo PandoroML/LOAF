@@ -69,6 +69,7 @@ docs = [
 [project.scripts]
 loaf-download-hrrr = "loaf.data.download.hrrr:main"
 loaf-download-era5 = "loaf.data.download.era5:main"
+loaf-download-iem = "loaf.data.download.iem:main"
 loaf-train = "scripts.train:main"
 loaf-serve = "scripts.serve:main"
 

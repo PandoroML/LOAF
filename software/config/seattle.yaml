@@ -39,8 +39,21 @@ data:
       - "2m_dewpoint_temperature"
     output_dir: "data/era5"
 
+  iem:
+    # Iowa Environmental Mesonet - ASOS/AWOS stations
+    # No registration required, good for prototyping
+    # Variables: tmpc (temp C), dwpc (dewpoint C), sknt (wind knots), drct (wind dir)
+    variables:
+      - "tmpc"
+      - "dwpc"
+      - "sknt"
+      - "drct"
+    output_dir: "data/iem"
+    format: "parquet"
+
   madis:
     # MADIS station networks for PNW
+    # Requires registration: https://madis.ncep.noaa.gov/data_application.shtml
     networks:
       - "WSDOT"    # Washington State DOT
       - "ODOT"     # Oregon DOT
