@@ -99,10 +99,10 @@ class VisionTransformer(nn.Module):
         embs = self.station_embed(madis_x, era5_x)
         # (n_batch, n_stations, dim)
 
-        B, T, _ = embs.shape
+        batch_size, n_tokens, _ = embs.shape
 
         # Add positional embeddings
-        pos_ids = torch.arange(T).expand(B, -1).to(embs.device)
+        pos_ids = torch.arange(n_tokens).expand(batch_size, -1).to(embs.device)
         embs = embs + self.pos_E(pos_ids)
         # (n_batch, n_stations, dim)
 
