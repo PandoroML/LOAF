@@ -11,7 +11,6 @@ Reference: Hersbach et al. (2020). The ERA5 global reanalysis.
 
 import argparse
 import logging
-from datetime import datetime
 from pathlib import Path
 
 import cdsapi
