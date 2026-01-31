@@ -80,11 +80,11 @@ class WeatherDataset(Dataset):
         self._setup_coord_normalizers()
 
     def _generate_timeline(self, year: int) -> pd.DatetimeIndex:
-        """Generate hourly timeline for a year."""
+        """Generate hourly timeline for a year (timezone-naive for xarray compat)."""
         start = datetime(year, 1, 1)
         end = datetime(year + 1, 1, 1)
         times = list(rrule.rrule(rrule.HOURLY, dtstart=start, until=end))[:-1]
-        return pd.DatetimeIndex(times, tz="UTC")
+        return pd.DatetimeIndex(times)  # tz-naive for xarray compatibility
 
     def _compute_statistics(self) -> None:
         """Compute normalization statistics."""

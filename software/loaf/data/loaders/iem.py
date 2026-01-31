@@ -51,11 +51,11 @@ class IEMLoader:
         self._data: xr.Dataset | None = None
 
     def _generate_timeline(self, year: int) -> pd.DatetimeIndex:
-        """Generate hourly timeline for a year."""
+        """Generate hourly timeline for a year (timezone-naive for xarray compat)."""
         start = datetime(year, 1, 1)
         end = datetime(year + 1, 1, 1)
         times = list(rrule.rrule(rrule.HOURLY, dtstart=start, until=end))[:-1]
-        return pd.DatetimeIndex(times, tz="UTC")
+        return pd.DatetimeIndex(times)  # tz-naive for xarray compatibility
 
     @property
     def data(self) -> xr.Dataset:
@@ -143,12 +143,16 @@ class IEMLoader:
 
             s_idx = station_to_idx[station]
 
-            # Round time to nearest hour
+            # Round time to nearest hour and strip timezone for matching
             obs_time = row["time"]
             if hasattr(obs_time, "round"):
                 obs_time = obs_time.round("h")
             else:
                 obs_time = pd.Timestamp(obs_time).round("h")
+
+            # Strip timezone if present for matching with tz-naive timeline
+            if hasattr(obs_time, "tz") and obs_time.tz is not None:
+                obs_time = obs_time.tz_localize(None)
 
             if obs_time not in time_to_idx:
                 continue
@@ -200,7 +204,7 @@ class IEMLoader:
             },
             coords={
                 "stations": np.arange(n_stations),
-                "time": self.timeline.values,
+                "time": self.timeline,  # Preserve timezone
             },
         )
 

@@ -97,8 +97,11 @@ class HRRRLoader:
                 f"No HRRR files found in {self.data_dir}"
             )
 
-        # Load all files
-        ds = xr.open_mfdataset(files, combine="by_coords")
+        # Load all files (chunks=None to avoid requiring dask)
+        if len(files) == 1:
+            ds = xr.open_dataset(files[0])
+        else:
+            ds = xr.open_mfdataset(files, combine="by_coords", chunks=None)
 
         # Apply variable renaming based on what's available
         rename_map = {}

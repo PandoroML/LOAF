@@ -88,8 +88,11 @@ class ERA5Loader:
                 f"No ERA5 files found in {self.data_dir} for years {self.years}"
             )
 
-        # Load all files
-        ds = xr.open_mfdataset(files, combine="by_coords")
+        # Load all files (chunks=None to avoid requiring dask)
+        if len(files) == 1:
+            ds = xr.open_dataset(files[0])
+        else:
+            ds = xr.open_mfdataset(files, combine="by_coords", chunks=None)
 
         # Rename variables to standard names
         rename_map = {k: v for k, v in self.VARIABLE_RENAME.items() if k in ds.data_vars}
