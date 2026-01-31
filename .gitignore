@@ -1,2 +1,6 @@
 # OSX Files
 .DS_Store
+
+# Claude Files
+.claude
+copilot-instructions.md
