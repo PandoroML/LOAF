@@ -40,67 +40,68 @@ Faithfully reproduce the LocalizedWeather architecture (GNN + ViT) on a Linux se
 ### 1.1 Package Structure (Mirrors LocalizedWeather)
 
 ```
-loaf/
-├── __init__.py
-├── config.py                 # YAML config loader (replaces Arg_Parser.py)
-│
-├── data/
+software/
+├── loaf/                     # Main Python package
 │   ├── __init__.py
-│   ├── download/
+│   ├── config.py             # YAML config loader (replaces Arg_Parser.py) ✅
+│   │
+│   ├── data/
 │   │   ├── __init__.py
-│   │   ├── era5.py          # ERA5 reanalysis download
-│   │   ├── hrrr.py          # HRRR forecast download (via Herbie)
-│   │   └── madis.py         # MADIS station download
-│   ├── loaders/
+│   │   ├── download/
+│   │   │   ├── __init__.py
+│   │   │   ├── era5.py       # ERA5 reanalysis download
+│   │   │   ├── hrrr.py       # HRRR forecast download (via Herbie) ✅
+│   │   │   └── madis.py      # MADIS station download
+│   │   ├── loaders/
+│   │   │   ├── __init__.py
+│   │   │   ├── era5.py       # ERA5 PyTorch loader (from ERA5.py)
+│   │   │   ├── hrrr.py       # HRRR PyTorch loader (from HRRR.py)
+│   │   │   ├── madis.py      # MADIS PyTorch loader (from Madis.py)
+│   │   │   ├── stations.py   # Station metadata (from MetaStation.py)
+│   │   │   └── dataset.py    # Combined dataset (from MixData.py)
+│   │   └── preprocessing/
+│   │       ├── __init__.py
+│   │       └── normalize.py  # Normalization (from Normalization/)
+│   │
+│   ├── model/
 │   │   ├── __init__.py
-│   │   ├── era5.py          # ERA5 PyTorch loader (from ERA5.py)
-│   │   ├── hrrr.py          # HRRR PyTorch loader (from HRRR.py)
-│   │   ├── madis.py         # MADIS PyTorch loader (from Madis.py)
-│   │   ├── stations.py      # Station metadata (from MetaStation.py)
-│   │   └── dataset.py       # Combined dataset (from MixData.py)
-│   └── preprocessing/
+│   │   ├── gnn/
+│   │   │   ├── __init__.py
+│   │   │   ├── mpnn.py       # Message-passing NN (from MPNN.py)
+│   │   │   ├── internal.py   # Station-to-station (from GNN_Layer_Internal.py)
+│   │   │   └── external.py   # Grid-to-station (from GNN_Layer_External.py)
+│   │   ├── transformer/
+│   │   │   ├── __init__.py
+│   │   │   ├── vit.py        # Vision Transformer (from ViT.py)
+│   │   │   └── embeddings.py # Station embeddings (from StationsEmbedding.py)
+│   │   └── network.py        # Graph construction (from Network/)
+│   │
+│   ├── training/
+│   │   ├── __init__.py
+│   │   ├── trainer.py        # Training loop
+│   │   └── evaluate.py       # Metrics (from EvaluateModel.py)
+│   │
+│   ├── inference/
+│   │   ├── __init__.py
+│   │   ├── predictor.py      # Real-time inference
+│   │   └── server.py         # REST API for forecasts
+│   │
+│   └── integration/
 │       ├── __init__.py
-│       └── normalize.py     # Normalization (from Normalization/)
+│       ├── homeassistant.py  # Home Assistant client
+│       └── sensor_hub.py     # Pi sensor data receiver
 │
-├── model/
-│   ├── __init__.py
-│   ├── gnn/
-│   │   ├── __init__.py
-│   │   ├── mpnn.py          # Message-passing NN (from MPNN.py)
-│   │   ├── internal.py      # Station-to-station (from GNN_Layer_Internal.py)
-│   │   └── external.py      # Grid-to-station (from GNN_Layer_External.py)
-│   ├── transformer/
-│   │   ├── __init__.py
-│   │   ├── vit.py           # Vision Transformer (from ViT.py)
-│   │   └── embeddings.py    # Station embeddings (from StationsEmbedding.py)
-│   └── network.py           # Graph construction (from Network/)
+├── scripts/
+│   ├── test_hrrr_download.py # HRRR download test ✅
+│   ├── train.py              # Training entry point
+│   ├── predict.py            # Inference entry point
+│   └── serve.py              # Forecast API server
 │
-├── training/
-│   ├── __init__.py
-│   ├── trainer.py           # Training loop
-│   └── evaluate.py          # Metrics (from EvaluateModel.py)
+├── config/
+│   └── seattle.yaml          # Seattle/PNW region config ✅
 │
-├── inference/
-│   ├── __init__.py
-│   ├── predictor.py         # Real-time inference
-│   └── server.py            # REST API for forecasts
-│
-└── integration/
-    ├── __init__.py
-    ├── homeassistant.py     # Home Assistant client
-    └── sensor_hub.py        # Pi sensor data receiver
-
-scripts/
-├── download_era5.py         # ERA5 download CLI
-├── download_hrrr.py         # HRRR download CLI
-├── download_madis.py        # MADIS download CLI
-├── train.py                 # Training entry point
-├── predict.py               # Inference entry point
-└── serve.py                 # Forecast API server
-
-config/
-├── seattle.yaml             # Seattle/PNW region config
-└── model.yaml               # Model hyperparameters
+└── reference/
+    └── LocalizedWeather/     # Cloned reference implementation ✅
 ```
 
 ### 1.2 Data Sources (Matching Paper)
@@ -488,11 +489,11 @@ class LOAFWeatherEntity(WeatherEntity):
 ## Implementation Milestones
 
 ### Milestone 1: Data Pipeline
-- [ ] Create package structure with `pyproject.toml`
+- [x] Create package structure with `pyproject.toml`
 - [ ] Register for ERA5/CDS access (https://cds.climate.copernicus.eu/)
 - [ ] Register for MADIS access (https://madis.ncep.noaa.gov/data_application.shtml)
 - [ ] Implement `loaf/data/download/era5.py`
-- [ ] Implement `loaf/data/download/hrrr.py` (adapt from LocalizedWeather)
+- [x] Implement `loaf/data/download/hrrr.py` (adapt from LocalizedWeather)
 - [ ] Implement `loaf/data/download/madis.py`
 - [ ] Implement data loaders (`loaf/data/loaders/`)
 - [ ] Implement preprocessing/normalization
@@ -640,11 +641,11 @@ Key files to study/adapt from https://github.com/Earth-Intelligence-Lab/Localize
 
 **Immediate (before starting implementation):**
 
-1. Register for ERA5/CDS access: https://cds.climate.copernicus.eu/ (free, instant)
-2. Register for MADIS data access: https://madis.ncep.noaa.gov/data_application.shtml (free, 1-2 days)
-3. Verify GPU availability and CUDA version on this server
-4. Ensure ~500GB free disk space for multi-year data archive
-5. Clone LocalizedWeather repo for reference: `git clone https://github.com/Earth-Intelligence-Lab/LocalizedWeather`
+1. [ ] Register for ERA5/CDS access: https://cds.climate.copernicus.eu/ (free, instant)
+2. [ ] Register for MADIS data access: https://madis.ncep.noaa.gov/data_application.shtml (free, 1-2 days)
+3. [ ] Verify GPU availability and CUDA version on this server
+4. [ ] Ensure ~500GB free disk space for multi-year data archive
+5. [x] Clone LocalizedWeather repo for reference: `git clone https://github.com/Earth-Intelligence-Lab/LocalizedWeather`
 
 **Questions to resolve:**
 
@@ -652,4 +653,6 @@ Key files to study/adapt from https://github.com/Earth-Intelligence-Lab/Localize
 - Training data range (recommend: 2020-2024 to match paper methodology)
 - Home Assistant server IP/hostname for integration testing
 
-**First coding task:** Set up package structure and implement HRRR download (Milestone 1, step 1-2)
+**First coding task:** ~~Set up package structure and implement HRRR download (Milestone 1, step 1-2)~~ ✅ DONE
+
+**Next coding task:** Implement ERA5 download module (requires CDS registration) or MADIS download module (requires NOAA registration)
