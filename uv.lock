@@ -709,8 +709,8 @@ name = "eccodeslib"
 version = "2.45.1.9"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "eckitlib", marker = "python_full_version >= '3.11'" },
-    { name = "fckitlib", marker = "python_full_version >= '3.11'" },
+    { name = "eckitlib", marker = "python_full_version >= '3.11' and sys_platform != 'win32'" },
+    { name = "fckitlib", marker = "python_full_version >= '3.11' and sys_platform != 'win32'" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d6/96/f11d966599b653342c53d06f3d0693f907e75ecbb524ebbd8f605f1cebc5/eccodeslib-2.45.1.9-cp310-cp310-macosx_13_0_arm64.whl", hash = "sha256:eb069c7226cc2ecad7a4674d21f631cde9f0fb9a24c9f843772e24c1eaf9ed73", size = 8968725, upload-time = "2026-01-26T16:53:13.986Z" },
@@ -794,7 +794,7 @@ name = "fckitlib"
 version = "0.14.1.9"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "eckitlib", marker = "python_full_version >= '3.11'" },
+    { name = "eckitlib", marker = "python_full_version >= '3.11' and sys_platform != 'win32'" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/3c/1b/b36e2a11c08f849084534a81bc826f739ad4d87095a8da63625c6aeabcdd/fckitlib-0.14.1.9-cp310-cp310-macosx_13_0_arm64.whl", hash = "sha256:a8a622dca3c6047f75fcdcd61b051d450c9f1d7aa40df7c6a54b5b9a997ebd21", size = 411475, upload-time = "2026-01-26T16:53:31.247Z" },
@@ -1235,6 +1235,7 @@ dev = [
     { name = "mypy" },
     { name = "pytest" },
     { name = "pytest-cov" },
+    { name = "pytest-timeout" },
     { name = "ruff" },
 ]
 docs = [
@@ -1258,6 +1259,7 @@ requires-dist = [
     { name = "pandas", specifier = ">=2.0.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=7.0.0" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=4.0.0" },
+    { name = "pytest-timeout", marker = "extra == 'dev'", specifier = ">=2.0.0" },
     { name = "python-dotenv", specifier = ">=1.0.0" },
     { name = "pyyaml", specifier = ">=6.0" },
     { name = "requests", specifier = ">=2.31.0" },
@@ -2652,6 +2654,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/5e/f7/c933acc76f5208b3b00089573cf6a2bc26dc80a8aece8f52bb7d6b1855ca/pytest_cov-7.0.0.tar.gz", hash = "sha256:33c97eda2e049a0c5298e91f519302a1334c26ac65c1a483d6206fd458361af1", size = 54328, upload-time = "2025-09-09T10:57:02.113Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/ee/49/1377b49de7d0c1ce41292161ea0f721913fa8722c19fb9c1e3aa0367eecb/pytest_cov-7.0.0-py3-none-any.whl", hash = "sha256:3b8e9558b16cc1479da72058bdecf8073661c7f57f7d3c5f22a1c23507f2d861", size = 22424, upload-time = "2025-09-09T10:57:00.695Z" },
+]
+
+[[package]]
+name = "pytest-timeout"
+version = "2.4.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pytest" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ac/82/4c9ecabab13363e72d880f2fb504c5f750433b2b6f16e99f4ec21ada284c/pytest_timeout-2.4.0.tar.gz", hash = "sha256:7e68e90b01f9eff71332b25001f85c75495fc4e3a836701876183c4bcfd0540a", size = 17973, upload-time = "2025-05-05T19:44:34.99Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/fa/b6/3127540ecdf1464a00e5a01ee60a1b09175f6913f0644ac748494d9c4b21/pytest_timeout-2.4.0-py3-none-any.whl", hash = "sha256:c42667e5cdadb151aeb5b26d114aff6bdf5a907f176a007a30b940d3d865b5c2", size = 14382, upload-time = "2025-05-05T19:44:33.502Z" },
 ]
 
 [[package]]

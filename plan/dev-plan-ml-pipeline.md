@@ -490,9 +490,9 @@ class LOAFWeatherEntity(WeatherEntity):
 
 ### Milestone 1: Data Pipeline
 - [x] Create package structure with `pyproject.toml`
-- [ ] Register for ERA5/CDS access (https://cds.climate.copernicus.eu/)
+- [x] Register for ERA5/CDS access (https://cds.climate.copernicus.eu/)
 - [ ] Register for MADIS access (https://madis.ncep.noaa.gov/data_application.shtml)
-- [ ] Implement `loaf/data/download/era5.py`
+- [x] Implement `loaf/data/download/era5.py`
 - [x] Implement `loaf/data/download/hrrr.py` (adapt from LocalizedWeather)
 - [ ] Implement `loaf/data/download/madis.py`
 - [ ] Implement data loaders (`loaf/data/loaders/`)
@@ -641,7 +641,7 @@ Key files to study/adapt from https://github.com/Earth-Intelligence-Lab/Localize
 
 **Immediate (before starting implementation):**
 
-1. [ ] Register for ERA5/CDS access: https://cds.climate.copernicus.eu/ (free, instant)
+1. [x] Register for ERA5/CDS access: https://cds.climate.copernicus.eu/ (free, instant)
 2. [ ] Register for MADIS data access: https://madis.ncep.noaa.gov/data_application.shtml (free, 1-2 days)
 3. [ ] Verify GPU availability and CUDA version on this server
 4. [ ] Ensure ~500GB free disk space for multi-year data archive
@@ -655,4 +655,4 @@ Key files to study/adapt from https://github.com/Earth-Intelligence-Lab/Localize
 
 **First coding task:** ~~Set up package structure and implement HRRR download (Milestone 1, step 1-2)~~ ✅ DONE
 
-**Next coding task:** Implement ERA5 download module (requires CDS registration) or MADIS download module (requires NOAA registration)
+**Next coding task:** Implement MADIS download module (requires NOAA registration) or implement data loaders
