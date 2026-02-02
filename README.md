@@ -30,10 +30,9 @@ This is definitely a work in progress, so stay tuned!
 
 ## Latest Cool Picture
 
-The first pcb went to fab for our ultrasonic anemometer build inspired by QingStation. The first version is very similiar to the Ultrasonic Anemometer in QingStation, but it simplified by removing parts we don't need for now and updated to included parts that are easily purchaseable, as some parts in Qing have gone end of life.
+The first of the ultrasonic transducers have arrived!
 
-<img width="1862" height="1862" alt="a6b5123db6724e5dabc65f7b7b04693a_T" src="https://github.com/user-attachments/assets/96b25ef9-431f-46aa-9dcc-e8fb26e51bd8" />
-
+![IMG_9646](https://github.com/user-attachments/assets/8b167aed-2db6-44ab-8047-cf3c9de885f3)
 
 ## Current priorities:
 
@@ -126,3 +125,9 @@ year = {2026}
 ---
 
 Built by [Bread Board Foundry](https://breadboardfoundry.com)
+
+## Cool Picture Archive
+
+The first pcb went to fab for our ultrasonic anemometer build inspired by QingStation. The first version is very similiar to the Ultrasonic Anemometer in QingStation, but it simplified by removing parts we don't need for now and updated to included parts that are easily purchaseable, as some parts in Qing have gone end of life.
+
+<img width="1862" height="1862" alt="a6b5123db6724e5dabc65f7b7b04693a_T" src="https://github.com/user-attachments/assets/96b25ef9-431f-46aa-9dcc-e8fb26e51bd8" />
