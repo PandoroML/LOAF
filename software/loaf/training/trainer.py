@@ -25,6 +25,9 @@ logger = logging.getLogger(__name__)
 class TrainingConfig:
     """Configuration for training."""
 
+    # Data
+    back_hrs: int = 24  # Number of historical hours for input
+
     # Optimization
     learning_rate: float = 1e-4
     weight_decay: float = 1e-4
@@ -409,13 +412,12 @@ class Trainer:
 
         if input_vars:
             # Stack along last dimension: (batch, n_stations, time, n_vars)
+            # Dataset returns (n_stations, n_times) per var, after batching: (batch, n_stations, n_times)
+            # After stacking: (batch, n_stations, n_times, n_vars)
+            # MPNN expects: (batch, n_stations, time, n_vars) - already correct!
             madis_x = torch.stack(input_vars, dim=-1)
-            # Transpose to match MPNN expected format: (batch, n_stations, time, n_vars)
-            # Actually the dataset returns (batch, time, n_stations) per var
-            # So after stacking: (batch, time, n_stations, n_vars)
-            # MPNN expects: (batch, n_stations, time, n_vars)
-            if madis_x.dim() == 4:
-                madis_x = madis_x.permute(0, 2, 1, 3).contiguous()
+            # Only use first back_hrs timesteps for input (rest is for targets)
+            madis_x = madis_x[:, :, : self.config.back_hrs, :]
         else:
             raise ValueError("No station input variables found in batch")
 
@@ -438,10 +440,11 @@ class Trainer:
                 ext_vars.append(batch[var].to(self.device))
 
         if ext_vars:
+            # Grid data also returns (n_nodes, n_times) per var
+            # After batching and stacking: (batch, n_nodes, n_times, n_vars) - already correct
             ext_x = torch.stack(ext_vars, dim=-1)
-            # Same permutation as station data
-            if ext_x.dim() == 4:
-                ext_x = ext_x.permute(0, 2, 1, 3).contiguous()
+            # Only use first back_hrs timesteps for input
+            ext_x = ext_x[:, :, : self.config.back_hrs, :]
 
             ext_lon = batch["grid_lon"].to(self.device)
             ext_lat = batch["grid_lat"].to(self.device)
@@ -471,11 +474,12 @@ class Trainer:
         # output: (batch, n_stations, n_out_vars)
 
         # Get target (last timestep of input vars that are in output_vars)
+        # batch[var] shape: (batch, n_stations, n_times)
         target_vars = []
         for var in self.config.output_vars:
             if var in batch:
-                # Get last timestep
-                target_vars.append(batch[var][:, -1, :].to(self.device))
+                # Get last timestep: [:, :, -1] -> (batch, n_stations)
+                target_vars.append(batch[var][:, :, -1].to(self.device))
 
         target = torch.stack(target_vars, dim=-1)
         # target: (batch, n_stations, n_out_vars)

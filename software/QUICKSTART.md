@@ -10,6 +10,7 @@
 ```bash
 cd /home/keenan/code/LOAF
 uv sync
+cd software  # All commands below assume you're in the software/ directory
 ```
 
 ## Step 1: Download Data
@@ -17,7 +18,6 @@ uv sync
 ### Option A: Quick Start (IEM + HRRR only, no registration)
 
 ```bash
-cd software
 
 # Download IEM station observations (no auth required)
 uv run python -m loaf.data.download.iem \
@@ -54,8 +54,6 @@ uv run python -m loaf.data.download.era5 \
 ## Step 2: Train Model
 
 ```bash
-cd software
-
 # Train GNN model (default)
 uv run python scripts/train.py \
     --config config/seattle.yaml \
@@ -120,8 +118,6 @@ uv run loaf-download-iem --help     # Download IEM station data
 ## Minimal Example (1 day of data for testing)
 
 ```bash
-cd software
-
 # Download just 1 day of data for testing
 uv run python -m loaf.data.download.iem \
     --start-date 2024-10-15 \

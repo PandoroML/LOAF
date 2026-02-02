@@ -303,6 +303,7 @@ def main():
         checkpoint_dir.mkdir(parents=True, exist_ok=True)
 
     training_config = TrainingConfig(
+        back_hrs=back_hrs,
         learning_rate=learning_rate,
         weight_decay=getattr(config.training, "weight_decay", 1e-4),
         epochs=epochs,

@@ -245,6 +245,8 @@ class IEMLoader:
         for var in variables:
             if var in subset.data_vars:
                 values = subset[var].values.astype(np.float32)
+                # Replace any remaining NaN values with 0
+                values = np.nan_to_num(values, nan=0.0)
                 result[var] = torch.from_numpy(values)
 
                 # Also include "is_real" mask if available

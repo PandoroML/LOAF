@@ -79,11 +79,26 @@ class WeatherDataset(Dataset):
         self._setup_coord_normalizers()
 
     def _generate_timeline(self, year: int) -> pd.DatetimeIndex:
-        """Generate hourly timeline for a year (timezone-naive for xarray compat)."""
+        """Generate hourly timeline for a year (timezone-naive for xarray compat).
+
+        If a grid loader is available, restricts timeline to times that exist
+        in the grid data to avoid empty data fetches.
+        """
         start = datetime(year, 1, 1)
         end = datetime(year + 1, 1, 1)
         times = list(rrule.rrule(rrule.HOURLY, dtstart=start, until=end))[:-1]
-        return pd.DatetimeIndex(times)  # tz-naive for xarray compatibility
+        timeline = pd.DatetimeIndex(times)  # tz-naive for xarray compatibility
+
+        # Restrict timeline to times available in grid data
+        if self.grid_loader is not None:
+            grid_times = pd.DatetimeIndex(self.grid_loader.data.time.values)
+            timeline = timeline.intersection(grid_times)
+
+        # Also restrict to times available in station data
+        station_times = pd.DatetimeIndex(self.station_loader.data.time.values)
+        timeline = timeline.intersection(station_times)
+
+        return timeline
 
     def _compute_statistics(self) -> None:
         """Compute normalization statistics."""

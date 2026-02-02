@@ -184,6 +184,8 @@ class HRRRLoader:
         for var in variables:
             if var in subset.data_vars:
                 values = subset[var].values.astype(np.float32)
+                # Replace NaN values with 0
+                values = np.nan_to_num(values, nan=0.0)
                 # Reshape to (n_nodes, n_times)
                 if values.ndim == 3:
                     # (time, y, x) -> (n_nodes, time)
