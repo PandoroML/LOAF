@@ -555,9 +555,9 @@ class LOAFWeatherEntity(WeatherEntity):
 
 ### Milestone 3: Training Pipeline
 - [x] Create PyTorch Dataset class (`loaf/data/loaders/dataset.py`)
-- [ ] Implement training loop (`loaf/training/trainer.py`)
-- [ ] Implement evaluation metrics (`loaf/training/evaluate.py`)
-- [ ] Write `scripts/train.py` CLI
+- [x] Implement training loop (`loaf/training/trainer.py`)
+- [x] Implement evaluation metrics (`loaf/training/evaluate.py`)
+- [x] Write `scripts/train.py` CLI
 - [ ] **Verify:** Train on 1 month data, loss decreases, metrics improve
 
 ### Milestone 4: Inference & API
@@ -704,4 +704,6 @@ Key files to study/adapt from https://github.com/Earth-Intelligence-Lab/Localize
 
 **Next coding task:** ~~Implement data loaders (`loaf/data/loaders/`) for ERA5, HRRR, and IEM~~ ✅ DONE
 
-**Next coding task:** Implement training loop and evaluation metrics (Milestone 3)
+**Next coding task:** ~~Implement training loop and evaluation metrics (Milestone 3)~~ ✅ DONE
+
+**Next coding task:** Verify training with real data, then implement inference pipeline (Milestone 4)
