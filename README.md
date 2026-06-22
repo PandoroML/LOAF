@@ -36,8 +36,6 @@ The first of the ultrasonic transducers have arrived!
 
 ## Current priorities:
 
-- Build DIY ultrasonic anemometer (inspired by [QingStation](https://github.com/majianjia/QingStation) and [DL1GLH](https://www.dl1glh.de/ultrasonic-anemometer.html))
-- Deploy initial wind sensor in Seattle area
 - Set up HRRR/MADIS data pipeline
 - Train regional model and validate against local observations
 - Deploy the model to local hardware (raspberry pi)
