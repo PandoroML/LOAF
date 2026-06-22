@@ -681,27 +681,3 @@ Key files to study/adapt from https://github.com/Earth-Intelligence-Lab/Localize
 | `Arg_Parser.py` | Config parsing | `loaf/config.py` (use YAML instead) |
 
 ---
-
-## Action Items
-
-**Immediate (before starting implementation):**
-
-1. [x] Register for ERA5/CDS access: https://cds.climate.copernicus.eu/ (free, instant)
-2. [ ] Register for MADIS data access: https://madis.ncep.noaa.gov/data_application.shtml (free, 1-2 days)
-3. [X] Verify GPU availability and CUDA version on this server
-4. [X] Ensure ~500GB free disk space for multi-year data archive
-5. [x] Clone LocalizedWeather repo for reference: `git clone https://github.com/Earth-Intelligence-Lab/LocalizedWeather`
-
-**Questions to resolve:**
-
-- Target location coordinates (your specific deployment site in Seattle area)
-- Training data range (recommend: 2020-2024 to match paper methodology)
-- Home Assistant server IP/hostname for integration testing
-
-**First coding task:** ~~Set up package structure and implement HRRR download (Milestone 1, step 1-2)~~ ✅ DONE
-
-**Next coding task:** ~~Implement IEM download module (no registration needed, for prototyping)~~ ✅ DONE
-
-**Next coding task:** ~~Implement data loaders (`loaf/data/loaders/`) for ERA5, HRRR, and IEM~~ ✅ DONE
-
-**Next coding task:** Implement training loop and evaluation metrics (Milestone 3)
