@@ -14,6 +14,7 @@ import io
 import logging
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 import pandas as pd
 import requests
@@ -418,6 +419,25 @@ def download_iem_range(
     return saved_files
 
 
+def _load_iem_settings_from_config(config_path: str) -> dict[str, Any]:
+    """Extract IEM-relevant settings from a LOAF config file."""
+    from loaf.config import load_config
+
+    cfg = load_config(config_path)
+    iem_cfg = cfg.get("data", {}).get("iem", {})
+    region_cfg = cfg.get("region", {})
+    return {
+        "stations": iem_cfg.get("stations"),
+        "variables": iem_cfg.get("variables"),
+        "output_dir": iem_cfg.get("output_dir"),
+        "format": iem_cfg.get("format"),
+        "lat_min": region_cfg.get("lat_min"),
+        "lat_max": region_cfg.get("lat_max"),
+        "lon_min": region_cfg.get("lon_min"),
+        "lon_max": region_cfg.get("lon_max"),
+    }
+
+
 def main() -> None:
     """CLI entry point for IEM download."""
     parser = argparse.ArgumentParser(
@@ -425,21 +445,29 @@ def main() -> None:
     )
 
     parser.add_argument(
+        "--config",
+        "-c",
+        default=None,
+        help="Path to a LOAF YAML config file (e.g. config/arlington.yaml). "
+             "Provides region bounds, station list, and output settings. "
+             "CLI flags override config values when both are provided.",
+    )
+    parser.add_argument(
         "--output-dir",
         "-o",
-        default="data/iem",
+        default=None,
         help="Output directory for data files (default: data/iem)",
     )
     parser.add_argument(
         "--stations",
         nargs="+",
         default=None,
-        help="Station IDs to download (default: PNW stations)",
+        help="Station IDs to download. Overrides config stations list.",
     )
     parser.add_argument(
         "--variables",
         nargs="+",
-        default=DEFAULT_VARIABLES,
+        default=None,
         help="Variables to download (default: tmpc,dwpc,sknt,drct)",
     )
     parser.add_argument(
@@ -457,13 +485,13 @@ def main() -> None:
     parser.add_argument(
         "--format",
         choices=["parquet", "csv"],
-        default="parquet",
+        default=None,
         help="Output format (default: parquet)",
     )
     parser.add_argument(
         "--list-stations",
         action="store_true",
-        help="List available stations in PNW region and exit",
+        help="List available stations and exit. Uses region bounds from --config if provided.",
     )
 
     args = parser.parse_args()
@@ -474,16 +502,43 @@ def main() -> None:
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
+    # Load config defaults, then let CLI args override
+    cfg_settings: dict[str, Any] = {}
+    if args.config:
+        cfg_settings = _load_iem_settings_from_config(args.config)
+        logger.info(f"Loaded config from {args.config}")
+
+    stations = args.stations or cfg_settings.get("stations")
+    variables = args.variables or cfg_settings.get("variables") or DEFAULT_VARIABLES
+    output_dir = args.output_dir or cfg_settings.get("output_dir") or "data/iem"
+    fmt = args.format or cfg_settings.get("format") or "parquet"
+
+    lat_min = cfg_settings.get("lat_min", SEATTLE_BOUNDS["lat_min"])
+    lat_max = cfg_settings.get("lat_max", SEATTLE_BOUNDS["lat_max"])
+    lon_min = cfg_settings.get("lon_min", SEATTLE_BOUNDS["lon_min"])
+    lon_max = cfg_settings.get("lon_max", SEATTLE_BOUNDS["lon_max"])
+
     if args.list_stations:
-        print("Predefined PNW stations:")
-        for station in PNW_STATIONS:
-            print(f"  {station}")
-        print("\nQuerying IEM for all available stations in region...")
-        df = get_available_stations()
+        if stations:
+            print("Stations from config/CLI:")
+            for s in stations:
+                print(f"  {s}")
+        print(f"\nQuerying IEM for all available stations in region "
+              f"({lat_min}–{lat_max}°N, {lon_min}–{lon_max}°E)...")
+        df = get_available_stations(lat_min, lat_max, lon_min, lon_max)
         if not df.empty:
             print(f"\nFound {len(df)} stations:")
             print(df.to_string(index=False))
         return
+
+    # If no stations provided by config or CLI, fall back to bounding-box discovery
+    if not stations:
+        logger.info("No stations specified — discovering from region bounds")
+        station_df = get_available_stations(lat_min, lat_max, lon_min, lon_max)
+        if station_df.empty:
+            logger.error("No stations found in region — pass --stations or check bounds")
+            return
+        stations = station_df["station_id"].tolist()
 
     start_date = datetime.strptime(args.start_date, "%Y-%m-%d")
     end_date = datetime.strptime(args.end_date, "%Y-%m-%d")
@@ -491,10 +546,10 @@ def main() -> None:
     download_iem_range(
         start_date,
         end_date,
-        args.output_dir,
-        args.stations,
-        args.variables,
-        args.format,
+        output_dir,
+        stations,
+        variables,
+        fmt,
     )
 
 
