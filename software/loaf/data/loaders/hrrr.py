@@ -97,11 +97,16 @@ class HRRRLoader:
                 f"No HRRR files found in {self.data_dir}"
             )
 
-        # Load all files (chunks=None to avoid requiring dask)
+        # Load eagerly and combine in memory - avoids open_mfdataset, which
+        # requires dask even when chunks=None in newer xarray versions.
         if len(files) == 1:
             ds = xr.open_dataset(files[0])
         else:
-            ds = xr.open_mfdataset(files, combine="by_coords", chunks=None)
+            # override: per-file GRIB provenance attrs (remote_grib, local_grib)
+            # differ across files and aren't needed after loading.
+            ds = xr.combine_by_coords(
+                [xr.open_dataset(f) for f in files], combine_attrs="override"
+            )
 
         # Apply variable renaming based on what's available
         rename_map = {}

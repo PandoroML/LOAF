@@ -12,6 +12,7 @@ Reference: https://mesonet.agron.iastate.edu/
 import argparse
 import io
 import logging
+import time
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -76,6 +77,78 @@ PNW_STATIONS = [
 DEFAULT_VARIABLES = ["tmpc", "dwpc", "sknt", "drct"]
 
 
+def _bbox_of_geometry(geometry: dict) -> tuple[float, float, float, float]:
+    """Compute (lon_min, lon_max, lat_min, lat_max) for a GeoJSON geometry."""
+    lons: list[float] = []
+    lats: list[float] = []
+
+    def _walk(coords: Any) -> None:
+        if isinstance(coords[0], (int, float)):
+            lons.append(coords[0])
+            lats.append(coords[1])
+        else:
+            for c in coords:
+                _walk(c)
+
+    _walk(geometry["coordinates"])
+    return min(lons), max(lons), min(lats), max(lats)
+
+
+def _find_asos_networks_for_bbox(
+    lat_min: float,
+    lat_max: float,
+    lon_min: float,
+    lon_max: float,
+) -> list[str]:
+    """Find IEM ASOS network IDs whose coverage overlaps a bounding box.
+
+    IEM does not expose a single global "ASOS" network - stations are split
+    into per-country/per-state networks (e.g. "VA_ASOS", "MD_ASOS"). This
+    queries IEM's network list and returns the ASOS network IDs whose
+    coverage polygon overlaps the given region, so callers can fetch stations
+    from just those networks.
+
+    Args:
+        lat_min: Minimum latitude.
+        lat_max: Maximum latitude.
+        lon_min: Minimum longitude.
+        lon_max: Maximum longitude.
+
+    Returns:
+        List of matching network IDs (e.g. ["VA_ASOS", "MD_ASOS", "DC_ASOS"]).
+    """
+    url = "https://mesonet.agron.iastate.edu/geojson/networks.geojson"
+
+    try:
+        response = requests.get(url, timeout=30)
+        response.raise_for_status()
+        data = response.json()
+    except Exception as e:
+        logger.error(f"Failed to fetch network list: {e}")
+        return []
+
+    matches = []
+    for feature in data.get("features", []):
+        network_id = feature.get("id", "")
+        geometry = feature.get("geometry")
+        if not network_id.endswith("_ASOS") or not geometry:
+            continue
+
+        try:
+            net_lon_min, net_lon_max, net_lat_min, net_lat_max = _bbox_of_geometry(geometry)
+        except (KeyError, IndexError, TypeError):
+            continue
+
+        if net_lon_max < lon_min or net_lon_min > lon_max:
+            continue
+        if net_lat_max < lat_min or net_lat_min > lat_max:
+            continue
+
+        matches.append(network_id)
+
+    return matches
+
+
 def get_available_stations(
     lat_min: float = SEATTLE_BOUNDS["lat_min"],
     lat_max: float = SEATTLE_BOUNDS["lat_max"],
@@ -93,40 +166,44 @@ def get_available_stations(
     Returns:
         DataFrame with station metadata (id, name, lat, lon, elevation).
     """
-    # IEM station metadata endpoint
-    url = "https://mesonet.agron.iastate.edu/geojson/network/ASOS.geojson"
-
-    try:
-        response = requests.get(url, timeout=30)
-        response.raise_for_status()
-        data = response.json()
-    except Exception as e:
-        logger.error(f"Failed to fetch station list: {e}")
+    networks = _find_asos_networks_for_bbox(lat_min, lat_max, lon_min, lon_max)
+    if not networks:
+        logger.warning("No ASOS networks found covering the requested region")
         return pd.DataFrame()
 
     stations = []
-    for feature in data.get("features", []):
-        props = feature.get("properties", {})
-        coords = feature.get("geometry", {}).get("coordinates", [None, None])
-
-        lon, lat = coords[0], coords[1]
-        if lon is None or lat is None:
+    for network_id in networks:
+        url = f"https://mesonet.agron.iastate.edu/geojson/network/{network_id}.geojson"
+        try:
+            response = requests.get(url, timeout=30)
+            response.raise_for_status()
+            data = response.json()
+        except Exception as e:
+            logger.error(f"Failed to fetch station list for {network_id}: {e}")
             continue
 
-        # Filter to bounding box
-        if lat_min <= lat <= lat_max and lon_min <= lon <= lon_max:
-            stations.append(
-                {
-                    "station_id": props.get("sid", ""),
-                    "name": props.get("sname", ""),
-                    "lat": lat,
-                    "lon": lon,
-                    "elevation": props.get("elevation", None),
-                }
-            )
+        for feature in data.get("features", []):
+            props = feature.get("properties", {})
+            coords = feature.get("geometry", {}).get("coordinates", [None, None])
+
+            lon, lat = coords[0], coords[1]
+            if lon is None or lat is None:
+                continue
+
+            # Filter to bounding box
+            if lat_min <= lat <= lat_max and lon_min <= lon <= lon_max:
+                stations.append(
+                    {
+                        "station_id": props.get("sid", ""),
+                        "name": props.get("sname", ""),
+                        "lat": lat,
+                        "lon": lon,
+                        "elevation": props.get("elevation", None),
+                    }
+                )
 
     df = pd.DataFrame(stations)
-    logger.info(f"Found {len(df)} ASOS stations in region")
+    logger.info(f"Found {len(df)} ASOS stations in region across {len(networks)} network(s)")
     return df
 
 
@@ -197,6 +274,7 @@ def download_iem_stations(
     start_date: datetime,
     end_date: datetime,
     variables: list[str] = DEFAULT_VARIABLES,
+    request_delay: float = 1.0,
 ) -> pd.DataFrame:
     """Download IEM ASOS data for multiple stations.
 
@@ -205,13 +283,17 @@ def download_iem_stations(
         start_date: Start date for data request.
         end_date: End date for data request (inclusive).
         variables: List of variables to download.
+        request_delay: Seconds to wait between station requests, to avoid
+            IEM's rate limiting (HTTP 429).
 
     Returns:
         DataFrame with observation data from all stations.
     """
     all_data = []
 
-    for station in stations:
+    for i, station in enumerate(stations):
+        if i > 0 and request_delay > 0:
+            time.sleep(request_delay)
         logger.info(f"Downloading {station}...")
         df = download_iem_station(station, start_date, end_date, variables)
         if df is not None and not df.empty:
@@ -346,6 +428,7 @@ def download_iem_range(
     stations: list[str] | None = None,
     variables: list[str] = DEFAULT_VARIABLES,
     format: str = "parquet",
+    request_delay: float = 1.0,
 ) -> list[Path]:
     """Download IEM data for a date range, saving one file per month.
 
@@ -356,6 +439,8 @@ def download_iem_range(
         stations: List of stations to download. If None, uses PNW_STATIONS.
         variables: List of variables to download.
         format: Output format ("parquet" or "csv").
+        request_delay: Seconds to wait between station requests, to avoid
+            IEM's rate limiting (HTTP 429).
 
     Returns:
         List of paths to saved files.
@@ -400,6 +485,7 @@ def download_iem_range(
                 month_start,
                 datetime(month_end.year, month_end.month, month_end.day),
                 variables,
+                request_delay,
             )
 
             if not df.empty:
@@ -493,6 +579,13 @@ def main() -> None:
         action="store_true",
         help="List available stations and exit. Uses region bounds from --config if provided.",
     )
+    parser.add_argument(
+        "--rate-limit-delay",
+        type=float,
+        default=1.0,
+        help="Seconds to wait between per-station requests, to avoid IEM's "
+             "rate limiting (default: 1.0)",
+    )
 
     args = parser.parse_args()
 
@@ -550,6 +643,7 @@ def main() -> None:
         stations,
         variables,
         fmt,
+        args.rate_limit_delay,
     )
 
 

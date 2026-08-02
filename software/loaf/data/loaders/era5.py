@@ -86,11 +86,16 @@ class ERA5Loader:
                 f"No ERA5 files found in {self.data_dir} for years {self.years}"
             )
 
-        # Load all files (chunks=None to avoid requiring dask)
+        # Load eagerly and combine in memory - avoids open_mfdataset, which
+        # requires dask even when chunks=None in newer xarray versions.
         if len(files) == 1:
             ds = xr.open_dataset(files[0])
         else:
-            ds = xr.open_mfdataset(files, combine="by_coords", chunks=None)
+            # override: per-file provenance attrs can differ across files and
+            # aren't needed after loading.
+            ds = xr.combine_by_coords(
+                [xr.open_dataset(f) for f in files], combine_attrs="override"
+            )
 
         # Rename variables to standard names
         rename_map = {k: v for k, v in self.VARIABLE_RENAME.items() if k in ds.data_vars}
