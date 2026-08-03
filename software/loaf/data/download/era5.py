@@ -234,6 +234,23 @@ def load_era5_month(file_path: str | Path) -> xr.Dataset:
     return ds
 
 
+def _load_era5_settings_from_config(config_path: str) -> dict:
+    """Extract ERA5-relevant settings from a LOAF config file."""
+    from loaf.config import load_config
+
+    cfg = load_config(config_path)
+    era5_cfg = cfg.get("data", {}).get("era5", {})
+    region_cfg = cfg.get("region", {})
+    return {
+        "variables": era5_cfg.get("variables"),
+        "output_dir": era5_cfg.get("output_dir"),
+        "lat_min": region_cfg.get("lat_min"),
+        "lat_max": region_cfg.get("lat_max"),
+        "lon_min": region_cfg.get("lon_min"),
+        "lon_max": region_cfg.get("lon_max"),
+    }
+
+
 def main() -> None:
     """CLI entry point for ERA5 download."""
     parser = argparse.ArgumentParser(
@@ -241,39 +258,47 @@ def main() -> None:
     )
 
     parser.add_argument(
+        "--config",
+        "-c",
+        default=None,
+        help="Path to a LOAF YAML config file (e.g. config/arlington.yaml). "
+             "Provides region bounds, variables, and output settings. "
+             "CLI flags override config values when both are provided.",
+    )
+    parser.add_argument(
         "--output-dir",
         "-o",
-        default="data/era5",
+        default=None,
         help="Output directory for NetCDF files (default: data/era5)",
     )
     parser.add_argument(
         "--variables",
         nargs="+",
-        default=DEFAULT_VARIABLES,
+        default=None,
         help="ERA5 variables to download",
     )
     parser.add_argument(
         "--lat-min",
         type=float,
-        default=SEATTLE_BOUNDS["lat_min"],
+        default=None,
         help="Minimum latitude (default: 46.5 for Seattle)",
     )
     parser.add_argument(
         "--lat-max",
         type=float,
-        default=SEATTLE_BOUNDS["lat_max"],
+        default=None,
         help="Maximum latitude (default: 49.0 for Seattle)",
     )
     parser.add_argument(
         "--lon-min",
         type=float,
-        default=SEATTLE_BOUNDS["lon_min"],
+        default=None,
         help="Minimum longitude (default: -124.0 for Seattle)",
     )
     parser.add_argument(
         "--lon-max",
         type=float,
-        default=SEATTLE_BOUNDS["lon_max"],
+        default=None,
         help="Maximum longitude (default: -121.0 for Seattle)",
     )
     parser.add_argument(
@@ -317,7 +342,26 @@ def main() -> None:
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
-    output_dir = Path(args.output_dir)
+    # Load config defaults, then let CLI args override
+    cfg_settings: dict = {}
+    if args.config:
+        cfg_settings = _load_era5_settings_from_config(args.config)
+        logger.info(f"Loaded config from {args.config}")
+
+    output_dir = Path(args.output_dir or cfg_settings.get("output_dir") or "data/era5")
+    variables = args.variables or cfg_settings.get("variables") or DEFAULT_VARIABLES
+    lat_min = args.lat_min if args.lat_min is not None else cfg_settings.get(
+        "lat_min", SEATTLE_BOUNDS["lat_min"]
+    )
+    lat_max = args.lat_max if args.lat_max is not None else cfg_settings.get(
+        "lat_max", SEATTLE_BOUNDS["lat_max"]
+    )
+    lon_min = args.lon_min if args.lon_min is not None else cfg_settings.get(
+        "lon_min", SEATTLE_BOUNDS["lon_min"]
+    )
+    lon_max = args.lon_max if args.lon_max is not None else cfg_settings.get(
+        "lon_max", SEATTLE_BOUNDS["lon_max"]
+    )
 
     if args.year and args.month:
         # Single month download
@@ -326,11 +370,11 @@ def main() -> None:
             args.year,
             args.month,
             filename,
-            args.variables,
-            args.lat_min,
-            args.lat_max,
-            args.lon_min,
-            args.lon_max,
+            variables,
+            lat_min,
+            lat_max,
+            lon_min,
+            lon_max,
         )
 
     elif args.year:
@@ -338,11 +382,11 @@ def main() -> None:
         download_era5_year(
             args.year,
             output_dir,
-            args.variables,
-            args.lat_min,
-            args.lat_max,
-            args.lon_min,
-            args.lon_max,
+            variables,
+            lat_min,
+            lat_max,
+            lon_min,
+            lon_max,
         )
 
     elif args.start_year and args.end_year:
@@ -353,11 +397,11 @@ def main() -> None:
             args.end_year,
             args.end_month,
             output_dir,
-            args.variables,
-            args.lat_min,
-            args.lat_max,
-            args.lon_min,
-            args.lon_max,
+            variables,
+            lat_min,
+            lat_max,
+            lon_min,
+            lon_max,
         )
 
     else:

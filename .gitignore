@@ -13,3 +13,6 @@ copilot-instructions.md
 
 IEM Data
 *.parquet
+
+#Run Output
+/runs

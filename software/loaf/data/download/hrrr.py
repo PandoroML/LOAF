@@ -234,6 +234,26 @@ def download_hrrr_range(
     return saved_files
 
 
+def _load_hrrr_settings_from_config(config_path: str) -> dict:
+    """Extract HRRR-relevant settings from a LOAF config file."""
+    from loaf.config import load_config
+
+    cfg = load_config(config_path)
+    hrrr_cfg = cfg.get("data", {}).get("hrrr", {})
+    region_cfg = cfg.get("region", {})
+    return {
+        "var_list": hrrr_cfg.get("variables"),
+        "max_lead_hr": hrrr_cfg.get("max_lead_hr"),
+        "output_dir": hrrr_cfg.get("output_dir"),
+        # Region bounds are stored in -180/180 format in the config, matching
+        # the CLI flags below (converted to 0-360 later for HRRR/Herbie).
+        "lat_min": region_cfg.get("lat_min"),
+        "lat_max": region_cfg.get("lat_max"),
+        "lon_min": region_cfg.get("lon_min"),
+        "lon_max": region_cfg.get("lon_max"),
+    }
+
+
 def main() -> None:
     """CLI entry point for HRRR download."""
     parser = argparse.ArgumentParser(
@@ -241,44 +261,52 @@ def main() -> None:
     )
 
     parser.add_argument(
+        "--config",
+        "-c",
+        default=None,
+        help="Path to a LOAF YAML config file (e.g. config/arlington.yaml). "
+             "Provides region bounds, variables, and output settings. "
+             "CLI flags override config values when both are provided.",
+    )
+    parser.add_argument(
         "--output-dir",
         "-o",
-        default="data/hrrr",
+        default=None,
         help="Output directory for NetCDF files (default: data/hrrr)",
     )
     parser.add_argument(
         "--var-list",
-        default=DEFAULT_VARIABLES,
+        default=None,
         help=f"GRIB2 variable search pattern (default: {DEFAULT_VARIABLES})",
     )
     parser.add_argument(
         "--lat-min",
         type=float,
-        default=SEATTLE_BOUNDS["lat_min"],
+        default=None,
         help="Minimum latitude (default: 46.5 for Seattle)",
     )
     parser.add_argument(
         "--lat-max",
         type=float,
-        default=SEATTLE_BOUNDS["lat_max"],
+        default=None,
         help="Maximum latitude (default: 49.0 for Seattle)",
     )
     parser.add_argument(
         "--lon-min",
         type=float,
-        default=SEATTLE_BOUNDS["lon_min"] - 360,
+        default=None,
         help="Minimum longitude in -180 to 180 format (default: -124.0 for Seattle)",
     )
     parser.add_argument(
         "--lon-max",
         type=float,
-        default=SEATTLE_BOUNDS["lon_max"] - 360,
+        default=None,
         help="Maximum longitude in -180 to 180 format (default: -121.0 for Seattle)",
     )
     parser.add_argument(
         "--max-lead-hr",
         type=int,
-        default=18,
+        default=None,
         help="Maximum forecast lead time in hours (default: 18)",
     )
     parser.add_argument(
@@ -305,24 +333,49 @@ def main() -> None:
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
+    # Load config defaults, then let CLI args override
+    cfg_settings: dict = {}
+    if args.config:
+        cfg_settings = _load_hrrr_settings_from_config(args.config)
+        logger.info(f"Loaded config from {args.config}")
+
+    output_dir = args.output_dir or cfg_settings.get("output_dir") or "data/hrrr"
+    var_list = args.var_list or cfg_settings.get("var_list") or DEFAULT_VARIABLES
+    max_lead_hr = (
+        args.max_lead_hr if args.max_lead_hr is not None
+        else cfg_settings.get("max_lead_hr") or 18
+    )
+    lat_min = args.lat_min if args.lat_min is not None else cfg_settings.get(
+        "lat_min", SEATTLE_BOUNDS["lat_min"]
+    )
+    lat_max = args.lat_max if args.lat_max is not None else cfg_settings.get(
+        "lat_max", SEATTLE_BOUNDS["lat_max"]
+    )
+    raw_lon_min = args.lon_min if args.lon_min is not None else cfg_settings.get(
+        "lon_min", SEATTLE_BOUNDS["lon_min"] - 360
+    )
+    raw_lon_max = args.lon_max if args.lon_max is not None else cfg_settings.get(
+        "lon_max", SEATTLE_BOUNDS["lon_max"] - 360
+    )
+
     # Convert longitude from -180/180 to 0/360 for HRRR
-    lon_min = args.lon_min + 360 if args.lon_min < 0 else args.lon_min
-    lon_max = args.lon_max + 360 if args.lon_max < 0 else args.lon_max
+    lon_min = raw_lon_min + 360 if raw_lon_min < 0 else raw_lon_min
+    lon_max = raw_lon_max + 360 if raw_lon_max < 0 else raw_lon_max
 
     if args.date:
         # Single day download
         date = datetime.strptime(args.date, "%Y-%m-%d")
-        output_dir = Path(args.output_dir)
+        output_dir = Path(output_dir)
         output_dir.mkdir(parents=True, exist_ok=True)
 
         dataset = download_hrrr_daily(
             date,
-            args.var_list,
-            args.lat_min,
-            args.lat_max,
+            var_list,
+            lat_min,
+            lat_max,
             lon_min,
             lon_max,
-            args.max_lead_hr,
+            max_lead_hr,
         )
 
         if dataset is not None:
@@ -340,13 +393,13 @@ def main() -> None:
         download_hrrr_range(
             start_date,
             end_date,
-            args.output_dir,
-            args.var_list,
-            args.lat_min,
-            args.lat_max,
+            output_dir,
+            var_list,
+            lat_min,
+            lat_max,
             lon_min,
             lon_max,
-            args.max_lead_hr,
+            max_lead_hr,
         )
 
     else:

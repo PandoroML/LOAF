@@ -72,6 +72,7 @@ class HRRRLoader:
         # Lazy loading
         self._data: xr.Dataset | None = None
         self._node_positions: torch.Tensor | None = None
+        self._valid_mask: np.ndarray | None = None
 
     @property
     def data(self) -> xr.Dataset:
@@ -97,11 +98,16 @@ class HRRRLoader:
                 f"No HRRR files found in {self.data_dir}"
             )
 
-        # Load all files (chunks=None to avoid requiring dask)
+        # Load eagerly and combine in memory - avoids open_mfdataset, which
+        # requires dask even when chunks=None in newer xarray versions.
         if len(files) == 1:
             ds = xr.open_dataset(files[0])
         else:
-            ds = xr.open_mfdataset(files, combine="by_coords", chunks=None)
+            # override: per-file GRIB provenance attrs (remote_grib, local_grib)
+            # differ across files and aren't needed after loading.
+            ds = xr.combine_by_coords(
+                [xr.open_dataset(f) for f in files], combine_attrs="override"
+            )
 
         # Apply variable renaming based on what's available
         rename_map = {}
@@ -116,6 +122,31 @@ class HRRRLoader:
     def load_to_memory(self) -> None:
         """Load all data into memory for faster access."""
         self._data = self.data.load()
+
+    def _get_valid_mask(self) -> np.ndarray:
+        """Boolean mask (n_nodes,) of grid cells with no NaN in any variable/time.
+
+        HRRR's native grid is a rotated (Lambert Conformal) projection, so a
+        rectangular lat/lon bounding box doesn't align with it: cells inside
+        the requested box's (y, x) index rectangle but outside the true
+        lat/lon bounds come back as NaN from the download's spatial masking.
+        This is deterministic per region (same cells every time), so it's
+        computed once and used to exclude those cells everywhere - a single
+        NaN grid node would otherwise poison an entire batch through the
+        GNN's message passing.
+        """
+        if self._valid_mask is not None:
+            return self._valid_mask
+
+        mask = None
+        for var in self.data.data_vars:
+            values = self.data[var].values
+            spatial_size = values.shape[-2] * values.shape[-1]
+            node_valid = ~np.isnan(values).reshape(-1, spatial_size).any(axis=0)
+            mask = node_valid if mask is None else (mask & node_valid)
+
+        self._valid_mask = mask if mask is not None else np.array([], dtype=bool)
+        return self._valid_mask
 
     def get_node_positions(self) -> torch.Tensor:
         """Get (lon, lat) positions of all grid nodes.
@@ -143,9 +174,9 @@ class HRRRLoader:
         # Convert longitude back to -180 to 180 if needed
         lons = np.where(lons > 180, lons - 360, lons)
 
-        self._node_positions = torch.from_numpy(
-            np.stack([lons, lats], axis=-1).astype(np.float32)
-        )
+        positions = np.stack([lons, lats], axis=-1).astype(np.float32)
+        positions = positions[self._get_valid_mask()]
+        self._node_positions = torch.from_numpy(positions)
         return self._node_positions
 
     def get_sample(
@@ -192,6 +223,7 @@ class HRRRLoader:
                 elif values.ndim == 2:
                     # (time, node) -> (node, time)
                     values = values.T
+                values = values[self._get_valid_mask()]
                 result[var] = torch.from_numpy(values)
 
         return result
@@ -276,22 +308,8 @@ class HRRRLoader:
 
     @property
     def n_nodes(self) -> int:
-        """Total number of grid nodes."""
-        # Get shape from first variable
-        for var in self.data.data_vars:
-            shape = self.data[var].shape
-            # Find spatial dimensions (not time or step)
-            if "step" in self.data[var].dims and "time" in self.data[var].dims:
-                # (time, step, y, x) or (time, step, node)
-                if len(shape) == 4:
-                    return shape[2] * shape[3]
-                return shape[2]
-            elif "time" in self.data[var].dims:
-                # (time, y, x) or (time, node)
-                if len(shape) == 3:
-                    return shape[1] * shape[2]
-                return shape[1]
-        return 0
+        """Total number of valid (non-NaN) grid nodes."""
+        return int(self._get_valid_mask().sum())
 
     @property
     def times(self) -> np.ndarray:

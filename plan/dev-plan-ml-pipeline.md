@@ -555,10 +555,10 @@ class LOAFWeatherEntity(WeatherEntity):
 
 ### Milestone 3: Training Pipeline
 - [x] Create PyTorch Dataset class (`loaf/data/loaders/dataset.py`)
-- [ ] Implement training loop (`loaf/training/trainer.py`)
-- [ ] Implement evaluation metrics (`loaf/training/evaluate.py`)
-- [ ] Write `scripts/train.py` CLI
-- [ ] **Verify:** Train on 1 month data, loss decreases, metrics improve
+- [x] Implement training loop (`loaf/training/trainer.py`)
+- [x] Implement evaluation metrics (`loaf/training/evaluate.py`)
+- [x] Write `scripts/train.py` CLI
+- [x] **Verify:** Train on downloaded Arlington data (MPNN and ViT), loss decreases, metrics improve
 
 ### Milestone 4: Inference & API
 - [ ] Implement predictor (`loaf/inference/predictor.py`)

@@ -6,14 +6,16 @@ for the GNN + ViT model.
 Adapted from LocalizedWeather MixData.py.
 """
 
+from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+import numpy as np
 import pandas as pd
 import torch
 from dateutil import rrule
-from torch.utils.data import Dataset
+from torch.utils.data import DataLoader, Dataset, Subset
 
 from .era5 import ERA5Loader
 from .hrrr import HRRRLoader
@@ -27,33 +29,41 @@ class WeatherDataset(Dataset):
     Combines gridded data (ERA5 or HRRR) with station observations
     for training the GNN + ViT model.
 
+    Each sample splits a time window into a historical input (the
+    ``back_hrs`` hours up to and including "now") and a multi-horizon
+    target: ``target_vars`` at each offset in ``lead_times`` hours
+    after "now".
+
     Args:
         year: Year of data to load.
         back_hrs: Number of historical hours for input.
-        lead_hours: Number of forecast hours (prediction horizon).
         station_metadata: StationMetadata instance.
         station_loader: IEMLoader or MADISLoader instance.
+        lead_times: Forecast horizons in hours (e.g. [6, 12, 24, 48]).
         grid_loader: ERA5Loader or HRRRLoader instance (optional).
-        station_vars: List of station variables to use.
-        grid_vars: List of grid variables to use.
-        normalize: Whether to apply normalization.
+        station_vars: List of station variables to use as input.
+        grid_vars: List of grid variables to use as input.
+        target_vars: List of variables to predict (default: u, v wind).
+        normalize: Whether to apply min-max normalization.
     """
 
     def __init__(
         self,
         year: int,
         back_hrs: int,
-        lead_hours: int,
         station_metadata: StationMetadata,
         station_loader: IEMLoader,
+        lead_times: list[int] | None = None,
         grid_loader: ERA5Loader | HRRRLoader | None = None,
         station_vars: list[str] | None = None,
         grid_vars: list[str] | None = None,
+        target_vars: list[str] | None = None,
         normalize: bool = True,
     ):
         self.year = year
         self.back_hrs = back_hrs
-        self.lead_hours = lead_hours
+        self.lead_times = sorted(lead_times or [48])
+        self.lead_hours = self.lead_times[-1]
 
         self.station_metadata = station_metadata
         self.station_loader = station_loader
@@ -62,6 +72,13 @@ class WeatherDataset(Dataset):
         # Default variables
         self.station_vars = station_vars or ["u", "v", "temp", "dewpoint"]
         self.grid_vars = grid_vars or ["u", "v", "temp", "dewpoint"]
+        self.target_vars = target_vars or ["u", "v"]
+
+        # Vars to fetch from the station loader: inputs + any targets not
+        # already covered by station_vars.
+        self._fetch_vars = list(
+            dict.fromkeys([*self.station_vars, *self.target_vars])
+        )
 
         self.normalize = normalize
 
@@ -87,7 +104,7 @@ class WeatherDataset(Dataset):
 
     def _compute_statistics(self) -> None:
         """Compute normalization statistics."""
-        self.station_stats = self.station_loader.compute_statistics(self.station_vars)
+        self.station_stats = self.station_loader.compute_statistics(self._fetch_vars)
 
         if self.grid_loader is not None:
             self.grid_stats = self.grid_loader.compute_statistics(self.grid_vars)
@@ -126,6 +143,41 @@ class WeatherDataset(Dataset):
 
         return (values - min_val) / (max_val - min_val + eps)
 
+    def _stack_vars(
+        self,
+        data: dict[str, torch.Tensor],
+        variables: list[str],
+        t_start: int,
+        t_end: int,
+        source: str,
+    ) -> torch.Tensor:
+        """Stack a list of variables into a (n_entities, n_time, n_vars) tensor."""
+        values = []
+        for var in variables:
+            v = data[var][:, t_start:t_end]
+            if self.normalize:
+                v = self._normalize_var(v, var, source)
+            values.append(v)
+        return torch.stack(values, dim=-1)
+
+    def _stack_masks(
+        self,
+        data: dict[str, torch.Tensor],
+        variables: list[str],
+        t_start: int,
+        t_end: int,
+    ) -> torch.Tensor:
+        """Stack "is_real" masks for a list of variables into (n_entities, n_time, n_vars)."""
+        masks = []
+        for var in variables:
+            key = f"{var}_is_real"
+            if key in data:
+                m = data[key][:, t_start:t_end]
+            else:
+                m = torch.ones_like(data[var][:, t_start:t_end])
+            masks.append(m)
+        return torch.stack(masks, dim=-1)
+
     def __len__(self) -> int:
         """Number of samples in the dataset."""
         # We need back_hrs of history and lead_hours of future
@@ -134,21 +186,21 @@ class WeatherDataset(Dataset):
     def __getitem__(self, index: int) -> dict[str, Any]:
         """Get a training sample.
 
+        The time window covers ``back_hrs`` hours of history (ending at
+        "now") plus ``max(lead_times)`` hours of future targets.
+
         Args:
             index: Sample index.
 
         Returns:
             Dictionary containing:
-            - time: Tensor of timestamps
-            - station_lon, station_lat: Normalized station coordinates
-            - k_edge_index: Station graph edges
-            - {var}: Station observations for each variable
-            - {var}_is_real: Mask of real vs filled values
-            - ext_{var}: Grid data for each variable (if grid_loader provided)
-            - grid_lon, grid_lat: Normalized grid coordinates
-            - ex2m_edge_index: Grid-to-station edges
+            - madis_x: Station input (n_stations, back_hrs, n_station_vars)
+            - madis_lon, madis_lat: Normalized station coordinates (n_stations, 1)
+            - edge_index: Station-to-station graph edges (2, n_edges)
+            - target: (n_stations, n_lead_times, n_target_vars)
+            - target_mask: "is_real" mask matching target, same shape
+            - ex_x, ex_lon, ex_lat, edge_index_e2m: Grid inputs (if grid_loader given)
         """
-        # Time window
         start_idx = index
         end_idx = index + self.back_hrs + self.lead_hours
 
@@ -156,67 +208,52 @@ class WeatherDataset(Dataset):
         time_start = time_sel[0]
         time_end = time_sel[-1]
 
-        # Build sample dictionary
-        sample = {}
+        sample: dict[str, Any] = {}
 
-        # Timestamps
-        sample["time"] = torch.tensor(
-            [t.value for t in time_sel], dtype=torch.long
+        # --- Station input: the back_hrs hours up to and including "now" ---
+        station_data = self.station_loader.get_sample(time_start, time_end, self._fetch_vars)
+
+        sample["madis_x"] = self._stack_vars(
+            station_data, self.station_vars, 0, self.back_hrs, "station"
         )
 
-        # Station coordinates (normalized)
-        station_lons = self.station_metadata.lons
-        station_lats = self.station_metadata.lats
-        norm_lons, norm_lats = self._normalize_coords(station_lons, station_lats)
-        sample["station_lon"] = norm_lons
-        sample["station_lat"] = norm_lats
-
-        # Station graph
-        sample["k_edge_index"] = self.station_metadata.get_k_edge_index()
-
-        # Station observations
-        station_data = self.station_loader.get_sample(
-            time_start, time_end, self.station_vars
+        norm_lons, norm_lats = self._normalize_coords(
+            self.station_metadata.lons, self.station_metadata.lats
         )
+        sample["madis_lon"] = norm_lons.unsqueeze(-1)
+        sample["madis_lat"] = norm_lats.unsqueeze(-1)
+        sample["edge_index"] = self.station_metadata.get_k_edge_index()
 
-        for var in self.station_vars:
-            if var in station_data:
-                values = station_data[var]
-                if self.normalize:
-                    values = self._normalize_var(values, var, "station")
-                sample[var] = values
+        # --- Targets: target_vars at each lead time, offset from "now" ---
+        target_steps = []
+        target_mask_steps = []
+        for lead_hr in self.lead_times:
+            # "now" is relative index back_hrs - 1; lead_hr hours after that.
+            t_idx = self.back_hrs - 1 + lead_hr
+            target_steps.append(
+                self._stack_vars(
+                    station_data, self.target_vars, t_idx, t_idx + 1, "station"
+                ).squeeze(1)
+            )
+            target_mask_steps.append(
+                self._stack_masks(station_data, self.target_vars, t_idx, t_idx + 1).squeeze(1)
+            )
 
-            # Include is_real mask
-            is_real_var = f"{var}_is_real"
-            if is_real_var in station_data:
-                sample[is_real_var] = station_data[is_real_var]
+        sample["target"] = torch.stack(target_steps, dim=1)  # (n_stations, n_lead_times, n_vars)
+        sample["target_mask"] = torch.stack(target_mask_steps, dim=1)
 
-        # Grid data (if available)
+        # --- Grid input (optional): historical window matching station input ---
         if self.grid_loader is not None:
-            grid_data = self.grid_loader.get_sample(
-                time_start, time_end, self.grid_vars
-            )
+            grid_data = self.grid_loader.get_sample(time_start, time_end, self.grid_vars)
 
-            for var in self.grid_vars:
-                if var in grid_data:
-                    values = grid_data[var]
-                    if self.normalize:
-                        values = self._normalize_var(values, var, "grid")
-                    sample[f"ext_{var}"] = values
+            sample["ex_x"] = self._stack_vars(grid_data, self.grid_vars, 0, self.back_hrs, "grid")
 
-            # Grid coordinates
             grid_pos = self.grid_loader.get_node_positions()
-            grid_lons = grid_pos[:, 0]
-            grid_lats = grid_pos[:, 1]
-            norm_grid_lons, norm_grid_lats = self._normalize_coords(
-                grid_lons, grid_lats
-            )
-            sample["grid_lon"] = norm_grid_lons
-            sample["grid_lat"] = norm_grid_lats
+            norm_grid_lons, norm_grid_lats = self._normalize_coords(grid_pos[:, 0], grid_pos[:, 1])
+            sample["ex_lon"] = norm_grid_lons.unsqueeze(-1)
+            sample["ex_lat"] = norm_grid_lats.unsqueeze(-1)
 
-            # Grid-to-station edges (can be precomputed)
-            # For now, use simple KNN from grid to stations
-            sample["ex2m_edge_index"] = self._compute_grid_to_station_edges(
+            sample["edge_index_e2m"] = self._compute_grid_to_station_edges(
                 grid_pos, self.station_metadata.positions
             )
 
@@ -267,44 +304,123 @@ class WeatherDataset(Dataset):
             return self.grid_loader.n_nodes
         return None
 
+    def usable_index_range(self) -> tuple[int, int]:
+        """Range [start, end) of sample indices safe to draw from.
+
+        __len__ spans the whole calendar year regardless of how much of it
+        was actually downloaded or observed. Two failure modes otherwise
+        follow from that:
+
+        - Station data is forward/backward-filled by IEMLoader, so it never
+          crashes, but a chronological train/val split over the full
+          __len__ range can put validation entirely past the last real
+          observation (or before the first), i.e. all-imputed targets and
+          meaningless masked metrics.
+        - Grid (HRRR/ERA5) data is NOT filled - it's exactly whatever was
+          downloaded. A sample whose input window falls outside the grid
+          loader's covered time range gets an empty array back and crashes
+          in get_sample()'s reshape.
+
+        This bounds indices so every sample's targets land within real
+        station observations, and (if a grid_loader is set) every sample's
+        input window lands within the grid's downloaded time range.
+        """
+        ds = self.station_loader.data
+        first_real_idx, last_real_idx = None, None
+        for var in self.target_vars:
+            key = f"{var}_is_real"
+            if key not in ds.data_vars:
+                continue
+            real_at_time = ds[key].values.max(axis=0) > 0  # any station real, per time
+            nonzero = real_at_time.nonzero()[0]
+            if len(nonzero) == 0:
+                continue
+            lo, hi = int(nonzero[0]), int(nonzero[-1])
+            first_real_idx = lo if first_real_idx is None else min(first_real_idx, lo)
+            last_real_idx = hi if last_real_idx is None else max(last_real_idx, hi)
+
+        if first_real_idx is None:
+            return (0, 0)
+
+        min_lead, max_lead = self.lead_times[0], self.lead_times[-1]
+        start = max(0, first_real_idx - self.back_hrs + 1 - min_lead)
+        end = last_real_idx - self.back_hrs - max_lead + 2  # exclusive
+
+        if self.grid_loader is not None:
+            grid_times = self.grid_loader.times
+            if len(grid_times) == 0:
+                return (0, 0)
+
+            timeline_values = self.timeline.values
+            grid_start_idx = int(np.searchsorted(timeline_values, grid_times.min(), side="left"))
+            grid_end_idx = int(np.searchsorted(timeline_values, grid_times.max(), side="right")) - 1
+
+            # Input window [index, index + back_hrs) must lie within grid coverage.
+            # This is necessary but not sufficient if the grid has interior
+            # gaps (e.g. a few missing hours within an otherwise-covered
+            # range) - such samples can still raise a shape mismatch.
+            start = max(start, grid_start_idx)
+            end = min(end, grid_end_idx - self.back_hrs + 2)
+
+        end = min(end, len(self))
+        start = min(start, end)
+        return (max(0, start), max(0, end))
+
+
+@dataclass
+class DatasetBundle:
+    """Train/val dataloaders plus the underlying dataset for introspection."""
+
+    train_loader: DataLoader
+    val_loader: DataLoader
+    dataset: WeatherDataset
+
 
 def create_dataloaders(
     data_dir: str | Path,
     year: int,
     back_hrs: int = 24,
-    lead_hours: int = 48,
+    lead_times: list[int] | None = None,
     batch_size: int = 32,
     val_split: float = 0.15,
-    num_workers: int = 4,
+    num_workers: int = 0,
     lat_bounds: tuple[float, float] | None = None,
     lon_bounds: tuple[float, float] | None = None,
+    station_vars: list[str] | None = None,
+    grid_vars: list[str] | None = None,
+    target_vars: list[str] | None = None,
+    min_observations: int = 24,
     use_era5: bool = False,
-    use_hrrr: bool = True,
-) -> tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader]:
+    use_hrrr: bool = False,
+) -> DatasetBundle:
     """Create train and validation dataloaders.
 
     Args:
         data_dir: Base directory containing data subdirectories.
         year: Year of data to use.
         back_hrs: Number of historical hours.
-        lead_hours: Forecast horizon in hours.
+        lead_times: Forecast horizons in hours (default: [48]).
         batch_size: Batch size for training.
         val_split: Fraction of data for validation.
         num_workers: Number of dataloader workers.
         lat_bounds: Geographic bounds (lat_min, lat_max).
         lon_bounds: Geographic bounds (lon_min, lon_max).
-        use_era5: Whether to use ERA5 as grid data.
-        use_hrrr: Whether to use HRRR as grid data.
+        station_vars: Station variables to use as input.
+        grid_vars: Grid variables to use as input (if grid enabled).
+        target_vars: Variables to predict (default: u, v wind).
+        min_observations: Minimum real observations required to keep a station.
+        use_era5: Whether to fuse ERA5 as grid data.
+        use_hrrr: Whether to fuse HRRR as grid data.
 
     Returns:
-        Tuple of (train_loader, val_loader).
+        DatasetBundle with train_loader, val_loader, and the base dataset.
     """
     data_dir = Path(data_dir)
 
     # Default Seattle bounds
-    if lat_bounds is None:
+    if lat_bounds is None or lat_bounds[0] is None:
         lat_bounds = (46.5, 49.0)
-    if lon_bounds is None:
+    if lon_bounds is None or lon_bounds[0] is None:
         lon_bounds = (-124.0, -121.0)
 
     # Load station metadata from IEM data
@@ -312,7 +428,14 @@ def create_dataloaders(
         data_dir / "iem",
         lat_bounds=lat_bounds,
         lon_bounds=lon_bounds,
+        min_observations=min_observations,
     )
+
+    if station_metadata.n_stations == 0:
+        raise ValueError(
+            f"No stations with >= {min_observations} observations found in "
+            f"{data_dir / 'iem'} within bounds {lat_bounds}, {lon_bounds}."
+        )
 
     # Load station observations
     station_loader = IEMLoader(
@@ -346,23 +469,38 @@ def create_dataloaders(
     dataset = WeatherDataset(
         year=year,
         back_hrs=back_hrs,
-        lead_hours=lead_hours,
         station_metadata=station_metadata,
         station_loader=station_loader,
+        lead_times=lead_times,
         grid_loader=grid_loader,
+        station_vars=station_vars,
+        grid_vars=grid_vars,
+        target_vars=target_vars,
     )
 
-    # Split into train/val
-    n_samples = len(dataset)
-    n_val = int(n_samples * val_split)
+    # Restrict to samples with real (non-imputed) target coverage - and, if
+    # grid fusion is on, within the grid loader's downloaded time range too -
+    # so a chronological split doesn't push validation past the last real
+    # observation, and grid sampling doesn't hit undownloaded time (see
+    # usable_index_range() docstring).
+    start_idx, end_idx = dataset.usable_index_range()
+    n_samples = end_idx - start_idx
+    if n_samples < 2:
+        raise ValueError(
+            f"Not enough real target/grid coverage for year {year} to build a "
+            f"train/val split (back_hrs={back_hrs}, lead_hours={dataset.lead_hours}, "
+            f"usable_samples={n_samples}). Try a different --year, download more "
+            f"data, or reduce back_hrs/lead_times."
+        )
+
+    n_val = max(1, int(n_samples * val_split))
     n_train = n_samples - n_val
 
     # Use contiguous split (later data for validation)
-    train_dataset = torch.utils.data.Subset(dataset, range(n_train))
-    val_dataset = torch.utils.data.Subset(dataset, range(n_train, n_samples))
+    train_dataset = Subset(dataset, range(start_idx, start_idx + n_train))
+    val_dataset = Subset(dataset, range(start_idx + n_train, end_idx))
 
-    # Create dataloaders
-    train_loader = torch.utils.data.DataLoader(
+    train_loader = DataLoader(
         train_dataset,
         batch_size=batch_size,
         shuffle=True,
@@ -370,7 +508,7 @@ def create_dataloaders(
         pin_memory=True,
     )
 
-    val_loader = torch.utils.data.DataLoader(
+    val_loader = DataLoader(
         val_dataset,
         batch_size=batch_size,
         shuffle=False,
@@ -378,4 +516,4 @@ def create_dataloaders(
         pin_memory=True,
     )
 
-    return train_loader, val_loader
+    return DatasetBundle(train_loader=train_loader, val_loader=val_loader, dataset=dataset)
