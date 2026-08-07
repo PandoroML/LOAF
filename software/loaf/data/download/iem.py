@@ -505,7 +505,7 @@ def download_iem_range(
     return saved_files
 
 
-def _load_iem_settings_from_config(config_path: str) -> dict[str, Any]:
+def load_iem_settings_from_config(config_path: str) -> dict[str, Any]:
     """Extract IEM-relevant settings from a LOAF config file."""
     from loaf.config import load_config
 
@@ -598,7 +598,7 @@ def main() -> None:
     # Load config defaults, then let CLI args override
     cfg_settings: dict[str, Any] = {}
     if args.config:
-        cfg_settings = _load_iem_settings_from_config(args.config)
+        cfg_settings = load_iem_settings_from_config(args.config)
         logger.info(f"Loaded config from {args.config}")
 
     stations = args.stations or cfg_settings.get("stations")

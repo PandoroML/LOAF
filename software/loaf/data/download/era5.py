@@ -234,7 +234,7 @@ def load_era5_month(file_path: str | Path) -> xr.Dataset:
     return ds
 
 
-def _load_era5_settings_from_config(config_path: str) -> dict:
+def load_era5_settings_from_config(config_path: str) -> dict:
     """Extract ERA5-relevant settings from a LOAF config file."""
     from loaf.config import load_config
 
@@ -345,7 +345,7 @@ def main() -> None:
     # Load config defaults, then let CLI args override
     cfg_settings: dict = {}
     if args.config:
-        cfg_settings = _load_era5_settings_from_config(args.config)
+        cfg_settings = load_era5_settings_from_config(args.config)
         logger.info(f"Loaded config from {args.config}")
 
     output_dir = Path(args.output_dir or cfg_settings.get("output_dir") or "data/era5")

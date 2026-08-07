@@ -561,10 +561,10 @@ class LOAFWeatherEntity(WeatherEntity):
 - [x] **Verify:** Train on downloaded Arlington data (MPNN and ViT), loss decreases, metrics improve
 
 ### Milestone 4: Inference & API
-- [ ] Implement predictor (`loaf/inference/predictor.py`)
-- [ ] Implement REST API server (`loaf/inference/server.py`)
-- [ ] Write `scripts/serve.py`
-- [ ] **Verify:** API returns valid forecasts for Seattle coordinates
+- [x] Implement predictor (`loaf/inference/predictor.py`)
+- [x] Implement REST API server (`loaf/inference/server.py`)
+- [x] Write `scripts/serve.py`
+- [x] **Verify:** API returns valid forecasts for Arlington coordinates
 
 ### Milestone 5: Home Assistant Integration
 - [ ] Implement Home Assistant client (`loaf/integration/homeassistant.py`)

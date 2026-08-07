@@ -73,6 +73,7 @@ loaf-download-era5 = "loaf.data.download.era5:main"
 loaf-download-iem = "loaf.data.download.iem:main"
 loaf-train = "scripts.train:main"
 loaf-serve = "scripts.serve:main"
+loaf-pipeline = "scripts.pipeline:main"
 
 [project.urls]
 Homepage = "https://github.com/PandoroML/LOAF"
