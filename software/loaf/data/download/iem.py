@@ -213,6 +213,8 @@ def download_iem_station(
     end_date: datetime,
     variables: list[str] = DEFAULT_VARIABLES,
     include_latlon: bool = True,
+    timeout: float = 180,
+    retries: int = 3,
 ) -> pd.DataFrame | None:
     """Download IEM ASOS data for a single station.
 
@@ -222,6 +224,9 @@ def download_iem_station(
         end_date: End date for data request (inclusive).
         variables: List of variables to download.
         include_latlon: Whether to include lat/lon in output.
+        timeout: Per-request timeout in seconds. IEM can take >60s for some
+            stations, so this is generous.
+        retries: Number of attempts on timeout/connection errors.
 
     Returns:
         DataFrame with observation data, or None if download failed.
@@ -245,10 +250,27 @@ def download_iem_station(
         "report_type": "3",  # METAR and special reports
     }
 
-    try:
-        response = requests.get(IEM_ASOS_URL, params=params, timeout=60)
-        response.raise_for_status()
+    response = None
+    for attempt in range(1, retries + 1):
+        try:
+            response = requests.get(IEM_ASOS_URL, params=params, timeout=timeout)
+            response.raise_for_status()
+            break
+        except (requests.Timeout, requests.ConnectionError) as e:
+            # Some stations (e.g. MRB) are consistently slow on IEM's side.
+            logger.warning(f"Attempt {attempt}/{retries} for {station} failed: {e}")
+            response = None
+            if attempt < retries:
+                time.sleep(5 * attempt)
+        except Exception as e:
+            logger.error(f"Failed to download data for {station}: {e}")
+            return None
 
+    if response is None:
+        logger.error(f"Failed to download data for {station} after {retries} attempts")
+        return None
+
+    try:
         # Parse CSV response
         df = pd.read_csv(io.StringIO(response.text))
 
@@ -288,8 +310,12 @@ def download_iem_stations(
 
     Returns:
         DataFrame with observation data from all stations.
+
+    Raises:
+        RuntimeError: If any station failed to download or returned no data.
     """
     all_data = []
+    failed = []
 
     for i, station in enumerate(stations):
         if i > 0 and request_delay > 0:
@@ -298,6 +324,16 @@ def download_iem_stations(
         df = download_iem_station(station, start_date, end_date, variables)
         if df is not None and not df.empty:
             all_data.append(df)
+        else:
+            failed.append(station)
+
+    if failed:
+        # Don't return a partial result: download_iem_range would save it and
+        # then skip the month on every future run, silently losing stations.
+        raise RuntimeError(
+            f"Failed to download IEM data for station(s): {failed}. "
+            f"Re-run to retry; existing monthly files will be skipped."
+        )
 
     if not all_data:
         logger.warning("No data downloaded from any station")
