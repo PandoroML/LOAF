@@ -88,6 +88,12 @@ def main() -> None:
     parser.add_argument(
         "--device", default=None, help="Device to train on (default: cuda if available, else cpu)"
     )
+    parser.add_argument(
+        "--no-report",
+        action="store_true",
+        help="Skip generating the HTML training report (report.html in the output dir) "
+        "that's otherwise built after every run.",
+    )
 
     args = parser.parse_args()
 
@@ -112,6 +118,19 @@ def main() -> None:
         device=args.device,
     )
     logger.info(f"Best checkpoint: {checkpoint_path}")
+
+    if not args.no_report:
+        from loaf.reporting import build_report_data, render_html
+
+        logger.info("Generating training report")
+        report_data = build_report_data(checkpoint_path.parent, data_dir=args.data_dir)
+        if report_data.inference_error:
+            logger.warning(
+                f"Validation inference failed, report will skip that detail: "
+                f"{report_data.inference_error}"
+            )
+        report_path = render_html(report_data, checkpoint_path.parent / "report.html")
+        logger.info(f"Report written to {report_path}")
 
 
 if __name__ == "__main__":
