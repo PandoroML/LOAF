@@ -98,6 +98,83 @@ See the full documentation here: https://pandoroml.github.io/LOAF/
 
 - [ML Pipeline Development Plan](plan/dev-plan-ml-pipeline.md) - Detailed plan for reproducing LocalizedWeather for Seattle/PNW
 
+### How to Run
+
+The pipeline is: **download data → train a model → serve forecasts over REST**. Commands
+below assume you're in the repo root and have installed the package (`pip install -e ".[dev]"`).
+They use `config/arlington.yaml` (DCA, IAD, BWI, HEF, MRB stations); swap in
+`config/seattle.yaml` for the PNW region instead.
+
+#### Quickest path: one command
+
+`loaf-pipeline` chains download → train → serve for you:
+
+```bash
+loaf-pipeline --config software/config/arlington.yaml \
+    --start-date 2024-10-01 --end-date 2024-12-31 --year 2024 --port 5000
+```
+
+It blocks on the running server at the end, so leave it running and query it from another
+terminal (see step 4 below). Useful flags for resuming a partial run:
+
+- `--skip-download` — reuse whatever's already in `data/`
+- `--skip-train --checkpoint <path>` — skip straight to serving an existing checkpoint
+- `--no-serve` — stop after training, print the checkpoint path, and exit
+- `--use-hrrr` / `--use-era5` — also download and fuse gridded forecasts (see step 1)
+
+Run `loaf-pipeline --help` for the full flag list (it's the union of the three commands below).
+
+#### Or, step by step
+
+Useful if you want to inspect data between steps, retrain from already-downloaded data, or
+swap in a different checkpoint without retraining.
+
+**1. Download station observations** (IEM/ASOS — no registration required):
+
+```bash
+loaf-download-iem --config software/config/arlington.yaml \
+    --start-date 2024-10-01 --end-date 2024-12-31
+```
+
+This is the minimum needed to train. Optionally fuse gridded forecasts too — HRRR needs no
+auth (AWS S3), ERA5 needs a free [CDS API key](https://cds.climate.copernicus.eu/) in
+`~/.cdsapirc`:
+
+```bash
+loaf-download-hrrr --config software/config/arlington.yaml \
+    --start-date 2024-10-01 --end-date 2024-12-31
+loaf-download-era5 --config software/config/arlington.yaml \
+    --start-year 2024 --end-year 2024
+```
+
+All three write into `data/` in the current directory by default.
+
+**2. Train a model** (MPNN or ViT backbone):
+
+```bash
+loaf-train --config software/config/arlington.yaml --year 2024
+# add --model-type vit, --epochs N, --use-hrrr, or --use-era5 as needed
+```
+
+Writes `best.pt` / `last.pt` checkpoints and a `train_log.csv` to `runs/arlington_<timestamp>/`.
+
+**3. Serve forecasts over REST:**
+
+```bash
+loaf-serve --checkpoint runs/arlington_<timestamp>/best.pt --port 5000
+```
+
+**4. Query it** (e.g. Reagan National Airport, Arlington VA):
+
+```bash
+curl "http://localhost:5000/api/forecast?lat=38.8512&lon=-77.0402"
+curl http://localhost:5000/api/forecast/all   # every station in the graph
+curl http://localhost:5000/health
+```
+
+Each response includes multi-horizon `u`/`v` wind predictions plus derived `wind_speed` and
+`wind_direction`, ready to wire into a Home Assistant REST sensor.
+
 ## License
 
 MIT

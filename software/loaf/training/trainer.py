@@ -104,6 +104,16 @@ class Trainer:
             order (used to build the persistence baseline for the skill metric).
         target_stats: Per-variable {"min", "max"} used to denormalize predictions
             before computing human-readable (physical-unit) metrics.
+        station_stats: Per-variable {"min", "max", ...} normalization stats for
+            every station input variable (a superset of target_stats). Persisted
+            to the checkpoint as-is so loaf.inference.Predictor can normalize
+            live inputs the same way the training data was normalized, without
+            needing to recompute statistics from a short live window.
+        run_config: Architecture/region metadata to embed in the checkpoint
+            verbatim (e.g. model_cfg, back_hrs, lat_bounds/lon_bounds,
+            min_observations, use_hrrr/use_era5, grid_vars) so a checkpoint is
+            self-describing enough for loaf.inference.Predictor to rebuild the
+            model and its inputs without the original training config.
         learning_rate: AdamW learning rate.
         weight_decay: AdamW weight decay.
         max_grad_norm: Gradient clipping norm (None to disable).
@@ -122,6 +132,8 @@ class Trainer:
         target_vars: list[str],
         station_vars: list[str],
         target_stats: dict[str, dict[str, float]] | None = None,
+        station_stats: dict[str, dict[str, float]] | None = None,
+        run_config: dict[str, Any] | None = None,
         learning_rate: float = 1e-4,
         weight_decay: float = 1e-4,
         max_grad_norm: float | None = 1.0,
@@ -138,6 +150,8 @@ class Trainer:
         self.n_target_vars = len(target_vars)
         self.station_vars = station_vars
         self.target_stats = target_stats or {}
+        self.station_stats = station_stats or {}
+        self.run_config = run_config or {}
 
         self.device = torch.device(device or ("cuda" if torch.cuda.is_available() else "cpu"))
         self.model = model.to(self.device)
@@ -331,6 +345,8 @@ class Trainer:
                 "target_vars": self.target_vars,
                 "station_vars": self.station_vars,
                 "target_stats": self.target_stats,
+                "station_stats": self.station_stats,
+                "run_config": self.run_config,
             },
             self.output_dir / filename,
         )
