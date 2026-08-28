@@ -74,6 +74,8 @@ loaf-download-iem = "loaf.data.download.iem:main"
 loaf-train = "scripts.train:main"
 loaf-serve = "scripts.serve:main"
 loaf-pipeline = "scripts.pipeline:main"
+loaf-report = "scripts.report:main"
+loaf-report-summary = "scripts.report_summary:main"
 
 [project.urls]
 Homepage = "https://github.com/PandoroML/LOAF"
@@ -99,6 +101,11 @@ target-version = "py310"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+# render.py's template constants are embedded JS/CSS/HTML, not Python prose -
+# line-length doesn't apply the way it does to the rest of the codebase.
+"software/loaf/reporting/render.py" = ["E501"]
 
 [tool.mypy]
 python_version = "3.10"

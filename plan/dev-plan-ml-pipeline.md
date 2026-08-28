@@ -583,6 +583,7 @@ class LOAFWeatherEntity(WeatherEntity):
 - [ ] Integrate local observations into model
 - [ ] **Verify:** Local sensor data improves forecast accuracy
 
+
 ---
 
 ## Dependencies

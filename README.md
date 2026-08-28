@@ -124,6 +124,8 @@ terminal (see step 4 below). Useful flags for resuming a partial run:
 
 Run `loaf-pipeline --help` for the full flag list (it's the union of the three commands below).
 
+Run loaf-report-summary --runs-dir runs after any batch of training runs to summarize results all modeling attempts in /runs.
+
 #### Or, step by step
 
 Useful if you want to inspect data between steps, retrain from already-downloaded data, or
