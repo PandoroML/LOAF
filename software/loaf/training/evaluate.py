@@ -36,6 +36,10 @@ class RunningMetrics:
         self._sum_mask = torch.zeros(n_lead, n_vars, dtype=torch.float64)
         self._sum_sq_persistence = 0.0
         self._sum_mask_persistence = 0.0
+        # Per-horizon/per-variable persistence error, for the per-cell skill
+        # breakdown reported by a training report (see loaf.reporting) -
+        # shares _sum_mask as its count, since it's the same mask.
+        self._sum_sq_persistence_cell = torch.zeros(n_lead, n_vars, dtype=torch.float64)
 
     def update(
         self,
@@ -69,8 +73,10 @@ class RunningMetrics:
 
         if persistence is not None:
             perr = (persistence.detach() - target) * mask
-            self._sum_sq_persistence += (perr ** 2).double().sum().item()
+            perr_sq = (perr ** 2).double()
+            self._sum_sq_persistence += perr_sq.sum().item()
             self._sum_mask_persistence += m.sum().item()
+            self._sum_sq_persistence_cell += perr_sq.sum(dim=(0, 1)).cpu()
 
     def compute(self) -> dict[str, float]:
         """Compute aggregate and per-horizon/per-variable metrics.
@@ -79,7 +85,9 @@ class RunningMetrics:
             Dictionary with "loss" (mean squared error, for early stopping
             and logging), "mse", "mae", "rmse", "skill" (1 - model_mse /
             persistence_mse, NaN if no persistence baseline was given), and
-            per-horizon/per-variable "rmse_{var}_{lead}h" / "mae_{var}_{lead}h".
+            per-horizon/per-variable "rmse_{var}_{lead}h" / "mae_{var}_{lead}h"
+            / "skill_{var}_{lead}h" (NaN for any cell without a persistence
+            baseline).
         """
         total_mask = self._sum_mask.sum().item()
         denom = max(total_mask, 1.0)
@@ -108,5 +116,11 @@ class RunningMetrics:
                 var_mse = self._sum_sq[i, j].item() / count
                 result[f"rmse_{var}_{lead_hr}h"] = var_mse ** 0.5
                 result[f"mae_{var}_{lead_hr}h"] = self._sum_abs[i, j].item() / count
+
+                cell_skill = float("nan")
+                persistence_mse_cell = self._sum_sq_persistence_cell[i, j].item() / count
+                if self._sum_mask_persistence > 0 and persistence_mse_cell > 0:
+                    cell_skill = 1.0 - (var_mse / persistence_mse_cell)
+                result[f"skill_{var}_{lead_hr}h"] = cell_skill
 
         return result

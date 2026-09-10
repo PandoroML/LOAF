@@ -124,6 +124,12 @@ def build_parser() -> argparse.ArgumentParser:
     train.add_argument(
         "--num-workers", type=int, default=0, help="DataLoader worker processes (default: 0)"
     )
+    train.add_argument(
+        "--no-report",
+        action="store_true",
+        help="Skip generating the HTML training report (report.html in the checkpoint's "
+        "directory) that's otherwise built after every run.",
+    )
 
     serve = parser.add_argument_group("3. serve")
     serve.add_argument(
@@ -191,6 +197,21 @@ def main() -> None:
             num_workers=args.num_workers,
             device=args.device,
         )
+
+    if args.no_report:
+        logger.info("Skipping report generation (--no-report)")
+    else:
+        from loaf.reporting import build_report_data, render_html
+
+        logger.info("Generating training report")
+        report_data = build_report_data(checkpoint_path.parent, data_dir=args.data_dir)
+        if report_data.inference_error:
+            logger.warning(
+                f"Validation inference failed, report will skip that detail: "
+                f"{report_data.inference_error}"
+            )
+        report_path = render_html(report_data, checkpoint_path.parent / "report.html")
+        logger.info(f"Report written to {report_path}")
 
     if args.no_serve:
         logger.info(f"[3/3] Skipping serve (--no-serve). Checkpoint: {checkpoint_path}")

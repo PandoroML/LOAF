@@ -242,7 +242,10 @@ def train_stage(
     }
 
     # Embedded in the checkpoint so loaf.inference.Predictor can rebuild this
-    # exact model and normalize live inputs without the original config file.
+    # exact model and normalize live inputs without the original config file,
+    # and so loaf.reporting can reconstruct the same (chronological, so
+    # deterministic) validation split to build a training report without the
+    # original config or a full re-run of the training pipeline.
     run_config: dict[str, Any] = {
         "model_cfg": model_cfg,
         "back_hrs": back_hrs,
@@ -253,6 +256,18 @@ def train_stage(
         "use_era5": use_era5,
         "grid_vars": dataset.grid_vars if dataset.grid_loader is not None else None,
         "region_name": region_name,
+        "year": year,
+        "val_split": val_split,
+        "batch_size": batch_size,
+        "learning_rate": learning_rate,
+        "weight_decay": weight_decay,
+        "patience": patience,
+        "max_grad_norm": max_grad_norm,
+        "seed": seed,
+        "n_params": n_params,
+        "n_train_samples": len(bundle.train_loader.dataset),
+        "n_val_samples": len(bundle.val_loader.dataset),
+        "n_stations": dataset.n_stations,
     }
 
     trainer = Trainer(
