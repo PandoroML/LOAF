@@ -82,6 +82,20 @@ class WeatherDataset(Dataset):
 
         self.normalize = normalize
 
+        # HRRR forecast mode (as in LocalizedWeather): the grid input is the
+        # back_hrs of analysis plus the run at "now"'s forecast for each hour
+        # out to the longest lead time. Otherwise grid input is history only.
+        self.grid_forecast_hrs = 0
+        if isinstance(grid_loader, HRRRLoader) and not grid_loader.reanalysis_only:
+            self.grid_forecast_hrs = self.lead_hours
+            n_steps = len(grid_loader.steps) if grid_loader.steps is not None else 1
+            if n_steps <= self.grid_forecast_hrs:
+                raise ValueError(
+                    f"HRRR data has {n_steps} forecast step(s) but lead_times reach "
+                    f"{self.lead_hours}h; re-download HRRR with "
+                    f"--max-lead-hr {self.lead_hours} or more"
+                )
+
         # Generate timeline for the year
         self.timeline = self._generate_timeline(year)
 
@@ -242,11 +256,21 @@ class WeatherDataset(Dataset):
         sample["target"] = torch.stack(target_steps, dim=1)  # (n_stations, n_lead_times, n_vars)
         sample["target_mask"] = torch.stack(target_mask_steps, dim=1)
 
-        # --- Grid input (optional): historical window matching station input ---
+        # --- Grid input (optional): history matching station input, plus the
+        # forecast over the lead hours in HRRR forecast mode ---
         if self.grid_loader is not None:
-            grid_data = self.grid_loader.get_sample(time_start, time_end, self.grid_vars)
+            if self.grid_forecast_hrs:
+                grid_data = self.grid_loader.get_sample_with_forecast(
+                    time_start,
+                    self.timeline[start_idx + self.back_hrs - 1],
+                    self.back_hrs,
+                    self.grid_forecast_hrs,
+                    self.grid_vars,
+                )
+            else:
+                grid_data = self.grid_loader.get_sample(time_start, time_end, self.grid_vars)
 
-            sample["ex_x"] = self._stack_vars(grid_data, self.grid_vars, 0, self.back_hrs, "grid")
+            sample["ex_x"] = self._stack_vars(grid_data, self.grid_vars, 0, self.grid_len, "grid")
 
             grid_pos = self.grid_loader.get_node_positions()
             norm_grid_lons, norm_grid_lats = self._normalize_coords(grid_pos[:, 0], grid_pos[:, 1])
@@ -296,6 +320,11 @@ class WeatherDataset(Dataset):
     def n_stations(self) -> int:
         """Number of stations."""
         return self.station_metadata.n_stations
+
+    @property
+    def grid_len(self) -> int:
+        """Hours in the grid input window (history plus any forecast hours)."""
+        return self.back_hrs + self.grid_forecast_hrs
 
     @property
     def n_grid_nodes(self) -> int | None:
@@ -453,6 +482,7 @@ def create_dataloaders(
             years=[year],
             lat_bounds=lat_bounds,
             lon_bounds=lon_bounds,
+            reanalysis_only=False,
         )
     elif use_era5:
         grid_loader = ERA5Loader(

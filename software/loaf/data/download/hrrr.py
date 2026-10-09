@@ -11,6 +11,7 @@ Herbie docs: https://herbie.readthedocs.io/
 
 import argparse
 import logging
+import time
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -42,6 +43,7 @@ def download_hrrr_hourly(
     lon_max: float = SEATTLE_BOUNDS["lon_max"],
     max_lead_hr: int = 18,
     verbose: bool = False,
+    retries: int = 3,
 ) -> xr.Dataset | None:
     """Download HRRR data for a single model run time.
 
@@ -54,6 +56,7 @@ def download_hrrr_hourly(
         lon_max: Maximum longitude (0-360 format for HRRR).
         max_lead_hr: Maximum forecast lead time in hours.
         verbose: Whether to print download progress.
+        retries: Number of attempts per forecast step on download errors.
 
     Returns:
         xarray Dataset with dimensions (step, latitude, longitude) containing
@@ -69,44 +72,70 @@ def download_hrrr_hourly(
         lead_hours = tqdm(lead_hours, desc=f"Downloading {run_time}")
 
     for lead_hr in lead_hours:
-        try:
-            hrrr_file = Herbie(run_time, model="hrrr", product="sfc", fxx=lead_hr, verbose=False)
+        hrrr_file = None
+        for attempt in range(1, retries + 1):
+            try:
+                hrrr_file = Herbie(
+                    run_time, model="hrrr", product="sfc", fxx=lead_hr, verbose=False
+                )
 
-            if hrrr_file.grib is None:
-                logger.warning(f"No GRIB file found for {run_time} fxx={lead_hr}")
+                if hrrr_file.grib is None:
+                    break
+
+                # Download and parse to xarray. A dropped connection can leave a
+                # truncated subset file that Herbie would otherwise reuse, so
+                # retries re-download it.
+                dss = hrrr_file.xarray(search=var_list, overwrite=attempt > 1)
+                if isinstance(dss, xr.Dataset):
+                    dss = [dss]
+                n_found = sum(len(ds.data_vars) for ds in dss)
+                n_expected = len(hrrr_file.inventory(var_list))
+                if n_found < n_expected:
+                    raise ValueError(
+                        f"incomplete download: {n_found} of {n_expected} variables"
+                    )
+                dss_new = []
+
+                for ds in dss:
+                    # Keep only essential coordinates
+                    ds = ds.drop_vars(
+                        [
+                            coord
+                            for coord in ds.coords
+                            if coord not in ["latitude", "longitude", "time", "step"]
+                        ]
+                    )
+
+                    # Spatial subsetting
+                    location_mask = (
+                        (ds.latitude >= lat_min)
+                        & (ds.latitude <= lat_max)
+                        & (ds.longitude >= lon_min)
+                        & (ds.longitude <= lon_max)
+                    )
+                    ds = ds.where(location_mask, drop=True)
+
+                    dss_new.append(ds)
+
+                datasets.append(xr.merge(dss_new, compat="identical"))
                 break
 
-            # Download and parse to xarray
-            dss = hrrr_file.xarray(search=var_list)
-            dss_new = []
-
-            for ds in dss:
-                # Keep only essential coordinates
-                ds = ds.drop_vars(
-                    [
-                        coord
-                        for coord in ds.coords
-                        if coord not in ["latitude", "longitude", "time", "step"]
-                    ]
+            except Exception as e:
+                # AWS occasionally drops connections mid-transfer; a skipped
+                # step would leave an all-NaN slice in the saved day file.
+                logger.warning(
+                    f"Attempt {attempt}/{retries} for {run_time} fxx={lead_hr} failed: {e}"
                 )
+                if attempt < retries:
+                    time.sleep(5 * attempt)
+                else:
+                    logger.error(
+                        f"Failed to download {run_time} fxx={lead_hr} after {retries} attempts"
+                    )
 
-                # Spatial subsetting
-                location_mask = (
-                    (ds.latitude >= lat_min)
-                    & (ds.latitude <= lat_max)
-                    & (ds.longitude >= lon_min)
-                    & (ds.longitude <= lon_max)
-                )
-                ds = ds.where(location_mask, drop=True)
-
-                dss_new.append(ds)
-
-            dataset = xr.merge(dss_new, compat="identical")
-            datasets.append(dataset)
-
-        except Exception as e:
-            logger.error(f"Failed to download {run_time} fxx={lead_hr}: {e}")
-            continue
+        if hrrr_file is not None and hrrr_file.grib is None:
+            logger.warning(f"No GRIB file found for {run_time} fxx={lead_hr}")
+            break
 
     if not datasets:
         return None

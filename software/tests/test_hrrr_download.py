@@ -3,6 +3,7 @@
 from datetime import datetime
 from unittest.mock import patch
 
+import numpy as np
 import pytest
 import xarray as xr
 from loaf.data.download.hrrr import (
@@ -139,3 +140,53 @@ class TestIntegration:
         assert result is not None
         assert isinstance(result, xr.Dataset)
         assert "u10" in result.data_vars or "UGRD" in str(result.data_vars)
+
+
+class TestDownloadHRRRHourlyRetry:
+    """download_hrrr_hourly retries failed or truncated steps instead of skipping them."""
+
+    @staticmethod
+    def _step(*names: str) -> xr.Dataset:
+        coords = {
+            "latitude": (("y", "x"), np.full((2, 2), 47.0)),
+            "longitude": (("y", "x"), np.full((2, 2), 238.0)),
+        }
+        data = {n: (("y", "x"), np.ones((2, 2), dtype=np.float32)) for n in names}
+        return xr.Dataset(data, coords=coords)
+
+    def test_retries_then_succeeds(self) -> None:
+        with (
+            patch("loaf.data.download.hrrr.Herbie") as mock_herbie,
+            patch("loaf.data.download.hrrr.time.sleep"),
+        ):
+            mock_herbie.return_value.inventory.return_value = [0]
+            mock_herbie.return_value.xarray.side_effect = [
+                ConnectionError("Remote end closed connection"),
+                [self._step("t2m")],
+            ]
+
+            result = download_hrrr_hourly("2024-01-15 12:00", max_lead_hr=0)
+
+        assert result is not None
+        assert mock_herbie.return_value.xarray.call_count == 2
+
+    def test_truncated_download_is_redownloaded(self) -> None:
+        with (
+            patch("loaf.data.download.hrrr.Herbie") as mock_herbie,
+            patch("loaf.data.download.hrrr.time.sleep"),
+        ):
+            # Inventory lists two variables; a truncated file parses to just one.
+            mock_herbie.return_value.inventory.return_value = [0, 1]
+            mock_herbie.return_value.xarray.side_effect = [
+                self._step("t2m"),
+                [self._step("t2m"), self._step("u10")],
+            ]
+
+            result = download_hrrr_hourly("2024-01-15 12:00", max_lead_hr=0)
+
+        assert result is not None
+        assert set(result.data_vars) == {"t2m", "u10"}
+        overwrite_flags = [
+            c.kwargs["overwrite"] for c in mock_herbie.return_value.xarray.call_args_list
+        ]
+        assert overwrite_flags == [False, True]
