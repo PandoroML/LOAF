@@ -230,6 +230,7 @@ def run_inference(
         n_station_vars=len(bundle.dataset.station_vars),
         n_out_features=len(lead_times) * len(target_vars),
         grid_vars=bundle.dataset.grid_vars if bundle.dataset.grid_loader is not None else None,
+        in_hrs_grid=bundle.dataset.grid_len,
     )
     model.load_state_dict(checkpoint["model_state_dict"])
     model.to(device)

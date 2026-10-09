@@ -12,11 +12,12 @@ region:
 
 data:
   # Historical window for input features
-  back_hrs: 24
+  # (48h history, 12h horizon match LocalizedWeather's defaults)
+  back_hrs: 48
   # Forecast horizon
-  lead_hrs: 48
+  lead_hrs: 12
   # Lead times to predict (hours from model init)
-  lead_times: [6, 12, 18, 24, 30, 36, 42, 48]
+  lead_times: [3, 6, 9, 12]
 
   hrrr:
     # Variables to download (GRIB2 search pattern)
@@ -25,8 +26,9 @@ data:
     # UGRD:10 m - 10 meter U wind component
     # VGRD:10 m - 10 meter V wind component
     variables: "(?:TMP:2 m|DPT:2 m|UGRD:10 m|VGRD:10 m)"
-    # Maximum forecast lead time to download per run
-    max_lead_hr: 18
+    # Maximum forecast lead time to download per run (must cover the
+    # longest lead time: HRRR forecasts are fed in over the lead hours)
+    max_lead_hr: 12
     # Output directory (relative to project root)
     output_dir: "data/hrrr"
 

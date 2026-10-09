@@ -225,6 +225,7 @@ def train_stage(
         n_station_vars=len(dataset.station_vars),
         n_out_features=len(lead_times) * len(dataset.target_vars),
         grid_vars=dataset.grid_vars if dataset.grid_loader is not None else None,
+        in_hrs_grid=dataset.grid_len,
     )
     n_params = sum(p.numel() for p in model.parameters())
     logger.info(f"Built {model_cfg['type']} model with {n_params:,} parameters")
@@ -255,6 +256,7 @@ def train_stage(
         "use_hrrr": use_hrrr,
         "use_era5": use_era5,
         "grid_vars": dataset.grid_vars if dataset.grid_loader is not None else None,
+        "in_hrs_grid": dataset.grid_len,
         "region_name": region_name,
         "year": year,
         "val_split": val_split,

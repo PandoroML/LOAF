@@ -132,6 +132,9 @@ class Predictor:
         self.use_hrrr: bool = bool(run_config.get("use_hrrr", False))
         self.use_era5: bool = bool(run_config.get("use_era5", False))
         self.grid_vars: list[str] | None = run_config.get("grid_vars")
+        # Checkpoints from before HRRR forecast mode fed grid history only.
+        self.in_hrs_grid: int = run_config.get("in_hrs_grid", self.back_hrs)
+        self.grid_forecast_hrs: int = self.in_hrs_grid - self.back_hrs
 
         # Vars to fetch from the station loader: inputs + any targets not
         # already covered by station_vars (mirrors WeatherDataset).
@@ -149,7 +152,7 @@ class Predictor:
             n_station_vars=len(self.station_vars),
             n_out_features=self.n_lead_times * self.n_target_vars,
             grid_vars=self.grid_vars if self.grid_loader is not None else None,
-            in_hrs_grid=self.back_hrs,
+            in_hrs_grid=self.in_hrs_grid,
         )
         self.model.load_state_dict(checkpoint["model_state_dict"])
         self.model.to(self.device)
@@ -204,6 +207,7 @@ class Predictor:
                 lat_bounds=self.lat_bounds,
                 lon_bounds=self.lon_bounds,
                 variables=self.grid_vars,
+                reanalysis_only=self.grid_forecast_hrs == 0,
             )
             grid_loader.load_to_memory()
         elif self.use_era5:
@@ -360,7 +364,12 @@ class Predictor:
 
         ex_x = ex_lon = ex_lat = edge_index_e2m = None
         if self.grid_loader is not None:
-            grid_data = self.grid_loader.get_sample(time_start, time_end, self.grid_vars)
+            if self.grid_forecast_hrs:
+                grid_data = self.grid_loader.get_sample_with_forecast(
+                    time_start, time_end, self.back_hrs, self.grid_forecast_hrs, self.grid_vars
+                )
+            else:
+                grid_data = self.grid_loader.get_sample(time_start, time_end, self.grid_vars)
             ex_x = self._stack_vars(grid_data, self.grid_vars).unsqueeze(0).to(self.device)
             grid_pos = self.grid_loader.get_node_positions()
             norm_grid_lon, norm_grid_lat = self._normalize_coords(grid_pos[:, 0], grid_pos[:, 1])

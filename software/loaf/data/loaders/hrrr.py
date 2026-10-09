@@ -262,47 +262,30 @@ class HRRRLoader:
             raise ValueError(
                 f"Not enough times in window: {len(times)} < {n_historical}"
             )
+        if n_forecast >= subset.sizes.get("step", 1):
+            raise ValueError(
+                f"Need forecast steps 1..{n_forecast} but HRRR data has "
+                f"{subset.sizes.get('step', 1)} step(s); re-download with "
+                f"max_lead_hr >= {n_forecast}"
+            )
 
+        valid_mask = self._get_valid_mask()
         result = {}
         for var in variables:
             if var not in subset.data_vars:
                 continue
 
-            # Historical: use step=0 for all times
+            # Historical: analysis (step=0) at each hour up to "now"
             historical = subset[var].isel(step=0, time=slice(0, n_historical))
+            # Future: steps 1..n_forecast of the run initialized at "now"
+            forecast = subset[var].isel(time=n_historical - 1, step=slice(1, n_forecast + 1))
 
-            # Forecast: use increasing steps from last historical time
-            last_time_idx = n_historical - 1
-            forecast_steps = []
-            for step in range(1, n_forecast + 1):
-                if step < len(subset.step):
-                    forecast_steps.append(
-                        subset[var].isel(time=last_time_idx, step=step)
-                    )
+            # (time, y, x) -> (n_nodes, time)
+            hist_vals = historical.values.astype(np.float32).reshape(n_historical, -1).T
+            fore_vals = forecast.values.astype(np.float32).reshape(n_forecast, -1).T
 
-            if forecast_steps:
-                forecast = xr.concat(forecast_steps, dim="step")
-                # Combine
-                hist_vals = historical.values.astype(np.float32)
-                fore_vals = forecast.values.astype(np.float32)
-
-                # Reshape to (n_nodes, time)
-                if hist_vals.ndim == 3:
-                    n_hist = hist_vals.shape[0]
-                    hist_vals = hist_vals.reshape(n_hist, -1).T
-                if fore_vals.ndim == 3:
-                    n_fore = fore_vals.shape[0]
-                    fore_vals = fore_vals.reshape(n_fore, -1).T
-
-                combined = np.concatenate([hist_vals, fore_vals], axis=-1)
-                result[var] = torch.from_numpy(combined)
-            else:
-                # No forecast steps available
-                hist_vals = historical.values.astype(np.float32)
-                if hist_vals.ndim == 3:
-                    n_hist = hist_vals.shape[0]
-                    hist_vals = hist_vals.reshape(n_hist, -1).T
-                result[var] = torch.from_numpy(hist_vals)
+            combined = np.concatenate([hist_vals, fore_vals], axis=-1)[valid_mask]
+            result[var] = torch.from_numpy(combined)
 
         return result
 

@@ -102,6 +102,7 @@ class TestPipelineRun:
             "--year", str(year),
             "--output-dir", str(output_dir),
             "--device", "cpu",
+            "--no-use-hrrr",
         )
 
         assert result.returncode == 0, result.stderr
@@ -127,6 +128,7 @@ class TestPipelineRun:
             "--year", str(year),
             "--output-dir", str(output_dir),
             "--device", "cpu",
+            "--no-use-hrrr",
         )
 
         assert result.returncode == 0, result.stderr
@@ -150,6 +152,7 @@ class TestPipelineRun:
             "--year", str(year),
             "--output-dir", str(output_dir),
             "--device", "cpu",
+            "--no-use-hrrr",
         )
         assert train_result.returncode == 0, train_result.stderr
         checkpoint_path = output_dir / "best.pt"
