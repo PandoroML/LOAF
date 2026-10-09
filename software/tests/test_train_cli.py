@@ -57,6 +57,7 @@ class TestTrainCLI:
             "--year", str(year),
             "--output-dir", str(output_dir),
             "--device", "cpu",
+            "--no-use-hrrr",
         )
 
         assert result.returncode == 0, result.stderr
@@ -78,9 +79,31 @@ class TestTrainCLI:
             "--year", str(year),
             "--output-dir", str(output_dir),
             "--device", "cpu",
+            "--no-use-hrrr",
             "--no-report",
         )
 
         assert result.returncode == 0, result.stderr
         assert (output_dir / "best.pt").exists()
         assert not (output_dir / "report.html").exists()
+
+    def test_hrrr_is_on_by_default(
+        self, tmp_path: Path, synthetic_arlington_data: tuple[Path, int]
+    ) -> None:
+        # Station-only synthetic data: without --no-use-hrrr, training looks for HRRR.
+        data_dir, year = synthetic_arlington_data
+        config_path = tmp_path / "config.yaml"
+        config_path.write_text(CONFIG_YAML)
+
+        result = run_train(
+            "--config", str(config_path),
+            "--data-dir", str(data_dir),
+            "--year", str(year),
+            "--output-dir", str(tmp_path / "runs"),
+            "--device", "cpu",
+            "--no-report",
+        )
+
+        assert result.returncode != 0
+        assert "No HRRR files found" in result.stderr
+

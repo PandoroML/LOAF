@@ -4,7 +4,8 @@
 Chains what loaf-download-iem[/hrrr/era5], loaf-train, and loaf-serve each do
 into a single command - the common case of "I have a region config, give me
 a running forecast API." Each stage can be skipped independently to resume a
-partial run.
+partial run. HRRR grid fusion is on by default (--no-use-hrrr for station-only);
+note that downloading HRRR with forecast steps takes hours per month of data.
 
 Usage (from the repo root):
     # Full run: download 3 months, train, and serve
@@ -79,10 +80,16 @@ def build_parser() -> argparse.ArgumentParser:
 
     grid = parser.add_argument_group("grid fusion (applies to download, train, and serve)")
     grid.add_argument(
-        "--use-hrrr", action="store_true", help="Download (if not skipped) and fuse HRRR grid data"
+        "--use-hrrr",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Download (if not skipped) and fuse HRRR grid data (default: on; "
+        "--no-use-hrrr for station-only)",
     )
     grid.add_argument(
-        "--use-era5", action="store_true", help="Download (if not skipped) and fuse ERA5 grid data"
+        "--use-era5",
+        action="store_true",
+        help="Download (if not skipped) and fuse ERA5 grid data instead of HRRR",
     )
 
     train = parser.add_argument_group("2. train")
@@ -156,6 +163,8 @@ def main() -> None:
         parser.error("--start-date and --end-date are required unless --skip-download is set")
     if args.skip_train and not args.checkpoint:
         parser.error("--checkpoint is required when --skip-train is set")
+    # HRRR is the default grid source; asking for ERA5 replaces it.
+    use_hrrr = args.use_hrrr and not args.use_era5
 
     logging.basicConfig(
         level=logging.INFO,
@@ -171,7 +180,7 @@ def main() -> None:
             data_dir=args.data_dir,
             start_date=datetime.strptime(args.start_date, "%Y-%m-%d"),
             end_date=datetime.strptime(args.end_date, "%Y-%m-%d"),
-            use_hrrr=args.use_hrrr,
+            use_hrrr=use_hrrr,
             use_era5=args.use_era5,
             stations=args.stations,
             rate_limit_delay=args.rate_limit_delay,
@@ -192,7 +201,7 @@ def main() -> None:
             batch_size=args.batch_size,
             learning_rate=args.learning_rate,
             min_observations=args.min_observations,
-            use_hrrr=args.use_hrrr,
+            use_hrrr=use_hrrr,
             use_era5=args.use_era5,
             num_workers=args.num_workers,
             device=args.device,

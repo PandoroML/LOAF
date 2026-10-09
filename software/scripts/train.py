@@ -3,8 +3,8 @@
 
 Trains an MPNN (graph) or VisionTransformer (attention) model to predict
 wind (u, v) at multiple forecast horizons, from downloaded IEM station data
-and (optionally) HRRR/ERA5 grid data. See software/config/*.yaml for region
-configs.
+and HRRR grid data (on by default; --no-use-hrrr for station-only, or
+--use-era5 for ERA5 instead). See software/config/*.yaml for region configs.
 
 This is a thin CLI wrapper around loaf.pipeline.train_stage() - see
 scripts/pipeline.py for the download -> train -> serve orchestrator that
@@ -74,13 +74,17 @@ def main() -> None:
     )
     parser.add_argument(
         "--use-hrrr",
-        action="store_true",
-        help="Fuse HRRR grid data (requires hourly HRRR coverage over the training window)",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Fuse HRRR grid data, including its forecast over the lead hours (default: on; "
+        "requires HRRR with forecast steps over the training window). "
+        "--no-use-hrrr trains station-only",
     )
     parser.add_argument(
         "--use-era5",
         action="store_true",
-        help="Fuse ERA5 grid data (requires hourly ERA5 coverage over the training window)",
+        help="Fuse ERA5 grid data instead of HRRR (requires hourly ERA5 coverage over the "
+        "training window)",
     )
     parser.add_argument(
         "--num-workers", type=int, default=0, help="DataLoader worker processes (default: 0)"
@@ -112,7 +116,7 @@ def main() -> None:
         batch_size=args.batch_size,
         learning_rate=args.learning_rate,
         min_observations=args.min_observations,
-        use_hrrr=args.use_hrrr,
+        use_hrrr=args.use_hrrr and not args.use_era5,
         use_era5=args.use_era5,
         num_workers=args.num_workers,
         device=args.device,
