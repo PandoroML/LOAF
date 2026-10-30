@@ -123,29 +123,52 @@ class HRRRLoader:
         """Load all data into memory for faster access."""
         self._data = self.data.load()
 
+    # A cell needs to be valid in at least this fraction of loaded
+    # (variable, time, step) slices to count as a real grid node - see
+    # _get_valid_mask.
+    _VALID_FRACTION_THRESHOLD = 0.95
+
     def _get_valid_mask(self) -> np.ndarray:
-        """Boolean mask (n_nodes,) of grid cells with no NaN in any variable/time.
+        """Boolean mask (n_nodes,) of grid cells that are part of the region.
 
         HRRR's native grid is a rotated (Lambert Conformal) projection, so a
         rectangular lat/lon bounding box doesn't align with it: cells inside
         the requested box's (y, x) index rectangle but outside the true
         lat/lon bounds come back as NaN from the download's spatial masking.
-        This is deterministic per region (same cells every time), so it's
-        computed once and used to exclude those cells everywhere - a single
-        NaN grid node would otherwise poison an entire batch through the
-        GNN's message passing.
+        That's a static, structural property of the grid - every cell inside
+        vs. outside the true footprint is the same on every single load.
+
+        This used to require a cell to be non-NaN in literally every loaded
+        slice (every variable x time x step) to count as valid, which
+        conflated that static geometry with "did every one of potentially
+        thousands of independent GRIB fetches happen to succeed for this
+        exact cell" - a single bad slice from an isolated download hiccup
+        (observed in practice: see test_hrrr_download.py) was enough to
+        zero out validity for the *entire* region, since one all-NaN slice
+        fails that check everywhere. Requiring only a high fraction (not
+        100%) of slices to be valid keeps the real structural boundary
+        while tolerating a handful of such gaps. Any gap that does fall
+        inside the threshold's tolerance - or inside a specific requested
+        sample window - still surfaces loudly: see get_sample()'s NaN check
+        below, which is what actually guards training from seeing it.
         """
         if self._valid_mask is not None:
             return self._valid_mask
 
-        mask = None
+        n_valid = None
+        n_total = 0
         for var in self.data.data_vars:
             values = self.data[var].values
             spatial_size = values.shape[-2] * values.shape[-1]
-            node_valid = ~np.isnan(values).reshape(-1, spatial_size).any(axis=0)
-            mask = node_valid if mask is None else (mask & node_valid)
+            flat = values.reshape(-1, spatial_size)
+            valid_count = (~np.isnan(flat)).sum(axis=0)
+            n_valid = valid_count if n_valid is None else (n_valid + valid_count)
+            n_total += flat.shape[0]
 
-        self._valid_mask = mask if mask is not None else np.array([], dtype=bool)
+        if n_valid is None:
+            self._valid_mask = np.array([], dtype=bool)
+        else:
+            self._valid_mask = (n_valid / n_total) >= self._VALID_FRACTION_THRESHOLD
         return self._valid_mask
 
     def get_node_positions(self) -> torch.Tensor:
@@ -224,9 +247,35 @@ class HRRRLoader:
                     # (time, node) -> (node, time)
                     values = values.T
                 values = values[self._get_valid_mask()]
+                self._raise_if_nan(values, var, time_start, time_end)
                 result[var] = torch.from_numpy(values)
 
         return result
+
+    def _raise_if_nan(
+        self,
+        values: np.ndarray,
+        var: str,
+        time_start: np.datetime64 | str,
+        time_end: np.datetime64 | str,
+    ) -> None:
+        """Fail loudly if a requested window still has missing data.
+
+        _get_valid_mask's fraction threshold (see its docstring) means a
+        cell can still be "valid" overall while having a stray NaN at one
+        particular time/step - if that time/step happens to fall inside
+        *this* request's window, letting it through would silently feed
+        NaN into model training/inference instead of surfacing the gap.
+        """
+        if np.isnan(values).any():
+            raise ValueError(
+                f"HRRR data for {var!r} has missing values within the "
+                f"requested window [{time_start}, {time_end}] - likely a "
+                f"gap in the downloaded archive for that day. Re-download "
+                f"it (download_hrrr_range will overwrite a file whose "
+                f"cached step coverage doesn't match --max-lead-hr, but "
+                f"won't detect an internal gap like this on its own)."
+            )
 
     def get_sample_with_forecast(
         self,
@@ -299,7 +348,9 @@ class HRRRLoader:
                 hist_vals = hist_vals.reshape(hist_vals.shape[0], -1).T
 
             if n_forecast == 0:
-                result[var] = torch.from_numpy(hist_vals[valid_mask])
+                hist_masked = hist_vals[valid_mask]
+                self._raise_if_nan(hist_masked, var, time_start, time_end)
+                result[var] = torch.from_numpy(hist_masked)
                 continue
 
             # Forecast: steps 1..n_forecast issued from the last historical
@@ -313,7 +364,9 @@ class HRRRLoader:
                 fore_vals = fore_vals.reshape(fore_vals.shape[0], -1).T
 
             combined = np.concatenate([hist_vals, fore_vals], axis=-1)
-            result[var] = torch.from_numpy(combined[valid_mask])
+            combined_masked = combined[valid_mask]
+            self._raise_if_nan(combined_masked, var, time_start, time_end)
+            result[var] = torch.from_numpy(combined_masked)
 
         return result
 

@@ -2,7 +2,7 @@
 
 from datetime import datetime
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import numpy as np
 import pytest
@@ -14,6 +14,61 @@ from loaf.data.download.hrrr import (
     download_hrrr_hourly,
     download_hrrr_range,
 )
+
+
+def _make_step_ds(variables: list[str], lat: float = 47.5, lon: float = 237.5) -> xr.Dataset:
+    """A single forecast step's worth of data, shaped like what
+    Herbie.xarray() returns for one (run_time, fxx) - no "step" dim yet,
+    that gets added by download_hrrr_hourly's xr.concat. lat/lon default
+    inside SEATTLE_BOUNDS so tests don't need to pass custom bounds."""
+    data_vars = {v: (["y", "x"], np.zeros((2, 2), dtype="float32")) for v in variables}
+    return xr.Dataset(
+        data_vars,
+        coords={
+            "latitude": (["y", "x"], np.full((2, 2), lat)),
+            "longitude": (["y", "x"], np.full((2, 2), lon)),
+            "time": datetime(2024, 10, 1),
+        },
+    )
+
+
+def _fake_herbie_ctor(per_fxx: dict):
+    """Build a side_effect for a patched Herbie(...) constructor.
+
+    per_fxx maps fxx -> one of:
+      - an xr.Dataset: hrrr_file.xarray(...) returns it as-is (to test
+        Herbie returning a bare Dataset instead of a list)
+      - an Exception instance: hrrr_file.xarray(...) raises it
+      - None: hrrr_file.grib is None (no GRIB file for this lead hour)
+      - a list of the above: consumed one per call to Herbie(...) for that
+        fxx (in order, clamped to the last entry once exhausted) - for
+        testing retry behavior, e.g. [some_exception, a_dataset] means
+        "fails once, then succeeds".
+    Any fxx not present in per_fxx falls back to a plain 1-variable dataset,
+    so tests only need to specify the lead hour(s) they care about.
+    """
+    call_counts: dict[int, int] = {}
+
+    def ctor(run_time, model, product, fxx, verbose=False):
+        entry = per_fxx.get(fxx, _make_step_ds(["u10"]))
+        if isinstance(entry, list):
+            idx = call_counts.get(fxx, 0)
+            call_counts[fxx] = idx + 1
+            entry = entry[min(idx, len(entry) - 1)]
+
+        mock_file = MagicMock()
+        if entry is None:
+            mock_file.grib = None
+        else:
+            mock_file.grib = "https://example.com/fake.grib2"
+            if isinstance(entry, Exception):
+                mock_file.xarray.side_effect = entry
+            else:
+                mock_file.xarray.return_value = entry
+
+        return mock_file
+
+    return ctor
 
 
 def _make_hrrr_ds(n_steps: int) -> xr.Dataset:
@@ -113,6 +168,82 @@ class TestDownloadHRRRHourly:
 
             # Function should complete without error
             mock_herbie.assert_called()
+
+
+class TestDownloadHRRRHourlyRobustness:
+    """Regression tests for the bug found re-running the HRRR download live:
+    one lead hour came back as a bare xr.Dataset (not the list
+    download_hrrr_hourly assumed) with only 2 of the 4 requested variables,
+    which crashed deep inside drop_vars() in a way that looked like a
+    network failure, got silently swallowed, and left that one forecast
+    step all-NaN once merged against complete lead hours. See
+    _fetch_hrrr_step and download_hrrr_hourly's docstrings."""
+
+    def test_bare_dataset_from_herbie_is_not_a_crash(self) -> None:
+        """Herbie.xarray() returning a single Dataset (not a list) used to
+        crash iterating over its data_var *names* as if they were
+        sub-datasets - download_hrrr_hourly should handle it the same as
+        a one-element list."""
+        bare = _make_step_ds(["u10", "v10"])  # not wrapped in a list
+        with patch(
+            "loaf.data.download.hrrr.Herbie",
+            side_effect=_fake_herbie_ctor({0: bare}),
+        ):
+            result = download_hrrr_hourly("2024-10-01 00:00", max_lead_hr=0)
+
+        assert result is not None
+        assert set(result.data_vars) == {"u10", "v10"}
+
+    def test_incomplete_variable_set_drops_whole_run_time(self) -> None:
+        """One lead hour silently resolving fewer variables than the
+        others (observed live: temp/dewpoint only, missing wind) must not
+        be handed back as a dataset with a gap - the whole run_time should
+        come back None instead, so download_hrrr_daily excludes it rather
+        than later getting it NaN-padded against complete run_times."""
+        complete = _make_step_ds(["u10", "v10"])
+        incomplete = _make_step_ds(["u10"])  # missing v10 at this one step
+        with patch(
+            "loaf.data.download.hrrr.Herbie",
+            side_effect=_fake_herbie_ctor({0: complete, 1: incomplete}),
+        ):
+            result = download_hrrr_hourly(
+                "2024-10-01 00:00", max_lead_hr=2, retries=0
+            )
+
+        assert result is None
+
+    def test_transient_failure_is_recovered_by_retry(self) -> None:
+        """A fetch that fails once but succeeds on retry should still
+        produce a complete result - mirrors the IEM downloader's existing
+        retry-with-backoff philosophy."""
+        flaky = [ConnectionError("reset by peer"), _make_step_ds(["u10"])]
+        with (
+            patch("loaf.data.download.hrrr.Herbie", side_effect=_fake_herbie_ctor({0: flaky})),
+            patch("loaf.data.download.hrrr.time.sleep"),
+        ):
+            result = download_hrrr_hourly(
+                "2024-10-01 00:00", max_lead_hr=0, retries=2
+            )
+
+        assert result is not None
+
+    def test_persistent_failure_exhausts_retries_and_returns_none(self) -> None:
+        """A fetch that fails on every attempt should give up (not hang or
+        silently return a gap) after retries + 1 attempts."""
+        always_fails = ConnectionError("reset by peer")
+        with (
+            patch(
+                "loaf.data.download.hrrr.Herbie",
+                side_effect=_fake_herbie_ctor({0: always_fails}),
+            ) as mock_herbie,
+            patch("loaf.data.download.hrrr.time.sleep"),
+        ):
+            result = download_hrrr_hourly(
+                "2024-10-01 00:00", max_lead_hr=0, retries=2
+            )
+
+        assert result is None
+        assert mock_herbie.call_count == 3  # 1 initial + 2 retries
 
 
 class TestLongitudeConversion:
