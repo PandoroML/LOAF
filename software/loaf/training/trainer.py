@@ -102,9 +102,9 @@ class Trainer:
         target_vars: Names of predicted variables, matching the target's var axis.
         station_vars: Names of station input variables, in madis_x's var axis
             order (used to build the persistence baseline for the skill metric).
-        target_stats: Per-variable {"min", "max"} used to denormalize predictions
+        target_stats: Per-variable {"mean", "std"} used to denormalize predictions
             before computing human-readable (physical-unit) metrics.
-        station_stats: Per-variable {"min", "max", ...} normalization stats for
+        station_stats: Per-variable {"mean", "std", ...} normalization stats for
             every station input variable (a superset of target_stats). Persisted
             to the checkpoint as-is so loaf.inference.Predictor can normalize
             live inputs the same way the training data was normalized, without
@@ -118,6 +118,12 @@ class Trainer:
         weight_decay: AdamW weight decay.
         max_grad_norm: Gradient clipping norm (None to disable).
         patience: Early-stopping patience in epochs (None/0 to disable).
+        loss_type: "custom" (default) mirrors LocalizedWeather's default
+            LossFunctionType.CUSTOM - u/v are scored as one Euclidean
+            wind-vector error rather than two independent squared-error
+            channels, averaged together with a per-variable RMSE-style term
+            for every other target variable. "mse" uses plain masked MSE
+            over all target variables instead.
         device: Torch device string. Defaults to CUDA if available, else CPU.
     """
 
@@ -138,10 +144,13 @@ class Trainer:
         weight_decay: float = 1e-4,
         max_grad_norm: float | None = 1.0,
         patience: int | None = 10,
+        loss_type: str = "custom",
         device: str | None = None,
     ):
         if model_type not in MODEL_TYPES:
             raise ValueError(f"Unknown model_type: {model_type!r} (expected one of {MODEL_TYPES})")
+        if loss_type not in ("custom", "mse"):
+            raise ValueError(f"Unknown loss_type: {loss_type!r} (expected 'custom' or 'mse')")
 
         self.model_type = model_type
         self.lead_times = lead_times
@@ -152,6 +161,9 @@ class Trainer:
         self.target_stats = target_stats or {}
         self.station_stats = station_stats or {}
         self.run_config = run_config or {}
+        self.loss_type = loss_type
+        self._u_idx = target_vars.index("u") if "u" in target_vars else None
+        self._v_idx = target_vars.index("v") if "v" in target_vars else None
 
         self.device = torch.device(device or ("cuda" if torch.cuda.is_available() else "cpu"))
         self.model = model.to(self.device)
@@ -200,13 +212,57 @@ class Trainer:
         return preds.view(n_batch, n_stations, self.n_lead_times, self.n_target_vars)
 
     def _compute_loss(self, preds: torch.Tensor, batch: dict[str, torch.Tensor]) -> torch.Tensor:
-        """Masked MSE over real (non-imputed) target observations only."""
+        """Training loss over real (non-imputed) target observations only.
+
+        Dispatches on self.loss_type - see the "loss_type" docstring above.
+        """
         target = batch["target"].to(self.device)
         mask = batch["target_mask"].to(self.device)
 
-        squared_error = (preds - target) ** 2 * mask
-        denom = mask.sum().clamp_min(1.0)
-        return squared_error.sum() / denom
+        if self.loss_type == "mse":
+            squared_error = (preds - target) ** 2 * mask
+            denom = mask.sum().clamp_min(1.0)
+            return squared_error.sum() / denom
+
+        return self._wind_vector_loss(preds, target, mask)
+
+    def _wind_vector_loss(
+        self, preds: torch.Tensor, target: torch.Tensor, mask: torch.Tensor
+    ) -> torch.Tensor:
+        """LocalizedWeather's default loss (Utils/LossFunctions.py: custom_loss).
+
+        sqrt(u_err^2 + v_err^2 + eps) for the wind pair - a single Euclidean
+        wind-vector error, not two independent squared-error channels - plus
+        sqrt(err^2 + eps) for every other target variable, all averaged
+        together over real (masked) observations.
+        """
+        eps = torch.finfo(torch.float32).eps
+        squared_error = (preds - target) ** 2
+
+        error_terms = []
+        mask_terms = []
+
+        if self._u_idx is not None and self._v_idx is not None:
+            wind_error = torch.sqrt(
+                squared_error[..., self._u_idx] + squared_error[..., self._v_idx] + eps
+            )
+            # Both components need to be real observations for their combined
+            # vector error to mean anything.
+            wind_mask = mask[..., self._u_idx] * mask[..., self._v_idx]
+            error_terms.append(wind_error * wind_mask)
+            mask_terms.append(wind_mask)
+
+        for i in range(self.n_target_vars):
+            if i in (self._u_idx, self._v_idx):
+                continue
+            var_error = torch.sqrt(squared_error[..., i] + eps)
+            var_mask = mask[..., i]
+            error_terms.append(var_error * var_mask)
+            mask_terms.append(var_mask)
+
+        total_error = sum(term.sum() for term in error_terms)
+        n_real = sum(term.sum() for term in mask_terms).clamp_min(1.0)
+        return total_error / n_real
 
     def _persistence_baseline(self, batch: dict[str, torch.Tensor]) -> torch.Tensor | None:
         """Naive "no change from now" forecast, for the skill-score baseline."""
@@ -220,12 +276,12 @@ class Trainer:
         return last_values.unsqueeze(2).expand(-1, -1, self.n_lead_times, -1)
 
     def _denormalize(self, values: torch.Tensor, var: str) -> torch.Tensor:
-        """Undo min-max normalization for human-readable metrics."""
+        """Undo z-score normalization for human-readable metrics."""
         stats = self.target_stats.get(var)
         if stats is None:
             return values
         eps = 1e-5
-        return values * (stats["max"] - stats["min"] + eps) + stats["min"]
+        return values * (stats["std"] + eps) + stats["mean"]
 
     def _denormalize_targets(self, values: torch.Tensor) -> torch.Tensor:
         """Denormalize a (..., n_target_vars) tensor, one slice per variable."""

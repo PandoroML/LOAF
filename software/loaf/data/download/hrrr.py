@@ -114,6 +114,31 @@ def download_hrrr_hourly(
     return xr.concat(datasets, dim="step")
 
 
+def _cached_file_covers_lead_hr(filename: Path, max_lead_hr: int) -> bool:
+    """Whether an already-downloaded daily HRRR file has enough forecast steps.
+
+    download_hrrr_range used to treat "the file exists" as "the file is
+    good enough to reuse", which meant a day downloaded with a lower
+    --max-lead-hr (or before HRRR forecast fusion existed at all - see
+    loaf.data.loaders.grid_window, which needs real forecast steps beyond
+    step=0) would be silently served forever on every later run, since
+    nothing ever re-checked it against the *current* max_lead_hr. This
+    opens the file (cheap - metadata/lazy, not a full load) and checks its
+    "step" dimension actually has max_lead_hr + 1 entries (step 0..max_lead_hr).
+
+    Returns False (i.e. "re-download it") if the file can't be opened at
+    all, so a corrupt/truncated cached file doesn't get stuck being reused
+    either.
+    """
+    try:
+        with xr.open_dataset(filename) as ds:
+            n_steps = ds.sizes.get("step", 1)
+    except Exception as e:
+        logger.warning(f"Could not read existing {filename} ({e}) - will re-download")
+        return False
+    return n_steps >= max_lead_hr + 1
+
+
 def download_hrrr_daily(
     date: datetime,
     var_list: str = DEFAULT_VARIABLES,
@@ -206,10 +231,15 @@ def download_hrrr_range(
         filename = output_dir / f"hrrr_{current_date.strftime('%Y%m%d')}.nc"
 
         if filename.exists():
-            logger.info(f"Skipping {filename} - already exists")
-            saved_files.append(filename)
-            current_date += timedelta(days=1)
-            continue
+            if _cached_file_covers_lead_hr(filename, max_lead_hr):
+                logger.info(f"Skipping {filename} - already exists")
+                saved_files.append(filename)
+                current_date += timedelta(days=1)
+                continue
+            logger.info(
+                f"Re-downloading {filename} - cached file doesn't have "
+                f"max_lead_hr={max_lead_hr} forecast steps archived"
+            )
 
         logger.info(f"Downloading HRRR for {current_date.date()}")
         dataset = download_hrrr_daily(

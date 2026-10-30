@@ -1,15 +1,34 @@
 """Tests for the HRRR download module."""
 
 from datetime import datetime
+from pathlib import Path
 from unittest.mock import patch
 
+import numpy as np
 import pytest
 import xarray as xr
 from loaf.data.download.hrrr import (
     DEFAULT_VARIABLES,
     SEATTLE_BOUNDS,
+    _cached_file_covers_lead_hr,
     download_hrrr_hourly,
+    download_hrrr_range,
 )
+
+
+def _make_hrrr_ds(n_steps: int) -> xr.Dataset:
+    """A minimal dataset shaped like a real downloaded HRRR day - just enough
+    for _cached_file_covers_lead_hr's "step" dim check and to round-trip
+    through to_netcdf."""
+    return xr.Dataset(
+        {"u10": (["step", "y", "x"], np.zeros((n_steps, 2, 2), dtype="float32"))},
+        coords={
+            "step": np.arange(n_steps),
+            "latitude": (["y", "x"], np.zeros((2, 2))),
+            "longitude": (["y", "x"], np.zeros((2, 2))),
+            "time": datetime(2024, 10, 1),
+        },
+    )
 
 
 class TestConstants:
@@ -114,6 +133,116 @@ class TestLongitudeConversion:
 
         assert hrrr_lon == 238.0
         assert 0 <= hrrr_lon <= 360
+
+
+class TestCachedFileCoversLeadHr:
+    """Tests for _cached_file_covers_lead_hr, the staleness check that lets
+    download_hrrr_range tell a cached analysis-only (or lower max_lead_hr)
+    file apart from one with enough forecast steps already archived."""
+
+    def test_fewer_steps_than_requested_is_not_covered(self, tmp_path: Path) -> None:
+        f = tmp_path / "hrrr_20241001.nc"
+        _make_hrrr_ds(1).to_netcdf(f)  # analysis-only, like the old downloads
+
+        assert _cached_file_covers_lead_hr(f, max_lead_hr=18) is False
+
+    def test_exact_step_count_is_covered(self, tmp_path: Path) -> None:
+        f = tmp_path / "hrrr_20241001.nc"
+        _make_hrrr_ds(4).to_netcdf(f)  # steps 0..3, i.e. max_lead_hr=3
+
+        assert _cached_file_covers_lead_hr(f, max_lead_hr=3) is True
+
+    def test_more_steps_than_requested_is_covered(self, tmp_path: Path) -> None:
+        f = tmp_path / "hrrr_20241001.nc"
+        _make_hrrr_ds(19).to_netcdf(f)
+
+        assert _cached_file_covers_lead_hr(f, max_lead_hr=3) is True
+
+    def test_unreadable_file_is_not_covered(self, tmp_path: Path) -> None:
+        f = tmp_path / "hrrr_20241001.nc"
+        f.write_text("not a netcdf file")
+
+        assert _cached_file_covers_lead_hr(f, max_lead_hr=0) is False
+
+
+class TestDownloadHRRRRange:
+    """Tests for download_hrrr_range's cache-reuse decision, mocking
+    download_hrrr_daily so these don't hit the network."""
+
+    def test_stale_cached_file_is_redownloaded(self, tmp_path: Path) -> None:
+        stale = tmp_path / "hrrr_20241001.nc"
+        _make_hrrr_ds(1).to_netcdf(stale)  # only step=0 archived
+
+        with patch(
+            "loaf.data.download.hrrr.download_hrrr_daily",
+            return_value=_make_hrrr_ds(19),
+        ) as mock_download:
+            download_hrrr_range(
+                datetime(2024, 10, 1), datetime(2024, 10, 1), tmp_path, max_lead_hr=18
+            )
+
+        mock_download.assert_called_once()
+        assert xr.open_dataset(stale).sizes["step"] == 19
+
+    def test_sufficiently_covered_file_is_skipped(self, tmp_path: Path) -> None:
+        cached = tmp_path / "hrrr_20241001.nc"
+        _make_hrrr_ds(19).to_netcdf(cached)
+
+        with patch(
+            "loaf.data.download.hrrr.download_hrrr_daily",
+            return_value=_make_hrrr_ds(19),
+        ) as mock_download:
+            saved = download_hrrr_range(
+                datetime(2024, 10, 1), datetime(2024, 10, 1), tmp_path, max_lead_hr=18
+            )
+
+        mock_download.assert_not_called()
+        assert saved == [cached]
+
+    def test_raising_max_lead_hr_forces_redownload_of_prior_cache(
+        self, tmp_path: Path
+    ) -> None:
+        """A file downloaded at a lower max_lead_hr shouldn't be treated as
+        covering a later, larger request."""
+        cached = tmp_path / "hrrr_20241001.nc"
+        _make_hrrr_ds(4).to_netcdf(cached)  # downloaded with max_lead_hr=3
+
+        with patch(
+            "loaf.data.download.hrrr.download_hrrr_daily",
+            return_value=_make_hrrr_ds(19),
+        ) as mock_download:
+            download_hrrr_range(
+                datetime(2024, 10, 1), datetime(2024, 10, 1), tmp_path, max_lead_hr=18
+            )
+
+        mock_download.assert_called_once()
+
+    def test_missing_file_is_downloaded(self, tmp_path: Path) -> None:
+        with patch(
+            "loaf.data.download.hrrr.download_hrrr_daily",
+            return_value=_make_hrrr_ds(19),
+        ) as mock_download:
+            saved = download_hrrr_range(
+                datetime(2024, 10, 2), datetime(2024, 10, 2), tmp_path, max_lead_hr=18
+            )
+
+        mock_download.assert_called_once()
+        assert saved == [tmp_path / "hrrr_20241002.nc"]
+
+    def test_corrupt_cached_file_is_redownloaded(self, tmp_path: Path) -> None:
+        corrupt = tmp_path / "hrrr_20241001.nc"
+        corrupt.write_text("not a netcdf file")
+
+        with patch(
+            "loaf.data.download.hrrr.download_hrrr_daily",
+            return_value=_make_hrrr_ds(19),
+        ) as mock_download:
+            download_hrrr_range(
+                datetime(2024, 10, 1), datetime(2024, 10, 1), tmp_path, max_lead_hr=18
+            )
+
+        mock_download.assert_called_once()
+        assert xr.open_dataset(corrupt).sizes["step"] == 19
 
 
 class TestIntegration:

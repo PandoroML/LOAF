@@ -139,6 +139,28 @@ class StandardNormalizer:
         return cls(d["mean"], d["std"], d.get("eps", 1e-5))
 
 
+def apply_joint_wind_scale(
+    stats: dict[str, dict[str, float]],
+) -> dict[str, dict[str, float]]:
+    """Give u and v a shared, zero-centered standard-deviation scale.
+
+    Matches LocalizedWeather's NormalizerBuilder.get_normalizers: normalizing
+    wind components independently (each to its own mean/std, or its own
+    min/max) distorts wind direction, since the two axes of one physical
+    vector would end up stretched by different amounts. The reference
+    instead centers both u and v at 0 and scales both by the larger of the
+    two components' standard deviations.
+
+    Mutates `stats` in place (replacing its "u"/"v" entries) and returns it,
+    for convenient chaining. A no-op if "u" and "v" aren't both present.
+    """
+    if "u" in stats and "v" in stats:
+        shared_std = max(stats["u"]["std"], stats["v"]["std"])
+        for var in ("u", "v"):
+            stats[var] = {**stats[var], "mean": 0.0, "std": shared_std}
+    return stats
+
+
 # Type alias for any normalizer
 Normalizer = MinMaxNormalizer | RangeNormalizer | StandardNormalizer
 

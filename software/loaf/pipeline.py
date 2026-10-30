@@ -180,6 +180,7 @@ def train_stage(
     patience = training_cfg.get("patience", 10)
     max_grad_norm = training_cfg.get("max_grad_norm", 1.0)
     seed = training_cfg.get("seed", 42)
+    loss_type = training_cfg.get("loss_type", "custom")
     set_seed(seed)
 
     back_hrs = data_cfg.get("back_hrs", 24)
@@ -225,6 +226,7 @@ def train_stage(
         n_station_vars=len(dataset.station_vars),
         n_out_features=len(lead_times) * len(dataset.target_vars),
         grid_vars=dataset.grid_vars if dataset.grid_loader is not None else None,
+        in_hrs_grid=dataset.grid_len,
     )
     n_params = sum(p.numel() for p in model.parameters())
     logger.info(f"Built {model_cfg['type']} model with {n_params:,} parameters")
@@ -255,6 +257,7 @@ def train_stage(
         "use_hrrr": use_hrrr,
         "use_era5": use_era5,
         "grid_vars": dataset.grid_vars if dataset.grid_loader is not None else None,
+        "grid_len": dataset.grid_len,
         "region_name": region_name,
         "year": year,
         "val_split": val_split,
@@ -264,6 +267,7 @@ def train_stage(
         "patience": patience,
         "max_grad_norm": max_grad_norm,
         "seed": seed,
+        "loss_type": loss_type,
         "n_params": n_params,
         "n_train_samples": len(bundle.train_loader.dataset),
         "n_val_samples": len(bundle.val_loader.dataset),
@@ -286,6 +290,7 @@ def train_stage(
         weight_decay=weight_decay,
         max_grad_norm=max_grad_norm,
         patience=patience,
+        loss_type=loss_type,
         device=device,
     )
 

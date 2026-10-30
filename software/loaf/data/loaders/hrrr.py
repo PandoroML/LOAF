@@ -250,7 +250,18 @@ class HRRRLoader:
 
         Returns:
             Dictionary mapping variable names to tensors of shape
-            (n_nodes, n_historical + n_forecast).
+            (n_nodes, n_historical + n_forecast), restricted to the same
+            valid (non-NaN) grid nodes as get_sample()/get_node_positions().
+
+        Raises:
+            ValueError: If the window doesn't have n_historical times, or
+                the archive doesn't have n_forecast steps beyond step=0 at
+                the initialization time (n_historical - 1) - e.g. the data
+                was downloaded with a lower --max-lead-hr than n_forecast
+                needs. Raised rather than silently returning a shorter
+                array, since a caller sizes its model's input width from
+                n_historical + n_forecast and a silent shortfall would only
+                surface later as an opaque shape mismatch.
         """
         variables = variables or self.variables
 
@@ -263,46 +274,46 @@ class HRRRLoader:
                 f"Not enough times in window: {len(times)} < {n_historical}"
             )
 
+        n_steps_available = len(subset.step) - 1 if "step" in subset.dims else 0
+        if n_forecast > n_steps_available:
+            init_time = times[n_historical - 1]
+            raise ValueError(
+                f"Requested {n_forecast} HRRR forecast step(s) ahead of "
+                f"{init_time}, but only {n_steps_available} are archived. "
+                f"Re-download HRRR with a higher --max-lead-hr, or reduce "
+                f"lead_times so the forecast horizon fits what's downloaded."
+            )
+
+        valid_mask = self._get_valid_mask()
+        last_time_idx = n_historical - 1
+
         result = {}
         for var in variables:
             if var not in subset.data_vars:
                 continue
 
-            # Historical: use step=0 for all times
+            # Historical: step=0 (analysis) for each of the n_historical times.
             historical = subset[var].isel(step=0, time=slice(0, n_historical))
+            hist_vals = historical.values.astype(np.float32)
+            if hist_vals.ndim == 3:
+                hist_vals = hist_vals.reshape(hist_vals.shape[0], -1).T
 
-            # Forecast: use increasing steps from last historical time
-            last_time_idx = n_historical - 1
-            forecast_steps = []
-            for step in range(1, n_forecast + 1):
-                if step < len(subset.step):
-                    forecast_steps.append(
-                        subset[var].isel(time=last_time_idx, step=step)
-                    )
+            if n_forecast == 0:
+                result[var] = torch.from_numpy(hist_vals[valid_mask])
+                continue
 
-            if forecast_steps:
-                forecast = xr.concat(forecast_steps, dim="step")
-                # Combine
-                hist_vals = historical.values.astype(np.float32)
-                fore_vals = forecast.values.astype(np.float32)
+            # Forecast: steps 1..n_forecast issued from the last historical
+            # (i.e. "now") initialization - this is the actual future
+            # forecast, not more history.
+            forecast = subset[var].isel(
+                time=last_time_idx, step=slice(1, n_forecast + 1)
+            )
+            fore_vals = forecast.values.astype(np.float32)
+            if fore_vals.ndim == 3:
+                fore_vals = fore_vals.reshape(fore_vals.shape[0], -1).T
 
-                # Reshape to (n_nodes, time)
-                if hist_vals.ndim == 3:
-                    n_hist = hist_vals.shape[0]
-                    hist_vals = hist_vals.reshape(n_hist, -1).T
-                if fore_vals.ndim == 3:
-                    n_fore = fore_vals.shape[0]
-                    fore_vals = fore_vals.reshape(n_fore, -1).T
-
-                combined = np.concatenate([hist_vals, fore_vals], axis=-1)
-                result[var] = torch.from_numpy(combined)
-            else:
-                # No forecast steps available
-                hist_vals = historical.values.astype(np.float32)
-                if hist_vals.ndim == 3:
-                    n_hist = hist_vals.shape[0]
-                    hist_vals = hist_vals.reshape(n_hist, -1).T
-                result[var] = torch.from_numpy(hist_vals)
+            combined = np.concatenate([hist_vals, fore_vals], axis=-1)
+            result[var] = torch.from_numpy(combined[valid_mask])
 
         return result
 
