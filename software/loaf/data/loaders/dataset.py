@@ -17,7 +17,9 @@ import torch
 from dateutil import rrule
 from torch.utils.data import DataLoader, Dataset, Subset
 
+from ..preprocessing.normalize import apply_joint_wind_scale
 from .era5 import ERA5Loader
+from .grid_window import compute_grid_window, grid_window_len
 from .hrrr import HRRRLoader
 from .iem import IEMLoader
 from .stations import StationMetadata
@@ -44,7 +46,7 @@ class WeatherDataset(Dataset):
         station_vars: List of station variables to use as input.
         grid_vars: List of grid variables to use as input.
         target_vars: List of variables to predict (default: u, v wind).
-        normalize: Whether to apply min-max normalization.
+        normalize: Whether to apply z-score normalization.
     """
 
     def __init__(
@@ -95,6 +97,16 @@ class WeatherDataset(Dataset):
         # Compute coordinate normalizers
         self._setup_coord_normalizers()
 
+        # Width of the external (grid) input window - back_hrs of history,
+        # plus the future forecast horizon where the loader supports it
+        # (HRRR). See grid_window.py. Exposed so callers can size the
+        # model's n_node_features_e correctly (build_model's in_hrs_grid).
+        self.grid_len: int | None = (
+            grid_window_len(self.grid_loader, self.back_hrs, self.lead_hours)
+            if self.grid_loader is not None
+            else None
+        )
+
     def _generate_timeline(self, year: int) -> pd.DatetimeIndex:
         """Generate hourly timeline for a year (timezone-naive for xarray compat)."""
         start = datetime(year, 1, 1)
@@ -103,11 +115,22 @@ class WeatherDataset(Dataset):
         return pd.DatetimeIndex(times)  # tz-naive for xarray compatibility
 
     def _compute_statistics(self) -> None:
-        """Compute normalization statistics."""
-        self.station_stats = self.station_loader.compute_statistics(self._fetch_vars)
+        """Compute normalization statistics.
+
+        Variables are z-scored (mean/std), matching LocalizedWeather's
+        default ScalingType.Standard - not min-max. u and v additionally
+        share a single zero-centered scale (see apply_joint_wind_scale)
+        rather than being normalized independently, which would distort
+        wind direction.
+        """
+        self.station_stats = apply_joint_wind_scale(
+            self.station_loader.compute_statistics(self._fetch_vars)
+        )
 
         if self.grid_loader is not None:
-            self.grid_stats = self.grid_loader.compute_statistics(self.grid_vars)
+            self.grid_stats = apply_joint_wind_scale(
+                self.grid_loader.compute_statistics(self.grid_vars)
+            )
         else:
             self.grid_stats = {}
 
@@ -131,17 +154,14 @@ class WeatherDataset(Dataset):
     def _normalize_var(
         self, values: torch.Tensor, var: str, source: str = "station"
     ) -> torch.Tensor:
-        """Normalize a variable using precomputed statistics."""
+        """Z-score normalize a variable using precomputed statistics."""
         stats = self.station_stats if source == "station" else self.grid_stats
 
         if var not in stats:
             return values
 
-        min_val = stats[var]["min"]
-        max_val = stats[var]["max"]
         eps = 1e-5
-
-        return (values - min_val) / (max_val - min_val + eps)
+        return (values - stats[var]["mean"]) / (stats[var]["std"] + eps)
 
     def _stack_vars(
         self,
@@ -242,11 +262,22 @@ class WeatherDataset(Dataset):
         sample["target"] = torch.stack(target_steps, dim=1)  # (n_stations, n_lead_times, n_vars)
         sample["target_mask"] = torch.stack(target_mask_steps, dim=1)
 
-        # --- Grid input (optional): historical window matching station input ---
+        # --- Grid input (optional): back_hrs of history, plus the future
+        # forecast horizon where the loader supports it (HRRR) - see
+        # grid_window.compute_grid_window for why this isn't just the same
+        # [0, back_hrs) window the station input uses.
         if self.grid_loader is not None:
-            grid_data = self.grid_loader.get_sample(time_start, time_end, self.grid_vars)
+            now_time = time_sel[self.back_hrs - 1]
+            grid_data = compute_grid_window(
+                self.grid_loader,
+                time_start,
+                now_time,
+                self.back_hrs,
+                self.lead_hours,
+                self.grid_vars,
+            )
 
-            sample["ex_x"] = self._stack_vars(grid_data, self.grid_vars, 0, self.back_hrs, "grid")
+            sample["ex_x"] = self._stack_vars(grid_data, self.grid_vars, 0, self.grid_len, "grid")
 
             grid_pos = self.grid_loader.get_node_positions()
             norm_grid_lons, norm_grid_lats = self._normalize_coords(grid_pos[:, 0], grid_pos[:, 1])

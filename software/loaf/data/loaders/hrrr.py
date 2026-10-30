@@ -123,29 +123,52 @@ class HRRRLoader:
         """Load all data into memory for faster access."""
         self._data = self.data.load()
 
+    # A cell needs to be valid in at least this fraction of loaded
+    # (variable, time, step) slices to count as a real grid node - see
+    # _get_valid_mask.
+    _VALID_FRACTION_THRESHOLD = 0.95
+
     def _get_valid_mask(self) -> np.ndarray:
-        """Boolean mask (n_nodes,) of grid cells with no NaN in any variable/time.
+        """Boolean mask (n_nodes,) of grid cells that are part of the region.
 
         HRRR's native grid is a rotated (Lambert Conformal) projection, so a
         rectangular lat/lon bounding box doesn't align with it: cells inside
         the requested box's (y, x) index rectangle but outside the true
         lat/lon bounds come back as NaN from the download's spatial masking.
-        This is deterministic per region (same cells every time), so it's
-        computed once and used to exclude those cells everywhere - a single
-        NaN grid node would otherwise poison an entire batch through the
-        GNN's message passing.
+        That's a static, structural property of the grid - every cell inside
+        vs. outside the true footprint is the same on every single load.
+
+        This used to require a cell to be non-NaN in literally every loaded
+        slice (every variable x time x step) to count as valid, which
+        conflated that static geometry with "did every one of potentially
+        thousands of independent GRIB fetches happen to succeed for this
+        exact cell" - a single bad slice from an isolated download hiccup
+        (observed in practice: see test_hrrr_download.py) was enough to
+        zero out validity for the *entire* region, since one all-NaN slice
+        fails that check everywhere. Requiring only a high fraction (not
+        100%) of slices to be valid keeps the real structural boundary
+        while tolerating a handful of such gaps. Any gap that does fall
+        inside the threshold's tolerance - or inside a specific requested
+        sample window - still surfaces loudly: see get_sample()'s NaN check
+        below, which is what actually guards training from seeing it.
         """
         if self._valid_mask is not None:
             return self._valid_mask
 
-        mask = None
+        n_valid = None
+        n_total = 0
         for var in self.data.data_vars:
             values = self.data[var].values
             spatial_size = values.shape[-2] * values.shape[-1]
-            node_valid = ~np.isnan(values).reshape(-1, spatial_size).any(axis=0)
-            mask = node_valid if mask is None else (mask & node_valid)
+            flat = values.reshape(-1, spatial_size)
+            valid_count = (~np.isnan(flat)).sum(axis=0)
+            n_valid = valid_count if n_valid is None else (n_valid + valid_count)
+            n_total += flat.shape[0]
 
-        self._valid_mask = mask if mask is not None else np.array([], dtype=bool)
+        if n_valid is None:
+            self._valid_mask = np.array([], dtype=bool)
+        else:
+            self._valid_mask = (n_valid / n_total) >= self._VALID_FRACTION_THRESHOLD
         return self._valid_mask
 
     def get_node_positions(self) -> torch.Tensor:
@@ -224,9 +247,35 @@ class HRRRLoader:
                     # (time, node) -> (node, time)
                     values = values.T
                 values = values[self._get_valid_mask()]
+                self._raise_if_nan(values, var, time_start, time_end)
                 result[var] = torch.from_numpy(values)
 
         return result
+
+    def _raise_if_nan(
+        self,
+        values: np.ndarray,
+        var: str,
+        time_start: np.datetime64 | str,
+        time_end: np.datetime64 | str,
+    ) -> None:
+        """Fail loudly if a requested window still has missing data.
+
+        _get_valid_mask's fraction threshold (see its docstring) means a
+        cell can still be "valid" overall while having a stray NaN at one
+        particular time/step - if that time/step happens to fall inside
+        *this* request's window, letting it through would silently feed
+        NaN into model training/inference instead of surfacing the gap.
+        """
+        if np.isnan(values).any():
+            raise ValueError(
+                f"HRRR data for {var!r} has missing values within the "
+                f"requested window [{time_start}, {time_end}] - likely a "
+                f"gap in the downloaded archive for that day. Re-download "
+                f"it (download_hrrr_range will overwrite a file whose "
+                f"cached step coverage doesn't match --max-lead-hr, but "
+                f"won't detect an internal gap like this on its own)."
+            )
 
     def get_sample_with_forecast(
         self,
@@ -250,7 +299,18 @@ class HRRRLoader:
 
         Returns:
             Dictionary mapping variable names to tensors of shape
-            (n_nodes, n_historical + n_forecast).
+            (n_nodes, n_historical + n_forecast), restricted to the same
+            valid (non-NaN) grid nodes as get_sample()/get_node_positions().
+
+        Raises:
+            ValueError: If the window doesn't have n_historical times, or
+                the archive doesn't have n_forecast steps beyond step=0 at
+                the initialization time (n_historical - 1) - e.g. the data
+                was downloaded with a lower --max-lead-hr than n_forecast
+                needs. Raised rather than silently returning a shorter
+                array, since a caller sizes its model's input width from
+                n_historical + n_forecast and a silent shortfall would only
+                surface later as an opaque shape mismatch.
         """
         variables = variables or self.variables
 
@@ -263,46 +323,50 @@ class HRRRLoader:
                 f"Not enough times in window: {len(times)} < {n_historical}"
             )
 
+        n_steps_available = len(subset.step) - 1 if "step" in subset.dims else 0
+        if n_forecast > n_steps_available:
+            init_time = times[n_historical - 1]
+            raise ValueError(
+                f"Requested {n_forecast} HRRR forecast step(s) ahead of "
+                f"{init_time}, but only {n_steps_available} are archived. "
+                f"Re-download HRRR with a higher --max-lead-hr, or reduce "
+                f"lead_times so the forecast horizon fits what's downloaded."
+            )
+
+        valid_mask = self._get_valid_mask()
+        last_time_idx = n_historical - 1
+
         result = {}
         for var in variables:
             if var not in subset.data_vars:
                 continue
 
-            # Historical: use step=0 for all times
+            # Historical: step=0 (analysis) for each of the n_historical times.
             historical = subset[var].isel(step=0, time=slice(0, n_historical))
+            hist_vals = historical.values.astype(np.float32)
+            if hist_vals.ndim == 3:
+                hist_vals = hist_vals.reshape(hist_vals.shape[0], -1).T
 
-            # Forecast: use increasing steps from last historical time
-            last_time_idx = n_historical - 1
-            forecast_steps = []
-            for step in range(1, n_forecast + 1):
-                if step < len(subset.step):
-                    forecast_steps.append(
-                        subset[var].isel(time=last_time_idx, step=step)
-                    )
+            if n_forecast == 0:
+                hist_masked = hist_vals[valid_mask]
+                self._raise_if_nan(hist_masked, var, time_start, time_end)
+                result[var] = torch.from_numpy(hist_masked)
+                continue
 
-            if forecast_steps:
-                forecast = xr.concat(forecast_steps, dim="step")
-                # Combine
-                hist_vals = historical.values.astype(np.float32)
-                fore_vals = forecast.values.astype(np.float32)
+            # Forecast: steps 1..n_forecast issued from the last historical
+            # (i.e. "now") initialization - this is the actual future
+            # forecast, not more history.
+            forecast = subset[var].isel(
+                time=last_time_idx, step=slice(1, n_forecast + 1)
+            )
+            fore_vals = forecast.values.astype(np.float32)
+            if fore_vals.ndim == 3:
+                fore_vals = fore_vals.reshape(fore_vals.shape[0], -1).T
 
-                # Reshape to (n_nodes, time)
-                if hist_vals.ndim == 3:
-                    n_hist = hist_vals.shape[0]
-                    hist_vals = hist_vals.reshape(n_hist, -1).T
-                if fore_vals.ndim == 3:
-                    n_fore = fore_vals.shape[0]
-                    fore_vals = fore_vals.reshape(n_fore, -1).T
-
-                combined = np.concatenate([hist_vals, fore_vals], axis=-1)
-                result[var] = torch.from_numpy(combined)
-            else:
-                # No forecast steps available
-                hist_vals = historical.values.astype(np.float32)
-                if hist_vals.ndim == 3:
-                    n_hist = hist_vals.shape[0]
-                    hist_vals = hist_vals.reshape(n_hist, -1).T
-                result[var] = torch.from_numpy(hist_vals)
+            combined = np.concatenate([hist_vals, fore_vals], axis=-1)
+            combined_masked = combined[valid_mask]
+            self._raise_if_nan(combined_masked, var, time_start, time_end)
+            result[var] = torch.from_numpy(combined_masked)
 
         return result
 

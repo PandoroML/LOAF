@@ -5,6 +5,7 @@ from .normalize import (
     NormalizerCollection,
     RangeNormalizer,
     StandardNormalizer,
+    apply_joint_wind_scale,
 )
 
 __all__ = [
@@ -12,4 +13,5 @@ __all__ = [
     "RangeNormalizer",
     "StandardNormalizer",
     "NormalizerCollection",
+    "apply_joint_wind_scale",
 ]

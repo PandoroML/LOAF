@@ -132,6 +132,11 @@ class Predictor:
         self.use_hrrr: bool = bool(run_config.get("use_hrrr", False))
         self.use_era5: bool = bool(run_config.get("use_era5", False))
         self.grid_vars: list[str] | None = run_config.get("grid_vars")
+        # Width of the external grid input the model was trained with (see
+        # WeatherDataset.grid_len) - back_hrs of history, plus a forecast
+        # horizon for HRRR. Falls back to back_hrs (historical-only) for
+        # checkpoints saved before this field existed.
+        self.grid_len: int = run_config.get("grid_len") or self.back_hrs
 
         # Vars to fetch from the station loader: inputs + any targets not
         # already covered by station_vars (mirrors WeatherDataset).
@@ -149,7 +154,7 @@ class Predictor:
             n_station_vars=len(self.station_vars),
             n_out_features=self.n_lead_times * self.n_target_vars,
             grid_vars=self.grid_vars if self.grid_loader is not None else None,
-            in_hrs_grid=self.back_hrs,
+            in_hrs_grid=self.grid_len,
         )
         self.model.load_state_dict(checkpoint["model_state_dict"])
         self.model.to(self.device)
@@ -285,18 +290,19 @@ class Predictor:
         return norm_lons, norm_lats
 
     def _normalize_var(self, values: torch.Tensor, var: str) -> torch.Tensor:
+        """Z-score normalize, matching WeatherDataset (see its _normalize_var)."""
         stats = self.station_stats.get(var)
         if stats is None:
             return values
         eps = 1e-5
-        return (values - stats["min"]) / (stats["max"] - stats["min"] + eps)
+        return (values - stats["mean"]) / (stats["std"] + eps)
 
     def _denormalize_var(self, value: float, var: str) -> float:
         stats = self.station_stats.get(var)
         if stats is None:
             return value
         eps = 1e-5
-        return value * (stats["max"] - stats["min"] + eps) + stats["min"]
+        return value * (stats["std"] + eps) + stats["mean"]
 
     def _stack_vars(self, data: dict[str, torch.Tensor], variables: list[str]) -> torch.Tensor:
         """Stack variables into a (n_entities, n_time, n_vars) tensor, normalized."""
@@ -360,7 +366,22 @@ class Predictor:
 
         ex_x = ex_lon = ex_lat = edge_index_e2m = None
         if self.grid_loader is not None:
-            grid_data = self.grid_loader.get_sample(time_start, time_end, self.grid_vars)
+            n_forecast = self.grid_len - self.back_hrs
+            if isinstance(self.grid_loader, HRRRLoader) and n_forecast > 0:
+                # Fetch the forecast issued at "now" (time_end), not just
+                # more history - matches how the model was trained (see
+                # loaf.data.loaders.grid_window). Raises clearly (rather than
+                # a downstream shape mismatch) if the live HRRR download
+                # doesn't have n_forecast steps archived at this init time.
+                grid_data = self.grid_loader.get_sample_with_forecast(
+                    time_start,
+                    time_end,
+                    n_historical=self.back_hrs,
+                    n_forecast=n_forecast,
+                    variables=self.grid_vars,
+                )
+            else:
+                grid_data = self.grid_loader.get_sample(time_start, time_end, self.grid_vars)
             ex_x = self._stack_vars(grid_data, self.grid_vars).unsqueeze(0).to(self.device)
             grid_pos = self.grid_loader.get_node_positions()
             norm_grid_lon, norm_grid_lat = self._normalize_coords(grid_pos[:, 0], grid_pos[:, 1])

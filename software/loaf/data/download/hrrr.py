@@ -11,6 +11,7 @@ Herbie docs: https://herbie.readthedocs.io/
 
 import argparse
 import logging
+import time
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -33,6 +34,61 @@ SEATTLE_BOUNDS = {
 }
 
 
+def _fetch_hrrr_step(
+    run_time: str,
+    lead_hr: int,
+    var_list: str,
+    lat_min: float,
+    lat_max: float,
+    lon_min: float,
+    lon_max: float,
+) -> xr.Dataset | None:
+    """Fetch and spatially subset one (run_time, lead_hr) GRIB message set.
+
+    Returns None if no GRIB file exists for this run/lead at all (a real
+    "doesn't exist", not a transient failure - the caller shouldn't retry
+    this one). Raises on any other problem, so the caller's retry loop can
+    distinguish "try again" from "give up".
+    """
+    hrrr_file = Herbie(run_time, model="hrrr", product="sfc", fxx=lead_hr, verbose=False)
+
+    if hrrr_file.grib is None:
+        return None
+
+    dss = hrrr_file.xarray(search=var_list)
+    # Herbie.xarray() returns either a single Dataset or a list of Datasets,
+    # depending on how the matched GRIB messages group internally (e.g. by
+    # typeOfLevel) - which one you get can vary per (run_time, fxx), not
+    # just per search pattern. Treating it as always-a-list (the previous
+    # code's assumption) silently iterates over an xr.Dataset's data_var
+    # *names* instead of its sub-datasets when a bare Dataset comes back,
+    # raising deep inside drop_vars() in a way that's easy to mistake for a
+    # network error (see the exception handling below) and that silently
+    # drops this one forecast step from the day's data.
+    if not isinstance(dss, list):
+        dss = [dss]
+
+    dss_new = []
+    for ds in dss:
+        # Keep only essential coordinates
+        ds = ds.drop_vars(
+            [coord for coord in ds.coords if coord not in ["latitude", "longitude", "time", "step"]]
+        )
+
+        # Spatial subsetting
+        location_mask = (
+            (ds.latitude >= lat_min)
+            & (ds.latitude <= lat_max)
+            & (ds.longitude >= lon_min)
+            & (ds.longitude <= lon_max)
+        )
+        ds = ds.where(location_mask, drop=True)
+
+        dss_new.append(ds)
+
+    return xr.merge(dss_new, compat="identical")
+
+
 def download_hrrr_hourly(
     run_time: str | datetime,
     var_list: str = DEFAULT_VARIABLES,
@@ -42,6 +98,7 @@ def download_hrrr_hourly(
     lon_max: float = SEATTLE_BOUNDS["lon_max"],
     max_lead_hr: int = 18,
     verbose: bool = False,
+    retries: int = 2,
 ) -> xr.Dataset | None:
     """Download HRRR data for a single model run time.
 
@@ -54,64 +111,107 @@ def download_hrrr_hourly(
         lon_max: Maximum longitude (0-360 format for HRRR).
         max_lead_hr: Maximum forecast lead time in hours.
         verbose: Whether to print download progress.
+        retries: Extra attempts per forecast step on a transient failure
+            (network error, or Herbie returning an unexpectedly incomplete
+            result), before giving up on this run_time entirely.
 
     Returns:
         xarray Dataset with dimensions (step, latitude, longitude) containing
-        the requested variables, or None if download failed.
+        the requested variables, or None if download failed - including if
+        any single forecast step within max_lead_hr couldn't be fetched
+        completely. A dataset missing just one step would otherwise look
+        fine on its own but get silently NaN-filled at that step once
+        concatenated against other, complete run_times in
+        download_hrrr_daily - so this returns all-or-nothing per run_time
+        rather than ever handing back a partial one.
     """
     if isinstance(run_time, datetime):
         run_time = run_time.strftime("%Y-%m-%d %H:%M")
 
     datasets = []
+    expected_vars: frozenset[str] | None = None
 
     lead_hours = range(max_lead_hr + 1)
     if verbose:
         lead_hours = tqdm(lead_hours, desc=f"Downloading {run_time}")
 
     for lead_hr in lead_hours:
-        try:
-            hrrr_file = Herbie(run_time, model="hrrr", product="sfc", fxx=lead_hr, verbose=False)
+        dataset = None
 
-            if hrrr_file.grib is None:
-                logger.warning(f"No GRIB file found for {run_time} fxx={lead_hr}")
-                break
-
-            # Download and parse to xarray
-            dss = hrrr_file.xarray(search=var_list)
-            dss_new = []
-
-            for ds in dss:
-                # Keep only essential coordinates
-                ds = ds.drop_vars(
-                    [
-                        coord
-                        for coord in ds.coords
-                        if coord not in ["latitude", "longitude", "time", "step"]
-                    ]
+        for attempt in range(1, retries + 2):
+            try:
+                dataset = _fetch_hrrr_step(
+                    run_time, lead_hr, var_list, lat_min, lat_max, lon_min, lon_max
                 )
 
-                # Spatial subsetting
-                location_mask = (
-                    (ds.latitude >= lat_min)
-                    & (ds.latitude <= lat_max)
-                    & (ds.longitude >= lon_min)
-                    & (ds.longitude <= lon_max)
+                if dataset is None:
+                    # No GRIB file for this lead hour at all (the archive
+                    # genuinely doesn't have it, e.g. past HRRR's real
+                    # forecast horizon) - no point retrying.
+                    logger.warning(f"No GRIB file found for {run_time} fxx={lead_hr}")
+                    break
+
+                if expected_vars is not None and frozenset(dataset.data_vars) != expected_vars:
+                    # A partial GRIB match for this one forecast hour (seen
+                    # in practice - Herbie resolving only some of var_list's
+                    # fields for a given fxx) would silently poison this
+                    # run_time with NaN once merged against complete hours.
+                    raise ValueError(
+                        f"Got variables {sorted(dataset.data_vars)}, expected "
+                        f"{sorted(expected_vars)}"
+                    )
+
+                break  # success
+
+            except Exception as e:
+                logger.error(
+                    f"Failed to download {run_time} fxx={lead_hr} "
+                    f"(attempt {attempt}/{retries + 1}): {e}"
                 )
-                ds = ds.where(location_mask, drop=True)
+                dataset = None
+                if attempt <= retries:
+                    time.sleep(2 * attempt)
 
-                dss_new.append(ds)
+        if dataset is None:
+            # Either genuinely out of forecast range, or every retry failed/
+            # came back incomplete - don't hand back a run_time with a gap
+            # in it (see docstring). download_hrrr_daily simply won't
+            # include this run_time rather than padding it with NaN.
+            return None
 
-            dataset = xr.merge(dss_new, compat="identical")
-            datasets.append(dataset)
-
-        except Exception as e:
-            logger.error(f"Failed to download {run_time} fxx={lead_hr}: {e}")
-            continue
+        if expected_vars is None:
+            expected_vars = frozenset(dataset.data_vars)
+        datasets.append(dataset)
 
     if not datasets:
         return None
 
     return xr.concat(datasets, dim="step")
+
+
+def _cached_file_covers_lead_hr(filename: Path, max_lead_hr: int) -> bool:
+    """Whether an already-downloaded daily HRRR file has enough forecast steps.
+
+    download_hrrr_range used to treat "the file exists" as "the file is
+    good enough to reuse", which meant a day downloaded with a lower
+    --max-lead-hr (or before HRRR forecast fusion existed at all - see
+    loaf.data.loaders.grid_window, which needs real forecast steps beyond
+    step=0) would be silently served forever on every later run, since
+    nothing ever re-checked it against the *current* max_lead_hr. This
+    opens the file (cheap - metadata/lazy, not a full load) and checks its
+    "step" dimension actually has max_lead_hr + 1 entries (step 0..max_lead_hr).
+
+    Returns False (i.e. "re-download it") if the file can't be opened at
+    all, so a corrupt/truncated cached file doesn't get stuck being reused
+    either.
+    """
+    try:
+        with xr.open_dataset(filename) as ds:
+            n_steps = ds.sizes.get("step", 1)
+    except Exception as e:
+        logger.warning(f"Could not read existing {filename} ({e}) - will re-download")
+        return False
+    return n_steps >= max_lead_hr + 1
 
 
 def download_hrrr_daily(
@@ -206,10 +306,15 @@ def download_hrrr_range(
         filename = output_dir / f"hrrr_{current_date.strftime('%Y%m%d')}.nc"
 
         if filename.exists():
-            logger.info(f"Skipping {filename} - already exists")
-            saved_files.append(filename)
-            current_date += timedelta(days=1)
-            continue
+            if _cached_file_covers_lead_hr(filename, max_lead_hr):
+                logger.info(f"Skipping {filename} - already exists")
+                saved_files.append(filename)
+                current_date += timedelta(days=1)
+                continue
+            logger.info(
+                f"Re-downloading {filename} - cached file doesn't have "
+                f"max_lead_hr={max_lead_hr} forecast steps archived"
+            )
 
         logger.info(f"Downloading HRRR for {current_date.date()}")
         dataset = download_hrrr_daily(

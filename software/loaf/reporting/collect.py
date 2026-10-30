@@ -158,11 +158,12 @@ def _persistence_baseline(
 def _denormalize(
     values: torch.Tensor, var: str, stats: dict[str, dict[str, float]]
 ) -> torch.Tensor:
+    """Undo z-score normalization (see WeatherDataset._normalize_var)."""
     var_stats = stats.get(var)
     if var_stats is None:
         return values
     eps = 1e-5
-    return values * (var_stats["max"] - var_stats["min"] + eps) + var_stats["min"]
+    return values * (var_stats["std"] + eps) + var_stats["mean"]
 
 
 def _denormalize_targets(
@@ -230,6 +231,10 @@ def run_inference(
         n_station_vars=len(bundle.dataset.station_vars),
         n_out_features=len(lead_times) * len(target_vars),
         grid_vars=bundle.dataset.grid_vars if bundle.dataset.grid_loader is not None else None,
+        # Use the persisted width, not the freshly-rebuilt bundle.dataset's -
+        # it must match the checkpoint's actual layer shapes, which were
+        # fixed by whatever the HRRR archive had available at training time.
+        in_hrs_grid=run_config.get("grid_len") or bundle.dataset.grid_len,
     )
     model.load_state_dict(checkpoint["model_state_dict"])
     model.to(device)
