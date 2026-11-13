@@ -9,9 +9,10 @@ following formula 8-9 of the LocalizedWeather paper.
 
 import torch
 from torch import nn
-from torch_geometric.nn import InstanceNorm, MessagePassing
+from torch_geometric.nn import MessagePassing
 
 from loaf.model.activations import Tanh
+from loaf.model.gnn.norm import GNNNorm
 
 
 class GNNLayerInternal(MessagePassing):
@@ -25,6 +26,7 @@ class GNNLayerInternal(MessagePassing):
         out_dim: Output feature dimension
         hidden_dim: Hidden layer dimension
         org_in_dim: Original input dimension (for message computation)
+        norm: Per-layer normalization - see loaf.model.gnn.norm.
     """
 
     def __init__(
@@ -33,6 +35,7 @@ class GNNLayerInternal(MessagePassing):
         out_dim: int,
         hidden_dim: int,
         org_in_dim: int,
+        norm: str = "instance",
     ):
         super().__init__(node_dim=-2, aggr="mean")
 
@@ -61,7 +64,7 @@ class GNNLayerInternal(MessagePassing):
             Tanh(),
         )
 
-        self.norm = InstanceNorm(out_dim)
+        self.norm = GNNNorm(norm, out_dim)
 
     def forward(
         self,

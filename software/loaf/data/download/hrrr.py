@@ -42,6 +42,7 @@ def _fetch_hrrr_step(
     lat_max: float,
     lon_min: float,
     lon_max: float,
+    overwrite: bool = False,
 ) -> xr.Dataset | None:
     """Fetch and spatially subset one (run_time, lead_hr) GRIB message set.
 
@@ -49,8 +50,18 @@ def _fetch_hrrr_step(
     "doesn't exist", not a transient failure - the caller shouldn't retry
     this one). Raises on any other problem, so the caller's retry loop can
     distinguish "try again" from "give up".
+
+    overwrite: pass True on a retry. Herbie keeps the subset GRIB it
+    downloaded in its local cache and, by default, reuses it instead of
+    re-fetching - so a connection that dropped mid-transfer leaves a
+    truncated subset behind, and every retry then re-reads that same
+    truncated file (observed live: a 500/503 on attempt 1 followed by
+    "only 2 of 4 variables" on attempts 2 and 3, for several run_times
+    across a 3-month download). overwrite=True makes Herbie re-download.
     """
-    hrrr_file = Herbie(run_time, model="hrrr", product="sfc", fxx=lead_hr, verbose=False)
+    hrrr_file = Herbie(
+        run_time, model="hrrr", product="sfc", fxx=lead_hr, verbose=False, overwrite=overwrite
+    )
 
     if hrrr_file.grib is None:
         return None
@@ -141,7 +152,14 @@ def download_hrrr_hourly(
         for attempt in range(1, retries + 2):
             try:
                 dataset = _fetch_hrrr_step(
-                    run_time, lead_hr, var_list, lat_min, lat_max, lon_min, lon_max
+                    run_time,
+                    lead_hr,
+                    var_list,
+                    lat_min,
+                    lat_max,
+                    lon_min,
+                    lon_max,
+                    overwrite=attempt > 1,
                 )
 
                 if dataset is None:

@@ -6,6 +6,7 @@ for the GNN + ViT model.
 Adapted from LocalizedWeather MixData.py.
 """
 
+import logging
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -23,6 +24,8 @@ from .grid_window import compute_grid_window, grid_window_len
 from .hrrr import HRRRLoader
 from .iem import IEMLoader
 from .stations import StationMetadata
+
+logger = logging.getLogger(__name__)
 
 
 class WeatherDataset(Dataset):
@@ -387,15 +390,42 @@ class WeatherDataset(Dataset):
             grid_end_idx = int(np.searchsorted(timeline_values, grid_times.max(), side="right")) - 1
 
             # Input window [index, index + back_hrs) must lie within grid coverage.
-            # This is necessary but not sufficient if the grid has interior
-            # gaps (e.g. a few missing hours within an otherwise-covered
-            # range) - such samples can still raise a shape mismatch.
+            # This bounds the range only; interior gaps (a missing init hour
+            # inside an otherwise-covered range) are excluded per-sample by
+            # usable_indices(), which is what create_dataloaders uses.
             start = max(start, grid_start_idx)
             end = min(end, grid_end_idx - self.back_hrs + 2)
 
         end = min(end, len(self))
         start = min(start, end)
         return (max(0, start), max(0, end))
+
+    def usable_indices(self) -> np.ndarray:
+        """Sample indices that are safe to draw: usable_index_range(), minus
+        any sample whose grid input window crosses a missing init hour.
+
+        A downloaded HRRR archive is rarely gap-free: download_hrrr_hourly
+        drops a whole run_time if any of its forecast steps can't be fetched
+        completely (rather than saving a NaN-filled one), so a transient S3
+        failure leaves a hole in the loader's time axis. HRRRLoader then
+        returns fewer than back_hrs times for any window spanning that hour
+        and get_sample_with_forecast() raises "Not enough times in window"
+        - mid-epoch, from inside the DataLoader, after everything else has
+        been set up. Dropping those windows here costs back_hrs samples per
+        missing hour and keeps the rest of the archive usable.
+        """
+        start, end = self.usable_index_range()
+        indices = np.arange(start, end)
+        if self.grid_loader is None or len(indices) == 0:
+            return indices
+
+        present = np.isin(self.timeline.values, self.grid_loader.times)
+        # Window [i, i + back_hrs) is usable iff every hour in it is present.
+        # end <= len(self) = len(timeline) - back_hrs - lead_hours, so
+        # i + back_hrs never runs past the timeline.
+        cumulative = np.concatenate([[0], np.cumsum(present)])
+        n_present = cumulative[indices + self.back_hrs] - cumulative[indices]
+        return indices[n_present == self.back_hrs]
 
 
 @dataclass
@@ -515,7 +545,14 @@ def create_dataloaders(
     # observation, and grid sampling doesn't hit undownloaded time (see
     # usable_index_range() docstring).
     start_idx, end_idx = dataset.usable_index_range()
-    n_samples = end_idx - start_idx
+    indices = dataset.usable_indices()
+    n_samples = len(indices)
+    n_skipped = (end_idx - start_idx) - n_samples
+    if n_skipped:
+        logger.warning(
+            f"Skipping {n_skipped} of {end_idx - start_idx} samples whose grid input "
+            f"window crosses a missing init hour in the downloaded grid archive"
+        )
     if n_samples < 2:
         raise ValueError(
             f"Not enough real target/grid coverage for year {year} to build a "
@@ -528,8 +565,8 @@ def create_dataloaders(
     n_train = n_samples - n_val
 
     # Use contiguous split (later data for validation)
-    train_dataset = Subset(dataset, range(start_idx, start_idx + n_train))
-    val_dataset = Subset(dataset, range(start_idx + n_train, end_idx))
+    train_dataset = Subset(dataset, indices[:n_train].tolist())
+    val_dataset = Subset(dataset, indices[n_train:].tolist())
 
     train_loader = DataLoader(
         train_dataset,

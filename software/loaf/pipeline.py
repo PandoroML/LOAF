@@ -171,6 +171,9 @@ def train_stage(
     if model_type:
         model_cfg["type"] = model_type
     model_cfg.setdefault("type", "mpnn")
+    # Recorded in the checkpoint's run_config so Predictor/reporting rebuild the
+    # same model. See loaf.model.gnn.norm for why the default is "none".
+    model_cfg.setdefault("gnn_norm", "none")
 
     epochs = epochs or training_cfg.get("epochs", 100)
     batch_size = batch_size or training_cfg.get("batch_size", 32)

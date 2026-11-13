@@ -9,9 +9,10 @@ weather stations (MADIS nodes), following formula 8-9 of the paper.
 
 import torch
 from torch import nn
-from torch_geometric.nn import InstanceNorm, MessagePassing
+from torch_geometric.nn import MessagePassing
 
 from loaf.model.activations import Tanh
+from loaf.model.gnn.norm import GNNNorm
 
 
 class GNNLayerExternal(MessagePassing):
@@ -25,6 +26,7 @@ class GNNLayerExternal(MessagePassing):
         out_dim: Output feature dimension
         hidden_dim: Hidden layer dimension
         ex_in_dim: External input dimension (grid features)
+        norm: Per-layer normalization - see loaf.model.gnn.norm.
     """
 
     def __init__(
@@ -33,6 +35,7 @@ class GNNLayerExternal(MessagePassing):
         out_dim: int,
         hidden_dim: int,
         ex_in_dim: int,
+        norm: str = "instance",
     ):
         super().__init__(node_dim=-2, aggr="mean")
 
@@ -71,7 +74,7 @@ class GNNLayerExternal(MessagePassing):
             Tanh(),
         )
 
-        self.norm = InstanceNorm(out_dim)
+        self.norm = GNNNorm(norm, out_dim)
 
     def forward(
         self,

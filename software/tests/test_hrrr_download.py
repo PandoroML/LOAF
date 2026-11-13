@@ -48,8 +48,10 @@ def _fake_herbie_ctor(per_fxx: dict):
     so tests only need to specify the lead hour(s) they care about.
     """
     call_counts: dict[int, int] = {}
+    overwrite_calls: list[tuple[int, bool]] = []
 
-    def ctor(run_time, model, product, fxx, verbose=False):
+    def ctor(run_time, model, product, fxx, verbose=False, overwrite=False):
+        overwrite_calls.append((fxx, overwrite))
         entry = per_fxx.get(fxx, _make_step_ds(["u10"]))
         if isinstance(entry, list):
             idx = call_counts.get(fxx, 0)
@@ -68,6 +70,7 @@ def _fake_herbie_ctor(per_fxx: dict):
 
         return mock_file
 
+    ctor.overwrite_calls = overwrite_calls
     return ctor
 
 
@@ -244,6 +247,23 @@ class TestDownloadHRRRHourlyRobustness:
 
         assert result is None
         assert mock_herbie.call_count == 3  # 1 initial + 2 retries
+
+    def test_retry_forces_herbie_to_redownload(self) -> None:
+        """A retry must construct Herbie with overwrite=True. Herbie caches
+        the subset GRIB it fetched and reuses it by default, so without this
+        a connection dropped mid-transfer leaves a truncated file that every
+        retry re-reads - seen live as a 500/503 on attempt 1 followed by
+        "got 2 of 4 variables" on attempts 2 and 3 for the same step."""
+        flaky = [ConnectionError("reset by peer"), _make_step_ds(["u10"])]
+        ctor = _fake_herbie_ctor({0: flaky})
+        with (
+            patch("loaf.data.download.hrrr.Herbie", side_effect=ctor),
+            patch("loaf.data.download.hrrr.time.sleep"),
+        ):
+            result = download_hrrr_hourly("2024-10-01 00:00", max_lead_hr=0, retries=2)
+
+        assert result is not None
+        assert ctor.overwrite_calls == [(0, False), (0, True)]
 
 
 class TestLongitudeConversion:
