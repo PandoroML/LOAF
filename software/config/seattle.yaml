@@ -68,6 +68,13 @@ data:
 model:
   # Model architecture settings (match LocalizedWeather paper)
   hidden_dim: 128
+  # Per-layer normalization inside the GNN layers: none | layer | instance.
+  # The reference implementation's InstanceNorm standardizes each feature
+  # across the stations of a graph, which with only a few stations erases the
+  # shared regional wind signal (incl. everything fused in from HRRR) and
+  # leaves the model predicting the mean wind. Keep "none" unless the station
+  # graph is large. See software/loaf/model/gnn/norm.py.
+  gnn_norm: none
   num_gnn_layers: 2
   num_transformer_layers: 5
   num_heads: 3

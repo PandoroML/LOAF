@@ -37,6 +37,9 @@ class MPNN(nn.Module):
         n_node_features_e: Number of external grid features (flattened)
         n_out_features: Number of output features (e.g., 2 for u, v wind)
         hidden_dim: Hidden dimension for all layers
+        norm: Per-layer normalization in every GNN layer - see
+            loaf.model.gnn.norm for why the original cross-node InstanceNorm
+            is the wrong choice for a graph of only a few stations.
     """
 
     def __init__(
@@ -47,6 +50,7 @@ class MPNN(nn.Module):
         n_node_features_e: int,
         n_out_features: int,
         hidden_dim: int = 128,
+        norm: str = "instance",
     ):
         super().__init__()
 
@@ -63,12 +67,14 @@ class MPNN(nn.Module):
             out_dim=hidden_dim,
             hidden_dim=hidden_dim,
             ex_in_dim=n_node_features_e,
+            norm=norm,
         )
         self.gnn_ex_2 = GNNLayerExternal(
             in_dim=hidden_dim,
             out_dim=hidden_dim,
             hidden_dim=hidden_dim,
             ex_in_dim=n_node_features_e,
+            norm=norm,
         )
 
         # Internal layers (station ↔ station)
@@ -79,6 +85,7 @@ class MPNN(nn.Module):
                     hidden_dim=hidden_dim,
                     out_dim=hidden_dim,
                     org_in_dim=n_node_features_m,
+                    norm=norm,
                 )
                 for _ in range(n_passing)
             ]

@@ -61,6 +61,10 @@ def build_model(
             n_node_features_e=n_node_features_e,
             n_out_features=n_out_features,
             hidden_dim=hidden_dim,
+            # Absent key = a checkpoint from before this option existed, which
+            # was trained with the original InstanceNorm; train_stage always
+            # writes the key for new runs (default "none" - see gnn/norm.py).
+            norm=model_cfg.get("gnn_norm", "instance"),
         )
     elif model_type == "vit":
         return VisionTransformer(
